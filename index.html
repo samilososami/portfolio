@@ -1,0 +1,1358 @@
+<!DOCTYPE html>
+<html lang="es" class="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    
+    <meta name="author" content="Sami González Kamel">
+
+    <!-- ✅ SEO básico -->
+    <title>Sami | Portafolio</title>
+    <meta name="description" content="Portfolio técnico de Sami (@samilososami). Ciberseguridad, automatización y desarrollo de herramientas.">
+    <meta name="robots" content="index,follow,max-image-preview:large">
+    <link rel="canonical" href="https://samilososami.com/">
+    <meta name="theme-color" content="#05070a">
+
+    <!-- ✅ Open Graph (para Google/Discord/WhatsApp/etc.) -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Sami — Portfolio">
+    <meta property="og:title" content="Sami - Security & Code">
+    <meta property="og:description" content="Ciberseguridad, automatización y proyectos propios. Pentesting, Linux/Windows y herramientas.">
+    <meta property="og:url" content="https://samilososami.com/">
+    <!-- OG IMAGE: pon aquí una imagen REAL (ver explicación abajo) -->
+    <meta property="og:image" content="https://samilososami.com/og.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+
+    <!-- ✅ Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Sami - Security & Code">
+    <meta name="twitter:description" content="Ciberseguridad, automatización y proyectos propios.">
+    <meta name="twitter:image" content="https://samilososami.com/og.jpg">
+
+    <!-- Icon -->
+    <link rel="icon" type="image/png" href="/favicon.png">
+
+    <!-- ✅ Schema.org (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://samilososami.com/#website",
+          "url": "https://samilososami.com/",
+          "name": "Sami — Portfolio",
+          "inLanguage": "es-ES",
+          "description": "Portfolio técnico de Sami (@samilososami). Ciberseguridad, automatización y desarrollo de herramientas."
+        },
+        {
+          "@type": "Person",
+          "@id": "https://samilososami.com/#person",
+          "name": "Sami González Kamel",
+          "alternateName": "samilososami",
+          "url": "https://samilososami.com/",
+          "image": "https://i.imgur.com/rJCgc92.jpeg",
+          "sameAs": [
+            "https://github.com/samilososami",
+            "https://youtube.com/@samilososami",
+            "https://instagram.com/samilososami",
+            "https://tiktok.com/@samilososam1"
+          ],
+          "knowsAbout": [
+            "Ciberseguridad",
+            "Pentesting",
+            "Automatización",
+            "Linux",
+            "Windows",
+            "Python",
+            "Redes"
+          ]
+        }
+      ]
+    }
+    </script>
+
+    <style>
+        /* -------------------------------------------------------------------------- */
+        /* 1. CORE & RESET                                                            */
+        /* -------------------------------------------------------------------------- */
+        :root {
+            /* Fondo Gradiente Sutil */
+            --bg-start: #13171f; 
+            --bg-end: #05070a;   
+            
+            --window-bg: rgba(18, 22, 35, 0.85);
+            --window-border: rgba(255, 255, 255, 0.08);
+            --text-primary: #ededed;
+            --text-secondary: #94a3b8;
+            --accent: #3b82f6; 
+            --accent-glow: rgba(59, 130, 246, 0.3);
+            --font-main: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            --font-mono: 'JetBrains Mono', monospace;
+            
+            /* Colores GitHub Dark */
+            --gh-border: #30363d;
+            --gh-icon: #8b949e;
+            --gh-star: #e3b341;
+            --gh-btn-bg: #21262d;
+            --gh-btn-border: #363b42;
+        }
+
+        html { scroll-behavior: smooth; }
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        body {
+            background: linear-gradient(to bottom, var(--bg-start), var(--bg-end));
+            background-attachment: fixed;
+            color: var(--text-primary);
+            font-family: var(--font-main);
+            line-height: 1.5; 
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            cursor: default;
+            min-height: 100vh;
+        }
+
+        /* Canvas Background */
+        #bg-canvas {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            z-index: -1; pointer-events: none;
+            opacity: 0.8; 
+        }
+
+        /* Layout - MONITOR ORIENTED */
+        .container { 
+            max-width: 100%;
+            margin: 0 auto; 
+            padding: 0 8vw;
+            position: relative; 
+            z-index: 2; 
+        }
+        
+        .section { padding: 5rem 0; }
+        
+        a { text-decoration: none; color: inherit; transition: color 0.2s; cursor: pointer; }
+        
+        /* 3. Animaciones Reveal (Scroll) */
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1s cubic-bezier(0.5, 0, 0, 1);
+            filter: blur(5px);
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+            filter: blur(0);
+        }
+        
+        /* Typography */
+        h1, h2, h3 { letter-spacing: -0.02em; line-height: 1.1; margin: 0; }
+        
+        /* NOMBRE REAL - AUMENTADO */
+        .real-name {
+            font-family: var(--font-main); 
+            font-size: 2.5rem;
+            color: #fff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.02em;
+            opacity: 0.9;
+            font-weight: 400; 
+            text-align: left;
+        }
+
+        /* TITULO GRANDE - AUMENTADO Y ALINEADO OPTICAMENTE */
+        .h1 { 
+            font-size: clamp(4rem, 7vw, 7.5rem);
+            font-weight: 800; 
+            color: #fff;
+            background: linear-gradient(to bottom, #ffffff 40%, #64748b 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem; 
+            letter-spacing: -0.04em;
+            text-align: left;
+            white-space: nowrap; 
+            padding-right: 0.5em; 
+            padding-bottom: 0.1em;
+            margin-left: -0.05em; 
+            line-height: 1.3;
+            max-width: 100%;
+        }
+
+        @supports (font-size: 1cqw) {
+          .h1 {
+            font-size: clamp(3.2rem, 10.5cqw, 8rem);
+          }
+        }
+        
+        .h2 { font-size: 3.5rem; font-weight: 800; margin-bottom: 2rem; color: #fff; margin-top: 1rem; letter-spacing: -0.02em; }
+        .h3 { font-size: 2.2rem; font-weight: 700; color: #fff; letter-spacing: -0.01em; } 
+        
+        .mono { font-family: var(--font-mono); font-size: 0.9rem; }
+        .text-dim { color: var(--text-secondary); }
+
+        /* -------------------------------------------------------------------------- */
+        /* 2. COMPONENTS                                                              */
+        /* -------------------------------------------------------------------------- */
+        .mac-window {
+            background: var(--window-bg);
+            border: 1px solid var(--window-border);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 25px 60px rgba(0,0,0,0.6);
+            backdrop-filter: blur(24px);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            transform: scale(1.02); 
+        }
+        .mac-window:hover { 
+            border-color: rgba(255, 255, 255, 0.2); 
+            box-shadow: 0 30px 70px rgba(0,0,0,0.7);
+        }
+
+        .mac-header {
+            background: rgba(0, 0, 0, 0.4);
+            padding: 0.8rem 1rem; 
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            border-bottom: 1px solid var(--window-border);
+        }
+        .mac-dot { width: 11px; height: 11px; border-radius: 50%; }
+        .mac-red { background: #ff5f56; }
+        .mac-yellow { background: #ffbd2e; }
+        .mac-green { background: #27c93f; }
+        .mac-title { margin-left: 0.8rem; font-size: 0.8rem; color: #aaa; font-family: var(--font-mono); opacity: 0.7; letter-spacing: 0.05em; }
+        .mac-body { padding: 2.5rem; } 
+
+        .nav-dock {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%);
+            z-index: 100;
+            display: flex; align-items: center; 
+            padding: 0.6rem; 
+            justify-content: center;
+            gap: 0; 
+            background: rgba(10, 15, 30, 0.4); 
+            backdrop-filter: blur(20px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 99px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            transition: opacity 0.5s ease, transform 0.5s ease, filter 0.5s ease;
+            min-width: 420px; 
+        }
+        
+        .nav-dock.hidden {
+            opacity: 0;
+            pointer-events: none;
+            transform: translateX(-50%) translateY(20px) scale(0.9);
+            filter: blur(10px);
+        }
+
+        .nav-item {
+            position: relative; 
+            padding: 0.9rem 2.2rem; 
+            border-radius: 99px; 
+            font-size: 0.95rem; 
+            font-weight: 500; 
+            color: rgba(255, 255, 255, 0.6); 
+            transition: color 0.3s ease; 
+            z-index: 2; 
+            text-decoration: none; 
+            user-select: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        .nav-item:hover { color: rgba(255, 255, 255, 0.95); }
+        .nav-item.active { color: #fff; text-shadow: 0 0 10px rgba(255,255,255,0.4); }
+        
+        #nav-drop {
+            position: absolute; 
+            left: 0; 
+            top: 0.6rem; 
+            bottom: 0.6rem;
+            height: auto;
+            border-radius: 99px; 
+            z-index: 1; 
+            pointer-events: none;
+            will-change: transform, width;
+            transition: transform 0.4s cubic-bezier(0.2, 0.8, 0.2, 1), width 0.4s cubic-bezier(0.2, 0.8, 0.2, 1);
+            backface-visibility: hidden;
+            transform: translateZ(0);
+            background: rgba(255, 255, 255, 0.05); 
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            box-shadow: 
+                inset 4px 4px 10px rgba(255, 255, 255, 0.25), 
+                inset -2px -2px 10px rgba(0, 0, 0, 0.2),      
+                0 5px 15px rgba(0, 0, 0, 0.15);
+        }
+
+        #back-to-top {
+            position: fixed; bottom: 2rem; left: 50%; transform: translateX(-50%) translateY(50px);
+            width: 55px; height: 55px;
+            background: rgba(10, 15, 30, 0.6); 
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+            display: flex; align-items: center; justify-content: center;
+            color: rgba(255,255,255,0.8);
+            cursor: pointer;
+            opacity: 0; pointer-events: none;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 101;
+        }
+        #back-to-top.visible { opacity: 1; pointer-events: all; transform: translateX(-50%) translateY(0); }
+        #back-to-top:hover {
+            color: #fff; transform: translateX(-50%) translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+            border-color: rgba(255,255,255,0.3);
+        }
+
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 0.6rem;
+            padding: 0.9rem 1.8rem; 
+            border-radius: 12px; 
+            font-weight: 600; font-size: 0.9rem;
+            letter-spacing: 0.05em; text-transform: uppercase; 
+            font-family: var(--font-mono);
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px) brightness(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 10px rgba(255, 255, 255, 0.02),
+                0 5px 15px rgba(0, 0, 0, 0.2);
+            color: #ededed;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            text-decoration: none;
+            position: relative; overflow: hidden;
+        }
+
+        .btn:hover, .btn-ghost:hover {
+            transform: translateY(-3px);
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.02));
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.2), 0 15px 30px rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        .btn-primary {
+            background: #ededed; 
+            color: #020204; 
+            border: 1px solid #fff;
+            box-shadow: 
+                inset 0 2px 5px rgba(255, 255, 255, 1),
+                inset 0 -2px 5px rgba(0, 0, 0, 0.1),
+                0 4px 20px rgba(255, 255, 255, 0.15);
+        }
+        
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            background: #fff;
+            box-shadow: 
+                inset 0 2px 10px rgba(255, 255, 255, 1),
+                inset 0 -2px 8px rgba(0, 0, 0, 0.1),
+                0 8px 30px rgba(255, 255, 255, 0.25);
+            color: #000;
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* 3. LAYOUT & SECTIONS                                                       */
+        /* -------------------------------------------------------------------------- */
+        
+        .hero { 
+            min-height: 85vh; 
+            display: flex; 
+            align-items: center; 
+            padding-top: 60px; 
+        }
+        
+        .hero-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between; 
+            gap: 2rem; 
+            width: 100%;
+        }
+
+        .hero-content { 
+            text-align: left; 
+            max-width: 1100px; 
+            flex: 1; 
+            min-width: 0;
+            container-type: inline-size;
+        }
+        
+        .hero p { 
+            font-size: 1.5rem; 
+            line-height: 1.6; 
+            color: var(--text-secondary); 
+            margin-bottom: 2.5rem; 
+            max-width: 1000px; 
+            font-weight: 300;
+        }
+
+        .profile-pic-container {
+            width: 320px; 
+            height: 420px; 
+            flex-shrink: 0;
+            position: relative;
+            margin-right: 13vw; 
+        }
+        
+        .profile-pic {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 24px; 
+            filter: drop-shadow(0 0 10px rgba(59, 130, 246, 0.3));
+            transition: transform 0.3s ease;
+        }
+        
+        .profile-pic-container::after {
+            content: '';
+            position: absolute; inset: -5px;
+            background: linear-gradient(135deg, var(--accent), transparent 60%);
+            border-radius: 28px; 
+            z-index: -1;
+            opacity: 0.5;
+        }
+
+        .profile-pic:hover { transform: scale(1.03); filter: drop-shadow(0 0 20px rgba(59, 130, 246, 0.5)); }
+
+        .profile-layout {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 6rem;
+            align-items: center; margin-bottom: 2rem; margin-top: 0;
+        }
+
+        .profile-text-col { padding-right: 1rem; }
+        
+        .profile-desc { 
+            font-size: 1.35rem; 
+            line-height: 1.6; 
+            color: var(--text-secondary); 
+            font-weight: 300; 
+        }
+        .profile-desc strong { color: #fff; font-weight: 600; }
+        
+        .text-dim-large { 
+            font-size: 1.35rem !important; 
+            line-height: 1.6; 
+            color: var(--text-secondary); 
+            margin-bottom: 2rem; 
+        }
+
+        .section-divider {
+            height: 1px; background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent); margin: 1.5rem 0;
+        }
+
+        .progress-item { margin-bottom: 1.2rem; }
+        .progress-header { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; font-family: var(--font-mono); color: #ccc; }
+        .progress-track { width: 100%; height: 6px; background: rgba(0,0,0,0.4); border-radius: 6px; overflow: hidden; border: 1px solid rgba(255,255,255,0.05); }
+        .progress-fill { height: 100%; background: #3b82f6; border-radius: 6px; width: 0; transition: width 1s ease-out; box-shadow: 0 0 10px rgba(59, 130, 246, 0.4); }
+
+        .term-prompt { color: #27c93f; font-weight: bold; }
+        .term-path { color: #3b82f6; font-weight: bold; }
+        .term-list { 
+            display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.6rem 1rem; margin-top: 1rem; font-family: var(--font-mono); font-size: 0.95rem;
+        }
+        .term-item {
+            display: flex; align-items: center; gap: 0.5rem; color: #b0b0b0;
+            transition: color 0.2s, transform 0.2s; cursor: default;
+        }
+        .term-item::before { content: './'; color: #666; font-size: 0.9em; }
+        .term-item:hover { color: #27c93f; transform: translateX(3px); text-shadow: 0 0 5px rgba(39, 201, 63, 0.4); }
+        .term-item:hover::before { color: #27c93f; }
+        .cursor-blink { animation: blink 1s step-end infinite; color: #ccc; }
+        @keyframes blink { 50% { opacity: 0; } }
+
+        /* -------------------------------------------------------------------------- */
+        /* 4. CAROUSEL                                                                */
+        /* -------------------------------------------------------------------------- */
+        .carousel-section { position: relative; padding: 1rem 0 3rem 0; overflow: hidden; }
+        .carousel-track { display: flex; align-items: center; gap: 3rem; width: max-content; cursor: default; padding: 1rem 0; will-change: transform; }
+
+        .hw-card {
+            width: 340px; 
+            flex-shrink: 0; background: #0e121a;
+            border: 1px solid rgba(255,255,255,0.08); border-radius: 16px;
+            overflow: hidden; position: relative; box-shadow: 0 15px 40px rgba(0,0,0,0.5); 
+        }
+        .hw-card::before {
+            content: ''; position: absolute; inset: 0; border-radius: 16px; padding: 1px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.15), rgba(255,255,255,0));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor; mask-composite: exclude; pointer-events: none; z-index: 3;
+        }
+        .hw-img-container { width: 100%; height: 250px; position: relative; overflow: hidden; } 
+        .hw-img { width: 100%; height: 100%; object-fit: cover; background: #000; opacity: 1; }
+        .hw-img-overlay {
+            position: absolute; bottom: 0; left: 0; width: 100%; height: 50%;
+            background: linear-gradient(to top, #0e121a 0%, transparent 100%); z-index: 1;
+        }
+        .hw-info { padding: 1.2rem 1.5rem; position: relative; z-index: 2; background: #0e121a; margin-top: -10px; }
+        .hw-name { font-weight: 700; color: #fff; margin-bottom: 0.3rem; font-size: 1.15rem; letter-spacing: -0.01em; }
+        .hw-company { font-size: 0.75rem; color: var(--accent); text-transform: uppercase; letter-spacing: 0.12em; font-weight: 700; opacity: 0.9; }
+
+        /* -------------------------------------------------------------------------- */
+        /* 5. PROJECTS                                                                */
+        /* -------------------------------------------------------------------------- */
+        .gh-label {
+            font-size: 0.9rem; color: var(--text-secondary); font-weight: 600;
+            margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;
+        }
+        
+        .projects-list { display: flex; flex-direction: column; border: 1px solid var(--gh-border); border-radius: 6px; overflow: hidden; margin-bottom: 3rem; }
+
+        .proj-row {
+            display: grid; grid-template-columns: 1fr auto; gap: 1.5rem; padding: 1.2rem;
+            background: #0d1117; border-bottom: 1px solid var(--gh-border);
+            transition: background 0.2s ease; text-decoration: none; align-items: center;
+        }
+        .proj-row:last-child { border-bottom: none; }
+        .proj-row:hover { background: #161b22; }
+
+        .proj-main { display: flex; flex-direction: column; gap: 0.3rem; }
+        .proj-header { display: flex; align-items: center; gap: 0.5rem; }
+        .repo-icon { fill: var(--gh-icon); width: 16px; height: 16px; }
+        .proj-title { font-size: 1.2rem; font-weight: 600; color: #58a6ff; transition: text-decoration 0.2s; }
+        .proj-row:hover .proj-title { text-decoration: underline; }
+        
+        .visibility-badge {
+            font-size: 0.7rem; border: 1px solid var(--gh-border); border-radius: 99px;
+            padding: 0 7px; color: var(--gh-icon); font-weight: 500;
+        }
+        .proj-desc { font-size: 1rem; color: var(--gh-icon); margin-top: 6px; margin-bottom: 10px; max-width: 90%; }
+        .proj-meta { display: flex; align-items: center; gap: 1rem; font-size: 0.8rem; color: var(--gh-icon); margin-top: 0.5rem; }
+        .meta-item { display: flex; align-items: center; gap: 4px; }
+        .lang-dot { width: 12px; height: 12px; border-radius: 50%; display: inline-block; }
+        .star-icon { fill: var(--gh-icon); width: 16px; height: 16px; }
+        .proj-row:hover .star-icon { fill: var(--gh-star); }
+        .proj-actions { display: flex; align-items: center; gap: 1rem; }
+        
+        .gh-btn {
+            display: flex; align-items: center; gap: 6px; padding: 4px 12px; font-size: 0.75rem; font-weight: 600;
+            color: #c9d1d9; background-color: var(--gh-btn-bg); border: 1px solid var(--gh-btn-border); border-radius: 6px; transition: 0.2s;
+        }
+        .gh-btn:hover { background-color: #30363d; border-color: #8b949e; text-decoration: none; }
+        .last-updated { font-size: 0.7rem; color: var(--gh-icon); text-align: right; white-space: nowrap; }
+
+        /* WOW MESSENGER (FORMAL & CASUAL DESIGN) */
+        .wow-container { margin-top: 5rem; position: relative; }
+        
+        .wow-card.formal-casual {
+            background: linear-gradient(135deg, rgba(30, 41, 59, 0.6) 0%, rgba(15, 23, 42, 0.8) 100%);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 24px;
+            padding: 3rem;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 2rem;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            transition: transform 0.3s ease;
+        }
+        .wow-card.formal-casual:hover { transform: translateY(-5px); border-color: rgba(59, 130, 246, 0.4); }
+
+        .wow-card.formal-casual::before {
+            content: ''; position: absolute; inset: 0;
+            background-image: 
+                radial-gradient(circle at 10% 10%, rgba(255,255,255,0.03) 1px, transparent 1px),
+                radial-gradient(circle at 90% 90%, rgba(59, 130, 246, 0.05) 1px, transparent 1px);
+            background-size: 30px 30px;
+            pointer-events: none;
+        }
+
+        .wow-left { z-index: 2; }
+        .wow-right { z-index: 2; display: flex; justify-content: flex-end; }
+
+        .wow-brand { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+        .wow-logo {
+            width: 50px; height: 50px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 12px;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 10px 25px rgba(59, 130, 246, 0.4);
+        }
+        .wow-name { font-size: 1.8rem; font-weight: 800; color: #fff; letter-spacing: -0.03em; }
+
+        .wow-desc-formal {
+            font-size: 1.2rem; color: #94a3b8; line-height: 1.6; margin-bottom: 2rem;
+        }
+
+        .wow-btn {
+            display: inline-flex; align-items: center; gap: 0.8rem;
+            background: #fff; color: #000;
+            padding: 0.9rem 2rem; border-radius: 12px;
+            font-weight: 700; text-decoration: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255,255,255,0.2);
+        }
+        .wow-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(255,255,255,0.3); }
+
+        .wow-mock-ui {
+            background: rgba(15, 23, 42, 0.8);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 1.5rem;
+            width: 100%; max-width: 350px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+            transform: rotate(3deg);
+            transition: transform 0.4s ease;
+        }
+        .wow-card.formal-casual:hover .wow-mock-ui { transform: rotate(0deg) scale(1.02); }
+
+        .mock-msg {
+            background: #3b82f6; color: white; padding: 10px 15px; border-radius: 12px 12px 0 12px;
+            margin-bottom: 10px; font-size: 0.9rem; align-self: flex-end; width: fit-content; margin-left: auto;
+        }
+        .mock-msg.in {
+            background: rgba(255,255,255,0.1); color: #e2e8f0; border-radius: 12px 12px 12px 0; margin-left: 0; margin-right: auto;
+        }
+
+        /* -------------------------------------------------------------------------- */
+        /* 6. CONTACT SECTION (Unified)                                               */
+        /* -------------------------------------------------------------------------- */
+        .contact-grid {
+            display: grid; grid-template-columns: 1fr 1fr; gap: 5rem; align-items: start; margin-bottom: 4rem;
+        }
+
+        .email-card {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(12px) brightness(1.1);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 16px;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 20px rgba(255, 255, 255, 0.02),
+                0 10px 30px rgba(0, 0, 0, 0.2);
+            transition: border-color 0.3s ease, transform 0.3s ease;
+        }
+        .email-card:hover { 
+            border-color: rgba(255,255,255,0.2); 
+            transform: translateY(-2px);
+        }
+        .email-text { font-family: var(--font-main); font-weight: 500; letter-spacing: 0.02em; color: #fff; font-size: 1.2rem; }
+        .email-label { font-size: 0.85rem; color: var(--text-secondary); display: block; margin-bottom: 0.3rem; font-family: var(--font-mono); }
+
+        .socials-list-col { display: flex; flex-direction: column; gap: 1rem; }
+
+        .social-card {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 1.2rem 1.8rem;
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(8px) brightness(1.2);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-top: 1px solid rgba(255, 255, 255, 0.15);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.2);
+            border-radius: 12px;
+            box-shadow: 
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                inset 0 0 10px rgba(255, 255, 255, 0.02),
+                0 5px 15px rgba(0, 0, 0, 0.2);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .social-info { display: flex; align-items: center; gap: 1.2rem; }
+        .social-icon { width: 30px; height: 30px; fill: #94a3b8; transition: fill 0.3s; }
+        .social-details { display: flex; flex-direction: column; }
+        .social-platform { font-size: 0.8rem; color: #666; text-transform: uppercase; letter-spacing: 0.05em; font-weight: 600; }
+        .social-username { 
+            font-size: 1.1rem; 
+            font-weight: 400;
+            color: #ededed; 
+            font-family: var(--font-main); 
+            letter-spacing: 0.01em;
+        }
+        
+        .social-arrow { opacity: 0; transform: translateX(-10px); transition: all 0.3s; color: #fff; }
+        .social-card:hover { transform: translateY(-3px); }
+        .social-card:hover .social-arrow { opacity: 1; transform: translateX(0); }
+
+        .social-card.tiktok:hover { 
+            background: radial-gradient(circle at center, rgba(0, 242, 234, 0.15), rgba(255, 255, 255, 0.02));
+            border-color: rgba(0, 242, 234, 0.5); 
+            box-shadow: inset 0 0 20px rgba(0, 242, 234, 0.2), 0 15px 30px rgba(0, 242, 234, 0.2);
+        }
+        .social-card.tiktok:hover .social-icon { fill: #00f2ea; filter: drop-shadow(0 0 5px rgba(0, 242, 234, 0.8)); }
+        
+        .social-card.github:hover { 
+            background: radial-gradient(circle at center, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.02));
+            border-color: rgba(255, 255, 255, 0.5);
+            box-shadow: inset 0 0 20px rgba(255, 255, 255, 0.2), 0 15px 30px rgba(255, 255, 255, 0.1);
+        }
+        .social-card.github:hover .social-icon { fill: #fff; filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)); }
+
+        .social-card.youtube:hover { 
+            background: radial-gradient(circle at center, rgba(255, 0, 0, 0.15), rgba(255, 255, 255, 0.02));
+            border-color: rgba(255, 0, 0, 0.5); 
+            box-shadow: inset 0 0 20px rgba(255, 0, 0, 0.2), 0 15px 30px rgba(255, 0, 0, 0.2);
+        }
+        .social-card.youtube:hover .social-icon { fill: #ff0000; filter: drop-shadow(0 0 5px rgba(255, 0, 0, 0.8)); }
+
+        .social-card.instagram:hover { 
+            background: radial-gradient(circle at center, rgba(225, 48, 108, 0.15), rgba(255, 255, 255, 0.02));
+            border-color: rgba(225, 48, 108, 0.5); 
+            box-shadow: inset 0 0 20px rgba(225, 48, 108, 0.2), 0 15px 30px rgba(225, 48, 108, 0.2);
+        }
+        .social-card.instagram:hover .social-icon { fill: #e1306c; filter: drop-shadow(0 0 5px rgba(225, 48, 108, 0.8)); }
+
+        .footer {
+            background: #090c10;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 4rem 0 12rem 0;
+            text-align: center;
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 2rem;
+            position: relative; 
+            z-index: 10;
+            width: 100%;
+        }
+        .footer-logo { 
+            font-weight: 800; color: #fff; margin-bottom: 0.8rem; display: block; font-size: 1.4rem; 
+            letter-spacing: -0.02em;
+        }
+
+        .footer-opensource {
+            margin-top: 2rem;
+            color: #555;
+            font-size: 0.85rem;
+        }
+
+        .footer-opensource p { margin-bottom: 1rem; }
+
+        .btn-small {
+            padding: 0.5rem 1rem;
+            font-size: 0.8rem;
+            border-radius: 99px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #888;
+            transition: all 0.3s;
+        }
+        .btn-small:hover {
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            border-color: rgba(255,255,255,0.2);
+        }
+
+        @media (max-width: 900px) {
+            .container { padding: 0 1.5rem; }
+            .section { padding: 3rem 0; }
+
+            .hero { 
+                flex-direction: column; 
+                justify-content: center;
+                padding-top: 100px;
+                text-align: left; 
+                min-height: auto;
+                padding-bottom: 3rem;
+            }
+            
+            .hero-container { 
+                flex-direction: column-reverse;
+                gap: 2rem; 
+                align-items: flex-start;
+                width: 100%;
+            }
+
+            .hero-content { 
+                text-align: left !important;
+                max-width: 100%; 
+            }
+            
+            .hero p { margin: 0 0 2rem 0; }
+            .real-name { font-size: 1.4rem; }
+            .h1 { font-size: 3rem; white-space: nowrap; }
+
+            .profile-pic-container { 
+                margin-right: 0; 
+                width: 100%;
+                max-width: 300px;
+                height: 300px;
+                margin-bottom: 1rem;
+                align-self: flex-start;
+            }
+            
+            .profile-layout { grid-template-columns: 1fr; gap: 3rem; }
+            .profile-text-col { padding-right: 0; } 
+            .reveal[style*="margin-top: 10rem"] { margin-top: 5rem !important; } 
+            .contact-grid { grid-template-columns: 1fr; gap: 3rem; }
+
+            .nav-dock { 
+                width: 90%; 
+                min-width: auto; 
+                bottom: 1.5rem; 
+                padding: 0.5rem;
+            }
+            .nav-item { padding: 0.8rem 1rem; font-size: 0.85rem; }
+            .footer { padding-bottom: 8rem; }
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="bg-canvas"></canvas>
+    
+    <nav class="nav-dock" id="navDock">
+        <div id="nav-drop"></div>
+        <a href="#hero" class="nav-item active" data-nav="hero">Inicio</a>
+        <a href="#profile" class="nav-item" data-nav="profile">Perfil</a>
+        <a href="#projects" class="nav-item" data-nav="projects">Proyectos</a>
+        <a href="#contact" class="nav-item" data-nav="contact">Contacto</a>
+    </nav>
+
+    <div id="back-to-top" title="Volver al inicio">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+    </div>
+
+    <main class="container">
+        
+        <!-- HERO -->
+        <section id="hero" class="hero">
+            <div class="hero-container">
+                <div class="hero-content">
+                    <h2 class="real-name">Sami González Kamel</h2>
+                    <h1 class="h1">SAMILOSOSAMI</h1>
+                    <p>
+                        Soy Sami, un estudiante de 16 años. <br><br>
+                        Me apasiona la informática y la ciberseguridad, con especial interés en pentesting y automatización. <br>
+                        Aprendo entendiendo los sistemas desde dentro y desarrollando herramientas y proyectos propios.
+                    </p>
+                    <div style="display: flex; gap: 1rem; justify-content: flex-start;">
+                        <a href="#projects" class="btn btn-primary">Ver Proyectos</a>
+                        <a href="#contact" class="btn btn-ghost">Contactar</a>
+                    </div>
+                </div>
+
+                <div class="profile-pic-container">
+                    <img src="https://i.imgur.com/rJCgc92.jpeg" alt="Sami Profile" class="profile-pic">
+                </div>
+            </div>
+        </section>
+
+        <!-- PERFIL TÉCNICO -->
+        <section id="profile" class="section">
+            <h2 class="h2 reveal">Perfil Técnico</h2>
+            
+            <div class="profile-layout">
+                <div class="profile-text-col reveal">
+                    <h3 class="h3" style="margin-bottom: 1rem; color: #fff;">Software</h3>
+                    <p class="profile-desc">
+                        A pesar de mi edad, tengo bastante conocimiento en informática. Me enfoco en ciberseguridad, sobretodo en las ramas de hacking ético y <strong>pentesting</strong>.
+                        <br><br>
+                        Tengo conocimiento tanto en <strong>Windows</strong> como en <strong>Linux</strong>, conocimientos avanzados en la terminal de ambos sistemas operativos y conocimientos de compilación de <strong>kernel</strong> Android.
+                        <br><br>
+                        Mi sistema operativo de uso diario actual es <strong>Kali Linux</strong>, con un uso cotidiano de herramientas de hacking ético.
+                    </p>
+                </div>
+
+                <div class="profile-window-col reveal" style="transition-delay: 0.1s;">
+                    <div class="mac-window">
+                        <div class="mac-header">
+                            <div class="mac-dot mac-red"></div>
+                            <div class="mac-dot mac-yellow"></div>
+                            <div class="mac-dot mac-green"></div>
+                            <div class="mac-title">root@samilososami:~/software_skills</div>
+                        </div>
+                        <div class="mac-body">
+                            <h3 class="h3" style="font-size: 0.8rem; margin-bottom: 1rem; color: #fff; opacity: 0.8; letter-spacing: 0.05em;">lenguajes de programación y scripting</h3>
+                            <div class="progress-item">
+                                <div class="progress-header"><span>Python</span><span style="color: var(--accent);">Nivel Medio</span></div>
+                                <div class="progress-track"><div class="progress-fill" style="width: 65%;"></div></div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-header"><span>Bash</span><span style="color: var(--accent);">Nivel Bajo</span></div>
+                                <div class="progress-track"><div class="progress-fill" style="width: 30%;"></div></div>
+                            </div>
+                            <div class="progress-item">
+                                <div class="progress-header"><span>DuckyScript™</span><span style="color: var(--accent);">Nivel Alto</span></div>
+                                <div class="progress-track"><div class="progress-fill" style="width: 90%;"></div></div>
+                            </div>
+
+                            <div class="section-divider"></div>
+
+                            <h3 class="h3" style="font-size: 0.8rem; margin-bottom: 1rem; color: #fff; opacity: 0.8; letter-spacing: 0.05em;">software pentesting</h3>
+                            <div class="terminal-block" style="background: rgba(10, 14, 20, 0.4); padding: 1rem; border-radius: 8px; border: 1px solid rgba(255,255,255,0.05);">
+                                <div style="font-family: var(--font-mono); font-size: 0.8rem; margin-bottom: 0.5rem; color: #ccc;">
+                                    <span class="term-prompt">root@samilososami</span>:<span class="term-path">~/tools</span># ls -l --pentesting-tools<span class="cursor-blink">_</span>
+                                </div>
+                                <div class="term-list">
+                                    <div class="term-item">burpsuite</div>
+                                    <div class="term-item">nmap</div>
+                                    <div class="term-item">metasploit</div>
+                                    <div class="term-item">wireshark</div>
+                                    <div class="term-item">aircrack-ng</div>
+                                    <div class="term-item">hydra</div>
+                                    <div class="term-item">sqlmap</div>
+                                    <div class="term-item">john_the_ripper</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reveal" style="margin-top: 10rem;">
+                <h3 class="h3" style="margin-bottom: 0.5rem;">Hardware</h3>
+                <p class="text-dim-large">
+                    Dispongo actualmente de una gran variedad de hardware, en su mayoría orientado a pentesting, domótica y programación. Algunos de mis favoritos son el Flipper Zero y la WiFi Pineapple.
+                </p>
+                <div class="carousel-section" id="carouselSection">
+                    <div class="carousel-track" id="hwTrack"></div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PROJECTS -->
+        <section id="projects" class="section">
+            <h2 class="h2 reveal">Proyectos Destacados</h2>
+            <p class="text-dim reveal" style="margin-bottom: 2rem; font-size: 1.2rem;">Estos son algunos de mis proyectos más relevantes</p>
+            
+            <div class="gh-label reveal">
+                <svg height="20" viewBox="0 0 16 16" version="1.1" width="20" aria-hidden="true" style="fill:white"><path d="M8 0c4.42 0 8 3.58 8 8a8.013 8.013 0 0 1-5.45 7.59c-.4.08-.55-.17-.55-.38 0-.27.01-1.13.01-2.2 0-.75-.25-1.23-.54-1.48 1.78-.2 3.65-.88 3.65-3.95 0-.88-.31-1.59-.82-2.15.08-.2.36-1.02-.08-2.12 0 0-.67-.22-2.2.82-.64-.18-1.32-.27-2-.27-.68 0-1.36.09-2 .27-1.53-1.03-2.2-.82-2.2-.82-.44 1.1-.16 1.92-.08 2.12-.51.56-.82 1.28-.82 2.15 0 3.06 1.86 3.75 3.64 3.95-.23.2-.44.55-.51 1.07-.46.21-1.61.55-2.33-.66-.15-.24-.6-.83-1.23-.82-.67.01-.27.38.01.53.34.19.73.9.82 1.13.16.45.68 1.31 2.69.94 0 .67.01 1.3.01 1.49 0 .21-.15.45-.55.38A7.995 7.995 0 0 1 0 8c0-4.42 3.58-8 8-8Z"></path></svg>
+                GitHub
+            </div>
+
+            <div class="projects-list reveal" id="projects-list">
+                <div style="padding:2rem; text-align:center; color:#8b949e">Cargando repositorios...</div>
+            </div>
+
+            <div class="wow-container reveal">
+                <div class="wow-card formal-casual">
+                    <div class="wow-left">
+                        <div class="wow-brand">
+                            <div class="wow-logo">
+                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                            </div>
+                            <div style="display:flex; flex-direction:column; justify-content: center;">
+                                <span class="wow-name">wow Messenger</span>
+                            </div>
+                        </div>
+                        
+                        <p class="wow-desc-formal">
+                            wow messenger es una aplicación web de mensajería diseñada por mi. Es más un proyecto personal que otra cosa, pero me ha servido en gran parte para aprender acerca de comunicaciones y conexión vía web.
+                            <br>
+                            Es totalmente opensource y se puede encontrar tanto el backend como el frontend en mi Github personal. <strong>Aún se encuentra en desarrollo y pronto estará disponible.</strong>
+                        </p>
+
+                        <a href="https://wow.samilososami.com" target="_blank" class="wow-btn">
+                            Probar Ahora
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                        </a>
+                    </div>
+
+                    <div class="wow-right">
+                        <div class="wow-mock-ui">
+                            <div style="display:flex; justify-content:space-between; margin-bottom:15px; border-bottom:1px solid rgba(255,255,255,0.1); padding-bottom:10px;">
+                                <div style="width:30px; height:30px; background:#475569; border-radius:50%"></div>
+                                <div style="color:white; font-size:0.9rem; font-weight:600">Sami G.</div>
+                            </div>
+                            <div style="display:flex; flex-direction:column; gap:10px;">
+                                <div class="mock-msg in">Tiene un sistema de llamadas via WebRTC</div>
+                                <div class="mock-msg">Permite enviar audios e imágenes</div>
+                                <div class="mock-msg in">Y gestión de chats y personas</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- CONTACT -->
+        <section id="contact" class="section">
+            <h2 class="h2 reveal">Contacto</h2>
+            
+            <div class="contact-grid reveal">
+                <div>
+                    <p class="profile-desc">
+                        Ante cualquier duda o sugerencia, estoy disponible a contacto desde mi correo personal o mis redes sociales. 
+                        No dudes en contactarme ante cualquier pregunta. 
+                    </p>
+                    
+                    <div class="email-card">
+                        <div>
+                            <span class="email-label">Correo Personal</span>
+                            <span class="email-text">samilososami@gmail.com</span>
+                        </div>
+                        <a href="mailto:samilososami@gmail.com" class="btn btn-primary">Enviar</a>
+                    </div>
+                </div>
+
+                <div class="socials-list-col">
+                    <a href="https://tiktok.com/@samilososam1" target="_blank" class="social-card tiktok">
+                        <div class="social-info">
+                            <svg class="social-icon" viewBox="0 0 24 24"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-5.2 1.74 2.89 2.89 0 0 1 2.31-4.64 2.93 2.93 0 0 1 .88.13V9.4a6.84 6.84 0 0 0-1-.05A6.33 6.33 0 0 0 5 20.1a6.34 6.34 0 0 0 10.86-4.43v-7a8.16 8.16 0 0 0 4.77 1.52v-3.4a4.85 4.85 0 0 1-1-.1z"/></svg>
+                            <div class="social-details">
+                                <span class="social-platform">TikTok</span>
+                                <span class="social-username">@samilososam1</span>
+                            </div>
+                        </div>
+                        <div class="social-arrow">→</div>
+                    </a>
+
+                    <a href="https://github.com/samilososami" target="_blank" class="social-card github">
+                        <div class="social-info">
+                            <svg class="social-icon" viewBox="0 0 24 24"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+                            <div class="social-details">
+                                <span class="social-platform">GitHub</span>
+                                <span class="social-username">@samilososami</span>
+                            </div>
+                        </div>
+                        <div class="social-arrow">→</div>
+                    </a>
+
+                    <a href="https://youtube.com/@samilososami" target="_blank" class="social-card youtube">
+                        <div class="social-info">
+                            <svg class="social-icon" viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+                            <div class="social-details">
+                                <span class="social-platform">YouTube</span>
+                                <span class="social-username">@samilososami</span>
+                            </div>
+                        </div>
+                        <div class="social-arrow">→</div>
+                    </a>
+
+                    <a href="https://instagram.com/samilososami" target="_blank" class="social-card instagram">
+                        <div class="social-info">
+                            <svg class="social-icon" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                            <div class="social-details">
+                                <span class="social-platform">Instagram</span>
+                                <span class="social-username">@samilososami</span>
+                            </div>
+                        </div>
+                        <div class="social-arrow">→</div>
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <span class="footer-logo">SAMI</span>
+        <p>&copy; <span id="year"></span> Sami. MIT Licensed · Open Source</p>
+        <div class="footer-opensource">
+            <p>Esta web es completamente opensource y estoy abierto a sugerencias y feedback.</p>
+            <a href="https://github.com/samilososami/portfolio" target="_blank" class="btn-small">Ver Código</a>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('year').textContent = new Date().getFullYear();
+
+        // --------------------------------------------------------------------------
+        // CANVAS BACKGROUND
+        // --------------------------------------------------------------------------
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let width, height, particles = [];
+        const mouse = { x: null, y: null, radius: 150 };
+
+        window.addEventListener('mousemove', e => { mouse.x = e.x; mouse.y = e.y; });
+        window.addEventListener('resize', initParticles);
+
+        function initParticles() {
+            width = canvas.width = window.innerWidth;
+            height = canvas.height = window.innerHeight;
+            particles = [];
+            const count = Math.floor((width * height) / 7000);
+            for(let i=0; i<count; i++) {
+                particles.push({
+                    x: Math.random() * width, y: Math.random() * height,
+                    vx: (Math.random() - 0.5) * 0.5, vy: (Math.random() - 0.5) * 0.5,
+                    size: Math.random() * 2 + 1
+                });
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, width, height);
+            particles.forEach((p, i) => {
+                p.x += p.vx; p.y += p.vy;
+                if(p.x < 0 || p.x > width) p.vx *= -1;
+                if(p.y < 0 || p.y > height) p.vy *= -1;
+                
+                ctx.beginPath(); ctx.arc(p.x, p.y, p.size, 0, Math.PI*2);
+                ctx.fillStyle = 'rgba(255,255,255,0.5)'; ctx.fill();
+
+                const dx = mouse.x - p.x; const dy = mouse.y - p.y;
+                const dist = Math.sqrt(dx*dx + dy*dy);
+                if(dist < mouse.radius) {
+                    ctx.beginPath(); ctx.strokeStyle = `rgba(255,255,255,${1 - dist/mouse.radius})`;
+                    ctx.moveTo(p.x, p.y); ctx.lineTo(mouse.x, mouse.y); ctx.stroke();
+                }
+                
+                for(let j=i; j<particles.length; j++) {
+                    const p2 = particles[j];
+                    const d = Math.sqrt((p.x-p2.x)**2 + (p.y-p2.y)**2);
+                    if(d < 100) {
+                        ctx.beginPath(); ctx.strokeStyle = `rgba(255,255,255,${0.15 * (1 - d/100)})`;
+                        ctx.moveTo(p.x, p.y); ctx.lineTo(p2.x, p2.y); ctx.stroke();
+                    }
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+        initParticles(); animate();
+
+        // --------------------------------------------------------------------------
+        // CAROUSEL LOGIC
+        // --------------------------------------------------------------------------
+        const HARDWARE = [
+            { name: 'Rubber Ducky', company: 'Hak5', img: 'https://m.media-amazon.com/images/I/71-KfJZScdL.jpg' },
+            { name: 'Flipper Zero', company: 'Flipper Devices', img: 'https://m.media-amazon.com/images/I/61hypBE3WXL.jpg' },
+            { name: 'Proxmark3 Easy', company: 'Elechouse', img: 'https://m.media-amazon.com/images/I/51Zf+6tWpYL.jpg' },
+            { name: 'WiFi Pineapple', company: 'Hak5', img: 'https://shop.hak5.org/cdn/shop/products/gokit1_1200x.jpg?v=1722645348' },
+            { name: 'OM.G Plug', company: 'Hak5', img: 'https://shop.hak5.org/cdn/shop/products/Plug_600x.jpg?v=1668118141' },
+            { name: 'Raspberry Pi 4', company: 'RPI Foundation', img: 'https://m.media-amazon.com/images/I/71Yjs1JDM-S.jpg' },
+            { name: 'Alfa Adapter', company: 'Alfa Network', img: 'https://www.evxab.com/9155-large_default/alfa-awus036axml-80211ax.jpg' },
+            { name: 'ESP32', company: 'Espressif', img: 'https://manuals.plus/wp-content/uploads/2024/06/keyestudio-ESP32-Development-Board-Product.png' },
+            { name: 'Bash Bunny', company: 'Hak5', img: 'https://web-assets.eset.com/fileadmin/ESET/LATAM/Prensa/24-04-04.2.jpeg' },
+            { name: 'WiFi Pineapple Pager', company: 'Hak5', img: 'https://shop.hak5.org/cdn/shop/files/wifi-pineapple-pager-black-white_bg_2000x.png' }
+        ];
+
+        const hwTrack = document.getElementById('hwTrack');
+
+        const createCards = () => {
+            let html = '';
+            [...HARDWARE, ...HARDWARE, ...HARDWARE].forEach(hw => {
+                html += `
+                    <div class="hw-card">
+                        <div class="hw-img-container">
+                            <img src="${hw.img}" alt="${hw.name}" class="hw-img">
+                            <div class="hw-img-overlay"></div>
+                        </div>
+                        <div class="hw-info">
+                            <div class="hw-name">${hw.name}</div>
+                            <div class="hw-company">${hw.company}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            hwTrack.innerHTML = html;
+        };
+        createCards();
+
+        let scrollPosition = 0;
+        const cardWidth = 340; 
+        const cardGap = 40; 
+        const itemWidth = cardWidth + cardGap;
+        const totalSetWidth = HARDWARE.length * itemWidth;
+        let speed = 0.4; 
+        
+        const animateCarousel = () => {
+            scrollPosition += speed;
+            if (scrollPosition >= totalSetWidth) scrollPosition = 0;
+            hwTrack.style.transform = `translateX(${-scrollPosition}px)`;
+            requestAnimationFrame(animateCarousel);
+        };
+        requestAnimationFrame(animateCarousel);
+
+        // --------------------------------------------------------------------------
+        // PROJECTS LOGIC (GitHub API Integration + Fallback)
+        // --------------------------------------------------------------------------
+        const obs = new IntersectionObserver(e => e.forEach(en => { if(en.isIntersecting) en.target.classList.add('active') }), {threshold:0.1});
+
+        const PROJECT_CONFIG = {
+            'ESP32-SUITE': 'Colección de firmwares y scripts personalizados para la gestión y domotica con ESP32',
+            'framework': 'Marco de trabajo personalizado para automatización de tareas de pentesting. Aún en desarrollo.',
+            'knap': 'Herramienta avanzada para el análisis de probes enviadas por dispositivos.',
+            'wifi2discord': 'Script en powershell que envia los correos y las redes wifi (junto a sus contraseñas) a una webhook personalizada.',
+            'wifiwer': 'Script en powershell que permite ver rápidamente las contraseñas de las redes wifi conectadas.',
+            'win7preter': 'Herramienta de explotación a windows 7 de 32 bits para obtener una sesión de meterpreter'
+        };
+
+        const FIXED_PROJECTS_FALLBACK = [
+            { title: 'ESP32-SUITE', desc: 'Colección de firmware ofensivo y defensivo diseñado para el microcontrolador ESP32.', lang: 'C++', color: '#f34b7d', stars: 156, forks: 42, repo: 'https://github.com/samilososami/ESP32-SUITE', updated: '2 days ago' },
+            { title: 'framework', desc: 'Marco de trabajo personalizado para automatización de tareas de pentesting.', lang: 'Python', color: '#3572A5', stars: 89, forks: 15, repo: 'https://github.com/samilososami/framework', updated: '1 week ago' },
+            { title: 'knap', desc: 'Herramienta avanzada para el análisis de sondas Wi-Fi y detección de redes ocultas.', lang: 'Python', color: '#3572A5', stars: 210, forks: 34, repo: 'https://github.com/samilososami/knap', updated: '3 days ago' },
+            { title: 'wifi2discord', desc: 'Sistema de notificación que envía credenciales o logs de redes Wi-Fi a Discord vía Webhooks.', lang: 'Python', color: '#3572A5', stars: 124, forks: 28, repo: 'https://github.com/samilososami/wifi2discord', updated: 'Last month' },
+            { title: 'wifiwer', desc: 'Suite de auditoría para redes inalámbricas con enfoque en automatización.', lang: 'Shell', color: '#89e051', stars: 76, forks: 9, repo: 'https://github.com/samilososami/wifiwer', updated: '2 months ago' },
+            { title: 'win7preter', desc: 'Herramienta de post-explotación orientada a sistemas Windows 7 legacy.', lang: 'Python', color: '#3572A5', stars: 45, forks: 12, repo: 'https://github.com/samilososami/win7preter', updated: 'Last week' }
+        ];
+
+        const projList = document.getElementById('projects-list');
+
+        const repoIcon = `<svg aria-hidden="true" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="repo-icon"><path fill-rule="evenodd" d="M2 2.5A2.5 2.5 0 014.5 0h8.75a.75.75 0 01.75.75v12.5a.75.75 0 01-.75.75h-2.5a.75.75 0 110-1.5h1.75v-2h-8a1 1 0 00-.714 1.7.75.75 0 01-1.072 1.05A2.495 2.495 0 012 11.5v-9zm10.5-1V9h-8c-.356 0-.694.074-1 .208V2.5a1 1 0 011-1h8zM5 12.25v3.25a.25.25 0 00.4.2l1.45-1.087a.25.25 0 01.3 0L8.6 15.7a.25.25 0 00.4-.2v-3.25a.25.25 0 00-.25-.25h-3.5a.25.25 0 00-.25.25z"></path></svg>`;
+        const starIcon = `<svg aria-label="star" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="star-icon"><path fill-rule="evenodd" d="M8 .25a.75.75 0 01.673.418l1.882 3.815 4.21.612a.75.75 0 01.416 1.279l-3.046 2.97.719 4.192a.75.75 0 01-1.088.791L8 12.347l-3.766 1.98a.75.75 0 01-1.088-.79l.72-4.194L.818 6.374a.75.75 0 01.416-1.28l4.21-.611L7.327.668A.75.75 0 018 .25z"></path></svg>`;
+        const forkIcon = `<svg aria-label="fork" height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="star-icon"><path fill-rule="evenodd" d="M5 3.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm0 2.122a2.25 2.25 0 10-1.5 0v.878A2.25 2.25 0 005.75 8.5h1.5v2.128a2.251 2.251 0 101.5 0V8.5h1.5a2.25 2.25 0 002.25-2.25v-.878a2.25 2.25 0 10-1.5 0v.878a.75.75 0 01-.75.75h-4.5A.75.75 0 015 6.25v-.878zm3.75 7.378a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm3-8.75a.75.75 0 100-1.5.75.75 0 000 1.5z"></path></svg>`;
+        const starBtnIcon = `<svg height="16" viewBox="0 0 16 16" version="1.1" width="16" data-view-component="true" class="octicon octicon-star mr-1"><path d="M8 .25a.75.75 0 0 1 .673.418l1.882 3.815 4.21.612a.75.75 0 0 1 .416 1.279l-3.046 2.97.719 4.192a.75.75 0 0 1-1.088.791L8 12.347l-3.766 1.98a.75.75 0 0 1-1.088-.79l.72-4.194L.818 6.374a.75.75 0 0 1 .416-1.28l4.21-.611L7.327.668A.75.75 0 0 1 8 .25Zm0 2.445L6.615 5.5a.75.75 0 0 1-.564.41l-3.097.45 2.24 2.184a.75.75 0 0 1 .216.664l-5.28 3.084 2.769-1.456a.75.75 0 0 1 .698 0l2.77 1.456-.53-3.084a.75.75 0 0 1 .216-.664l2.24-2.183-3.096-.45a.75.75 0 0 1-.564-.41L8 2.694Z"></path></svg>`;
+
+        function getLangColor(lang) {
+            const colors = {
+                'Python': '#3572A5',
+                'C++': '#f34b7d',
+                'Shell': '#89e051',
+                'JavaScript': '#f1e05a',
+                'TypeScript': '#2b7489',
+                'HTML': '#e34c26',
+                'CSS': '#563d7c'
+            };
+            return colors[lang] || '#8b949e';
+        }
+
+        async function fetchProjects() {
+            try {
+                const response = await fetch('https://api.github.com/users/samilososami/repos');
+                if (!response.ok) throw new Error('API Error');
+                const data = await response.json();
+                
+                const projects = data
+                    .filter(repo => PROJECT_CONFIG[repo.name])
+                    .map(repo => ({
+                        title: repo.name,
+                        desc: PROJECT_CONFIG[repo.name],
+                        lang: repo.language || 'Code',
+                        stars: repo.stargazers_count,
+                        forks: repo.forks_count,
+                        repo: repo.html_url,
+                        updated: new Date(repo.updated_at).toLocaleDateString(),
+                        color: getLangColor(repo.language)
+                    }))
+                    .sort((a, b) => b.stars - a.stars);
+
+                if (projects.length === 0) throw new Error('No public projects found matching config');
+                renderProjects(projects);
+            } catch (error) {
+                console.warn('GitHub API failed or no projects found, using fallback data:', error);
+                renderProjects(FIXED_PROJECTS_FALLBACK);
+            }
+        }
+
+        function renderProjects(projects) {
+            projList.innerHTML = ''; 
+            projects.forEach(repo => {
+                const el = document.createElement('a');
+                el.href = repo.repo;
+                el.target = "_blank";
+                el.className = 'proj-row reveal';
+                
+                el.innerHTML = `
+                    <div class="proj-main">
+                        <div class="proj-header">
+                            ${repoIcon}
+                            <span class="proj-title">${repo.title}</span>
+                            <span class="visibility-badge">Public</span>
+                        </div>
+                        <div class="proj-desc">
+                            ${repo.desc}
+                        </div>
+                        <div class="proj-meta">
+                            <div class="meta-item">
+                                <span class="lang-dot" style="background-color: ${repo.color}"></span>
+                                <span>${repo.lang}</span>
+                            </div>
+                            <div class="meta-item">
+                                ${starIcon}
+                                <span>${repo.stars}</span>
+                            </div>
+                            <div class="meta-item">
+                                ${forkIcon}
+                                <span>${repo.forks}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="proj-actions">
+                        <div class="last-updated">Updated ${repo.updated}</div>
+                        <div class="gh-btn">
+                            <span style="fill: currentColor">${starBtnIcon}</span>
+                            Star
+                        </div>
+                    </div>
+                `;
+                projList.appendChild(el);
+                obs.observe(el);
+            });
+        }
+
+        fetchProjects();
+
+        // --------------------------------------------------------------------------
+        // NAV BUBBLE LOGIC & BACK TO TOP
+        // --------------------------------------------------------------------------
+        const navDock = document.getElementById('navDock');
+        const navDrop = document.getElementById('nav-drop');
+        const navItems = document.querySelectorAll('.nav-item');
+        const sections = document.querySelectorAll('section');
+        const backToTopBtn = document.getElementById('back-to-top');
+
+        let isManualScroll = false;
+
+        function moveDrop(el) {
+            navDrop.style.width = `${el.offsetWidth}px`;
+            navDrop.style.transform = `translateX(${el.offsetLeft}px)`;
+
+            navItems.forEach(i => i.classList.remove('active'));
+            el.classList.add('active');
+        }
+        
+        navItems.forEach(i => {
+            i.addEventListener('click', (e) => {
+                isManualScroll = true; 
+                moveDrop(e.target);
+                setTimeout(() => { isManualScroll = false; }, 800); 
+            });
+        });
+
+        setTimeout(() => {
+            const active = document.querySelector('.nav-item.active');
+            if(active) moveDrop(active);
+        }, 100);
+
+        window.onscroll = () => {
+            if (!isManualScroll) {
+                let current = '';
+                sections.forEach(s => {
+                    const sectionTop = s.offsetTop;
+                    if(pageYOffset >= sectionTop - 350) current = s.getAttribute('id');
+                });
+                
+                if (pageYOffset < 100) current = 'hero';
+
+                const active = document.querySelector(`.nav-item[data-nav="${current}"]`);
+                if(active && !active.classList.contains('active')) moveDrop(active);
+            }
+
+            const scrollTotal = document.documentElement.scrollHeight - window.innerHeight;
+            const scrollPosition = window.scrollY;
+
+            if ((scrollTotal - scrollPosition) < 5) {
+                navDock.classList.add('hidden');
+                backToTopBtn.classList.add('visible');
+            } else {
+                navDock.classList.remove('hidden');
+                backToTopBtn.classList.remove('visible');
+            }
+        };
+
+        backToTopBtn.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+    </script>
+</body>
+</html>
+
