@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>pic2pdf</title>
+    <title>pic2PDF - PDF Converter</title>
     
     <!-- Tailwind CSS -->
     <script src="https://cdn.tailwindcss.com"></script>
@@ -177,7 +177,7 @@
                         <h2 class="text-2xl font-display font-bold text-zinc-900 dark:text-white mb-3">Sube tus imágenes aquí</h2>
                         <p class="text-zinc-500 dark:text-zinc-400 text-base max-w-md mx-auto leading-relaxed">
                             Haz clic para explorar o arrastra tus archivos.
-                            <br><span class="text-xs font-medium text-zinc-400 dark:text-zinc-500 mt-2 inline-block bg-zinc-100 dark:bg-zinc-800/50 px-3 py-1 rounded-full">Procesamiento completamente local, ninguno de tus archivos es almacenado fuera de tu dispositivo.</span>
+                            <br><span class="text-xs font-medium text-zinc-400 dark:text-zinc-500 mt-2 inline-block bg-zinc-100 dark:bg-zinc-800/50 px-3 py-1 rounded-full">Procesamiento 100% local</span>
                         </p>
                     </div>
                 </div>
@@ -630,44 +630,74 @@
             el.classList.add('border-zinc-200', 'text-zinc-600', 'dark:border-zinc-700', 'dark:text-zinc-400', 'hover:border-zinc-300', 'dark:hover:border-zinc-600');
         }
 
-        // --- PDF Generation Logic ---
+        // --- PDF Generation Logic (Optimized) ---
         async function generatePDF() {
             if (images.length === 0) return;
 
             loadingOverlay.classList.remove('hidden');
             loadingOverlay.classList.add('flex');
 
-            setTimeout(() => {
-                try {
-                    const { jsPDF } = window.jspdf;
-                    
-                    const orientation = document.getElementById('orientation-select').value;
-                    const margin = parseFloat(document.getElementById('margin-select').value); 
-                    const filename = document.getElementById('filename-input').value || 'documento';
-                    
-                    const doc = new jsPDF({
-                        orientation: orientation,
-                        unit: 'mm',
-                        format: 'a4'
-                    });
+            // Wait a tiny bit to let the UI update (show loader)
+            await new Promise(resolve => setTimeout(resolve, 100));
 
-                    const pageWidth = doc.internal.pageSize.getWidth();
-                    const pageHeight = doc.internal.pageSize.getHeight();
-                    
-                    const contentWidth = pageWidth - (margin * 2);
-                    const contentHeight = pageHeight - (margin * 2);
+            try {
+                const { jsPDF } = window.jspdf;
+                
+                // Get Settings
+                const orientation = document.getElementById('orientation-select').value;
+                const margin = parseFloat(document.getElementById('margin-select').value); // in mm
+                const filename = document.getElementById('filename-input').value || 'documento';
+                
+                // Create Document (A4 default)
+                const doc = new jsPDF({
+                    orientation: orientation,
+                    unit: 'mm',
+                    format: 'a4'
+                });
 
-                    images.forEach((img, index) => {
-                        if (index > 0) {
-                            doc.addPage();
+                const pageWidth = doc.internal.pageSize.getWidth();
+                const pageHeight = doc.internal.pageSize.getHeight();
+                
+                const contentWidth = pageWidth - (margin * 2);
+                const contentHeight = pageHeight - (margin * 2);
+
+                for (let i = 0; i < images.length; i++) {
+                    if (i > 0) {
+                        doc.addPage();
+                    }
+
+                    const imgObj = images[i];
+                    
+                    // 1. Process image via Canvas to fix EXIF and compression issues
+                    // This function now handles the heavy lifting
+                    const processedImage = await processImageForPDF(imgObj.src);
+
+                    let finalW, finalH;
+
+                    if (settings.layout === 'fit') {
+                        // Calculate aspect ratio to fit inside margins
+                        const imgRatio = processedImage.width / processedImage.height;
+                        const pageRatio = contentWidth / contentHeight;
+
+                        if (imgRatio > pageRatio) {
+                            // Fit to width
+                            finalW = contentWidth;
+                            finalH = contentWidth / imgRatio;
+                        } else {
+                            // Fit to height
+                            finalH = contentHeight;
+                            finalW = contentHeight * imgRatio;
                         }
+                    } else {
+                        // Original size (approximate mapping pixel to mm)
+                        const scaleFactor = 0.264583; // px to mm
+                        finalW = processedImage.width * scaleFactor;
+                        finalH = processedImage.height * scaleFactor;
 
-                        let finalW, finalH;
-
-                        if (settings.layout === 'fit') {
-                            const imgRatio = img.width / img.height;
+                        // Safety check: if larger than page, force fit
+                        if (finalW > contentWidth || finalH > contentHeight) {
+                            const imgRatio = processedImage.width / processedImage.height;
                             const pageRatio = contentWidth / contentHeight;
-
                             if (imgRatio > pageRatio) {
                                 finalW = contentWidth;
                                 finalH = contentWidth / imgRatio;
@@ -675,40 +705,62 @@
                                 finalH = contentHeight;
                                 finalW = contentHeight * imgRatio;
                             }
-                        } else {
-                            const scaleFactor = 0.264583; 
-                            finalW = img.width * scaleFactor;
-                            finalH = img.height * scaleFactor;
-
-                            if (finalW > contentWidth || finalH > contentHeight) {
-                                const imgRatio = img.width / img.height;
-                                const pageRatio = contentWidth / contentHeight;
-                                if (imgRatio > pageRatio) {
-                                    finalW = contentWidth;
-                                    finalH = contentWidth / imgRatio;
-                                } else {
-                                    finalH = contentHeight;
-                                    finalW = contentHeight * imgRatio;
-                                }
-                            }
                         }
+                    }
 
-                        const x = margin + (contentWidth - finalW) / 2;
-                        const y = margin + (contentHeight - finalH) / 2;
+                    // Center image
+                    const x = margin + (contentWidth - finalW) / 2;
+                    const y = margin + (contentHeight - finalH) / 2;
 
-                        doc.addImage(img.src, 'JPEG', x, y, finalW, finalH);
-                    });
-
-                    doc.save(`${filename}.pdf`);
-
-                } catch (error) {
-                    console.error(error);
-                    alert("Hubo un error al generar el PDF.");
-                } finally {
-                    loadingOverlay.classList.add('hidden');
-                    loadingOverlay.classList.remove('flex');
+                    doc.addImage(processedImage.data, 'JPEG', x, y, finalW, finalH);
                 }
-            }, 800);
+
+                doc.save(`${filename}.pdf`);
+
+            } catch (error) {
+                console.error(error);
+                alert("Hubo un error al generar el PDF. Intenta con menos imágenes o archivos más ligeros.");
+            } finally {
+                loadingOverlay.classList.add('hidden');
+                loadingOverlay.classList.remove('flex');
+            }
+        }
+
+        // Helper to fix EXIF rotation and compression artifacts
+        function processImageForPDF(src) {
+            return new Promise((resolve, reject) => {
+                const img = new Image();
+                img.onload = () => {
+                    const canvas = document.createElement('canvas');
+                    const ctx = canvas.getContext('2d');
+                    
+                    // Use visual dimensions (browser handles EXIF here)
+                    const width = img.width;
+                    const height = img.height;
+                    
+                    canvas.width = width;
+                    canvas.height = height;
+                    
+                    // White background (prevents black background on transparent PNGs converted to JPEG)
+                    ctx.fillStyle = '#FFFFFF';
+                    ctx.fillRect(0, 0, width, height);
+                    
+                    // Draw image (strips EXIF, burns rotation)
+                    ctx.drawImage(img, 0, 0, width, height);
+                    
+                    // Export to JPEG with good quality
+                    // This fixes the "weird lines" caused by aliasing/compression of raw data
+                    const data = canvas.toDataURL('image/jpeg', 0.92); 
+                    
+                    resolve({
+                        data: data,
+                        width: width,
+                        height: height
+                    });
+                };
+                img.onerror = reject;
+                img.src = src;
+            });
         }
     </script>
 </body>
