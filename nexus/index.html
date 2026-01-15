@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXUS | Cyber Security OS</title>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Google Fonts: JetBrains Mono -->
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;400;700&display=swap" rel="stylesheet">
+
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="assets/styles.css">
+
+    <!-- INLINE CSS (Window Resizers) -->
+    <style>
+        /* --- Window resizers (edges + corners) --- */
+        .window-resizer {
+            position: absolute;
+            z-index: 9999;
+            background: transparent;
+        }
+
+        .window-resizer.n, .window-resizer.s { left: 6px; right: 6px; height: 6px; cursor: ns-resize; }
+        .window-resizer.e, .window-resizer.w { top: 6px; bottom: 6px; width: 6px; cursor: ew-resize; }
+
+        .window-resizer.n { top: -3px; }
+        .window-resizer.s { bottom: -3px; }
+        .window-resizer.e { right: -3px; }
+        .window-resizer.w { left: -3px; }
+
+        .window-resizer.ne, .window-resizer.nw, .window-resizer.se, .window-resizer.sw { width: 10px; height: 10px; }
+
+        .window-resizer.ne { top: -4px; right: -4px; cursor: nesw-resize; }
+        .window-resizer.nw { top: -4px; left: -4px; cursor: nwse-resize; }
+        .window-resizer.se { bottom: -4px; right: -4px; cursor: nwse-resize; }
+        .window-resizer.sw { bottom: -4px; left: -4px; cursor: nesw-resize; }
+
+        .is-maximized .window-resizer { display: none; }
+        .window-header button:active { transform: scale(0.95); }
+    </style>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: { mono: ['"JetBrains Mono"', 'monospace'] },
+                    colors: {
+                        cyber: {
+                            black: '#0a0a0f', dark: '#13131f', slate: '#1e293b',
+                            primary: '#00f0ff', secondary: '#7000ff', success: '#00ff9d',
+                            danger: '#ff2a6d', warning: '#ffae00'
+                        }
+                    },
+                    animation: {
+                        'pulse-fast': 'pulse 1s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'scanline': 'scanline 8s linear infinite',
+                        'slide-up-fade': 'slideUpFade 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards',
+                        'unlock-flash': 'unlockFlash 0.4s ease-out forwards',
+                        'radar-sweep': 'radarSweep 4s linear infinite',
+                    },
+                    keyframes: {
+                        scanline: { '0%': { transform: 'translateY(-100%)' }, '100%': { transform: 'translateY(100%)' } },
+                        slideUpFade: { '0%': { opacity: 0, transform: 'translateY(10px) scale(0.98)' }, '100%': { opacity: 1, transform: 'translateY(0) scale(1)' } },
+                        unlockFlash: { '0%': { color: '#888', transform: 'scale(1)', textShadow: 'none' }, '50%': { color: '#fff', transform: 'scale(1.2)', textShadow: '0 0 10px rgba(255,255,255,0.8)' }, '100%': { color: '#fff', transform: 'scale(1)', textShadow: 'none' } },
+                        radarSweep: { '0%': { transform: 'rotate(0deg)' }, '100%': { transform: 'rotate(360deg)' } }
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+
+<body class="font-mono h-screen w-screen relative overflow-hidden text-sm" onclick="hideAllPopups()" oncontextmenu="return false;">
+
+    <!-- CAPA 1: BOOT SCREEN -->
+    <div id="boot-screen" class="absolute inset-0 z-50 bg-black flex flex-col justify-center items-start p-10 font-bold text-cyber-success cursor-wait">
+        <div id="boot-text" class="space-y-1"></div>
+    </div>
+
+    <!-- CAPA 2: FONDO ANIMADO Y GRID -->
+    <div class="absolute inset-0 bg-cyber-black bg-grid z-0">
+        <canvas id="matrix-canvas" class="opacity-20"></canvas>
+    </div>
+
+    <!-- SNAP PREVIEW (GHOST BOX) -->
+    <div id="snap-preview" class="hidden absolute bg-white/10 border-2 border-white/30 rounded-lg z-30 pointer-events-none transition-all duration-150 backdrop-blur-sm"></div>
+
+    <!-- CAPA 3: DESKTOP AREA -->
+    <div id="desktop-area" class="absolute inset-0 z-10 p-6 hidden flex flex-col justify-between opacity-0 transition-opacity duration-1000" oncontextmenu="fm.handleRightClick(event, 'desktop')">
+        <div class="flex flex-col flex-wrap content-start h-[calc(100%-100px)] gap-2 w-auto" id="desktop-icons-container">
+            <div class="flex flex-col items-center gap-1 cursor-pointer p-3 rounded hover:bg-white/10 transition-all w-24 group select-none" onclick="wm.openWindow('terminal'); hideAllPopups()">
+                <i data-lucide="terminal-square" class="w-10 h-10 text-gray-400 group-hover:text-cyber-primary transition-colors"></i>
+                <span class="text-xs text-center text-gray-400 font-medium group-hover:text-white drop-shadow-md">Terminal</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 cursor-pointer p-3 rounded hover:bg-white/10 transition-all w-24 group select-none" onclick="wm.openWindow('files'); hideAllPopups()">
+                <i data-lucide="folder-open" class="w-10 h-10 text-gray-400 group-hover:text-blue-400 transition-colors"></i>
+                <span class="text-xs text-center text-gray-400 font-medium group-hover:text-white drop-shadow-md">Archivos</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 cursor-pointer p-3 rounded hover:bg-white/10 transition-all w-24 group select-none" onclick="wm.openWindow('sysmon'); hideAllPopups()">
+                <i data-lucide="cpu" class="w-10 h-10 text-gray-400 group-hover:text-cyber-success transition-colors"></i>
+                <span class="text-xs text-center text-gray-400 font-medium group-hover:text-white drop-shadow-md">Recursos</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 cursor-pointer p-3 rounded hover:bg-white/10 transition-all w-24 group select-none" onclick="wm.openWindow('network'); hideAllPopups()">
+                <i data-lucide="globe" class="w-10 h-10 text-gray-400 group-hover:text-cyber-warning transition-colors"></i>
+                <span class="text-xs text-center text-gray-400 font-medium group-hover:text-white drop-shadow-md">Red</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 cursor-pointer p-3 rounded hover:bg-white/10 transition-all w-24 group select-none" onclick="wm.openWindow('wifi'); hideAllPopups()">
+                <i data-lucide="wifi" class="w-10 h-10 text-gray-400 group-hover:text-cyan-400 transition-colors"></i>
+                <span class="text-xs text-center text-gray-400 font-medium group-hover:text-white drop-shadow-md">WIFI</span>
+            </div>
+            <div class="flex flex-col items-center gap-1 cursor-pointer p-3 rounded hover:bg-white/10 transition-all w-24 group select-none" onclick="wm.openWindow('cracker'); hideAllPopups()">
+                <i data-lucide="unlock" class="w-10 h-10 text-gray-400 group-hover:text-cyber-danger transition-colors"></i>
+                <span class="text-xs text-center text-gray-400 font-medium group-hover:text-white drop-shadow-md">Cracker</span>
+            </div>
+            <div id="desktop-user-files" class="contents"></div>
+        </div>
+        <div class="absolute top-10 right-10 flex flex-col items-end gap-2 pointer-events-none">
+            <div class="font-bold tracking-widest select-none text-white/80 text-[4.5rem] leading-none drop-shadow-[0_0_15px_rgba(255,255,255,0.15)]" id="clock">00:00</div>
+        </div>
+    </div>
+
+    <!-- CAPA 4: VENTANAS -->
+    <div id="window-layer" class="absolute inset-0 z-20 pointer-events-none overflow-hidden"></div>
+
+    <!-- START MENU -->
+    <div id="start-menu" class="hidden absolute bottom-14 left-3 w-80 glass-panel z-50 rounded-lg p-0 flex flex-col animate-slide-up-fade text-sm overflow-hidden" onclick="event.stopPropagation()">
+        <div class="flex items-center gap-3 p-4 bg-white/5 border-b border-white/5">
+            <div class="w-8 h-8 rounded bg-cyber-primary/20 border border-cyber-primary flex items-center justify-center">
+                <img src="https://raw.githubusercontent.com/samilososami/portfolio/refs/heads/main/favicon.png" class="w-6 h-6 rounded opacity-90" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmMGZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIwIDIxdi0yYSs0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ii8+PC9zdmc+'">
+            </div>
+            <div>
+                <div class="font-bold text-white tracking-wide">Root_User</div>
+                <div class="text-[10px] text-gray-400">ADMINISTRATOR</div>
+            </div>
+        </div>
+        <div class="p-3 border-b border-white/5">
+            <div class="relative group">
+                <i data-lucide="search" class="absolute left-3 top-2.5 w-3 h-3 text-gray-500 group-focus-within:text-cyber-primary transition-colors"></i>
+                <input type="text" id="start-search" placeholder="Escribe para buscar..." class="w-full bg-black/40 border border-white/10 rounded py-2 pl-10 pr-3 text-xs text-white focus:border-cyber-primary outline-none transition-colors" autocomplete="off">
+            </div>
+        </div>
+        <div id="start-content" class="p-2 max-h-64 overflow-y-auto">
+            <div class="text-[10px] text-gray-500 font-bold px-2 py-1 uppercase mb-1">Aplicaciones</div>
+            <div class="grid grid-cols-1 gap-1" id="app-list"></div>
+        </div>
+        <div class="p-3 bg-black/40 border-t border-white/5 flex justify-between items-center">
+            <div class="text-[10px] text-gray-600">NEXUS v4.2</div>
+            <div class="flex gap-2 text-gray-400">
+                <i data-lucide="settings" class="w-4 h-4 hover:text-white cursor-pointer"></i>
+                <i data-lucide="log-out" class="w-4 h-4 hover:text-red-400 cursor-pointer" onclick="location.reload()"></i>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONTEXT MENU -->
+    <div id="context-menu" class="context-menu hidden" onclick="event.stopPropagation()"></div>
+
+    <!-- TRAY -->
+    <div id="tray-wifi" class="hidden absolute bottom-12 right-12 w-72 glass-panel z-50 rounded-lg p-3 text-sm animate-slide-up-fade" onclick="event.stopPropagation()">
+        <div class="flex justify-between items-center mb-3 border-b border-white/10 pb-2"><span class="font-bold text-gray-200">Redes</span><span class="text-xs text-cyber-success animate-pulse">Escaneando...</span></div>
+        <div class="space-y-1"><div class="flex items-center justify-between p-2 bg-cyber-primary/20 border border-cyber-primary/50 rounded cursor-pointer"><div class="flex items-center gap-2 text-white"><i data-lucide="wifi" class="w-4 h-4"></i><span>NEXUS_WIFI</span></div><span class="text-[10px] text-cyber-success">Conectado</span></div></div>
+    </div>
+    <div id="tray-volume" class="hidden absolute bottom-12 right-20 w-12 glass-panel z-50 rounded-lg p-3 flex flex-col items-center gap-3 animate-slide-up-fade" style="height: 150px" onclick="event.stopPropagation()">
+        <i data-lucide="volume-2" class="w-5 h-5 text-cyber-primary"></i>
+        <div class="h-full w-full flex justify-center"><input type="range" min="0" max="100" value="80" class="h-24 -rotate-90 origin-center w-24"></div>
+    </div>
+    <div id="tray-battery" class="hidden absolute bottom-12 right-8 w-64 glass-panel z-50 rounded-lg p-3 text-sm animate-slide-up-fade" onclick="event.stopPropagation()">
+        <div class="flex items-center gap-3 mb-4"><div class="text-3xl font-bold text-white">94%</div><div class="text-xs text-gray-400">Restante: 4h<br>Equilibrado</div></div>
+    </div>
+
+    <!-- TASKBAR -->
+    <div id="taskbar" class="absolute bottom-0 left-0 w-full h-12 bg-[#0a0a0f]/95 border-t border-white/5 backdrop-blur-md z-40 flex items-center justify-between px-2 hidden shadow-lg">
+        <div class="flex items-center gap-3 pl-1">
+            <div class="relative group cursor-pointer transition-transform active:scale-95" onclick="togglePopup('start-menu', event); setTimeout(()=>document.getElementById('start-search').focus(), 100)">
+                <img src="https://raw.githubusercontent.com/samilososami/portfolio/refs/heads/main/favicon.png" class="w-7 h-7 rounded hover:opacity-100 opacity-80 transition-opacity" onerror="this.src='data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSIjMDBmMGZmIiBzdHJva2Utd2lkdGg9IjIiIHN0cm9rZS1saW5lY2FwPSJyb3VuZCIgc3Ryb2tlLWxpbmVqb2luPSJyb3VuZCI+PHBhdGggZD0iTTIwIDIxdi0yYSs0IDQgMCAwIDAtNC00SDhhNCA0IDAgMCAwLTQgNHYyIi8+PGNpcmNsZSBjeD0iMTIiIGN5PSI3IiByPSI0Ii8+PC9zdmc+'">
+            </div>
+            <div id="taskbar-apps" class="flex gap-1 ml-2"></div>
+        </div>
+        <div class="flex items-center gap-2 pr-2">
+            <div class="flex items-center gap-1 hover:bg-white/5 rounded px-2 py-1 transition-colors border border-transparent hover:border-white/10">
+                <div class="hover:text-cyber-success cursor-pointer p-1.5" onclick="togglePopup('tray-wifi', event)"><i data-lucide="wifi" class="w-4 h-4"></i></div>
+                <div class="hover:text-cyber-primary cursor-pointer p-1.5" onclick="togglePopup('tray-volume', event)"><i data-lucide="volume-2" class="w-4 h-4"></i></div>
+                <div class="hover:text-cyber-warning cursor-pointer p-1.5" onclick="togglePopup('tray-battery', event)"><i data-lucide="battery" class="w-4 h-4"></i></div>
+            </div>
+            <div class="hover:bg-red-500/20 p-2 rounded cursor-pointer transition-colors text-gray-400 hover:text-red-400" onclick="location.reload()"><i data-lucide="power" class="w-4 h-4"></i></div>
+        </div>
+    </div>
+    <div class="absolute inset-0 z-50 pointer-events-none crt-overlay mix-blend-overlay opacity-30"></div>
+
+    <!-- WINDOW TEMPLATE -->
+    <template id="tpl-window">
+        <div class="absolute rounded flex flex-col glass-panel shadow-2xl transition-all duration-150 pointer-events-auto" style="width: 600px; height: 400px;">
+            <div class="window-header h-8 bg-white/5 border-b border-white/5 flex items-center justify-between px-3 cursor-grab active:cursor-grabbing select-none">
+                <div class="flex items-center gap-2 opacity-80">
+                    <i class="window-icon w-3.5 h-3.5"></i>
+                    <span class="window-title text-[11px] font-bold tracking-wider text-gray-200 uppercase">TITLE</span>
+                </div>
+                <div class="flex items-center gap-1">
+                    <button class="window-min p-1.5 hover:bg-white/10 rounded text-gray-400 hover:text-white" title="Minimizar"><i data-lucide="minus" class="w-3 h-3"></i></button>
+                    <button class="window-max p-1.5 hover:bg-white/10 rounded text-gray-400 hover:text-white" title="Maximizar"><i data-lucide="square" class="w-3 h-3"></i></button>
+                    <button class="window-close p-1.5 hover:bg-red-500 hover:text-white text-gray-400 rounded transition-colors" title="Cerrar"><i data-lucide="x" class="w-3 h-3"></i></button>
+                </div>
+            </div>
+            <div class="window-content flex-1 overflow-auto p-0 text-sm font-light relative flex flex-col bg-black/40"></div>
+            <div class="window-resize absolute bottom-0 right-0 w-4 h-4 cursor-se-resize flex items-end justify-end p-0.5 opacity-50 hover:opacity-100"><div class="w-1.5 h-1.5 border-b border-r border-gray-400"></div></div>
+            <div class="window-resizer n"  data-dir="n"></div><div class="window-resizer s"  data-dir="s"></div>
+            <div class="window-resizer e"  data-dir="e"></div><div class="window-resizer w"  data-dir="w"></div>
+            <div class="window-resizer ne" data-dir="ne"></div><div class="window-resizer nw" data-dir="nw"></div>
+            <div class="window-resizer se" data-dir="se"></div><div class="window-resizer sw" data-dir="sw"></div>
+        </div>
+    </template>
+
+    <!-- CONTENT: TERMINAL (DYNAMIC) -->
+    <div id="content-terminal" class="hidden">
+        <div class="h-full flex flex-col font-mono text-xs p-1 bg-[#0c0c0c] relative">
+            <div id="terminal-container" class="flex-1 overflow-y-auto p-2 text-gray-300 space-y-0.5 custom-scrollbar" onclick="if(this.lastElementChild) { const inp = this.lastElementChild.querySelector('input'); if(inp) inp.focus(); }"></div>
+            <div id="nano-editor" class="absolute inset-0 bg-[#0f0f13] flex-col hidden z-20">
+                <div class="bg-gray-200 text-black px-2 py-1 flex justify-between font-bold"><span>GNU nano 7.2</span><span id="nano-filename">File: buffer</span><span>Modified</span></div>
+                <textarea id="nano-content" class="flex-1 bg-[#0f0f13] text-white p-2 outline-none resize-none border-none font-mono"></textarea>
+                <div class="bg-gray-200 text-black px-2 py-1 grid grid-cols-2 gap-4 text-[10px]"><div class="cursor-pointer hover:bg-black hover:text-white px-1" onclick="nanoSave()"><span class="font-bold">^O</span> Write Out</div><div class="cursor-pointer hover:bg-black hover:text-white px-1" onclick="nanoExit()"><span class="font-bold">^X</span> Exit</div></div>
+                <div class="bg-[#181820] text-white px-2 py-0.5 text-center text-[10px]" id="nano-msg"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- APP CONTENT (WIFI) -->
+    <div id="content-wifi" class="hidden">
+        <div class="h-full flex flex-col bg-[#0f0f13] text-xs font-mono relative">
+            <div class="p-4 bg-white/5 flex justify-between items-center border-b border-white/5 z-10">
+                <button id="wifi-scan-btn" class="group bg-cyan-600/10 text-cyan-400 border border-cyan-500/50 hover:bg-cyan-600/30 px-4 py-1.5 rounded transition-all flex items-center gap-2 shadow-[0_0_10px_rgba(0,240,255,0.1)] hover:shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+                    <i data-lucide="radar" class="w-4 h-4 group-hover:rotate-180 transition-transform duration-700"></i> SCAN AIRWAVES
+                </button>
+                <div class="flex items-center gap-3">
+                    <div class="text-[10px] text-gray-500">INTERFACE: <span class="text-white">wlan0mon</span></div>
+                    <div class="w-2 h-2 rounded-full bg-green-500 shadow-[0_0_5px_#22c55e] animate-pulse"></div>
+                </div>
+            </div>
+            <div class="flex-1 overflow-y-auto relative">
+                <div id="wifi-radar-overlay" class="hidden absolute inset-0 z-20 flex flex-col items-center justify-center bg-black/80 backdrop-blur-sm">
+                    <div class="relative w-32 h-32 rounded-full border border-cyan-500/30 flex items-center justify-center">
+                        <div class="absolute inset-0 rounded-full border-t-2 border-cyan-400 animate-radar-sweep shadow-[0_0_15px_#00f0ff]"></div>
+                        <div class="absolute inset-0 rounded-full border border-cyan-500/10 animate-ping" style="animation-duration: 2s"></div>
+                        <i data-lucide="wifi" class="w-10 h-10 text-cyan-500/50"></i>
+                    </div>
+                    <div class="mt-4 text-cyan-400 font-bold tracking-widest animate-pulse">DETECTING SIGNALS...</div>
+                </div>
+                <table class="w-full text-left border-collapse">
+                    <thead class="bg-black/60 text-gray-500 sticky top-0 backdrop-blur-md z-10 text-[10px] uppercase tracking-wider">
+                        <tr><th class="p-3 border-b border-white/10">SSID</th><th class="p-3 border-b border-white/10">BSSID (MAC)</th><th class="p-3 border-b border-white/10">Signal (dBm)</th><th class="p-3 border-b border-white/10">CH</th><th class="p-3 border-b border-white/10">Sec</th></tr>
+                    </thead>
+                    <tbody id="wifi-list" class="text-gray-300"></tbody>
+                </table>
+                <div id="wifi-empty" class="flex flex-col items-center justify-center h-full text-gray-600 gap-2"><i data-lucide="radio" class="w-12 h-12 opacity-20"></i><span>Ready to scan...</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- WIFI DETAILS -->
+    <div id="content-wifi-details" class="hidden">
+        <div class="h-full bg-[#0b0b10] flex font-mono text-xs relative">
+            <div class="w-1/2 flex flex-col border-r border-white/10 bg-black/20">
+                <div class="p-4 border-b border-white/10">
+                    <div class="text-gray-500 text-[9px] uppercase tracking-widest mb-1">Target Network</div>
+                    <div class="text-xl text-white font-bold tracking-wide drop-shadow-md truncate" id="wd-ssid">unknown</div>
+                    <div class="text-cyan-400/80 font-mono text-[10px] mt-1" id="wd-bssid">00:00:00:00:00:00</div>
+                </div>
+                <div class="flex-1 p-4 space-y-4 overflow-y-auto custom-scrollbar">
+                    <div class="space-y-2"><div class="text-[9px] text-gray-600 uppercase font-bold border-b border-white/5 pb-1">Hardware Info</div><div class="flex justify-between"><span class="text-gray-400">Vendor</span><span class="text-white" id="wd-vendor">Unknown</span></div><div class="flex justify-between"><span class="text-gray-400">Channel</span><span class="text-white" id="wd-ch">1</span></div><div class="flex justify-between"><span class="text-gray-400">Frequency</span><span class="text-white" id="wd-freq">2.412 GHz</span></div></div>
+                     <div class="space-y-2"><div class="text-[9px] text-gray-600 uppercase font-bold border-b border-white/5 pb-1">Security</div><div class="flex justify-between"><span class="text-gray-400">Encryption</span><span class="text-green-400 font-bold" id="wd-enc">WPA2</span></div><div class="flex justify-between"><span class="text-gray-400">Cipher</span><span class="text-white">CCMP</span></div><div class="flex justify-between"><span class="text-gray-400">Auth</span><span class="text-white">PSK</span></div><div class="flex justify-between"><span class="text-gray-400">WPS</span><span class="text-red-400" id="wd-wps">Locked</span></div></div>
+                    <div class="space-y-2"><div class="text-[9px] text-gray-600 uppercase font-bold border-b border-white/5 pb-1">Telemetry</div><div class="flex justify-between"><span class="text-gray-400">Signal</span><span class="text-white" id="wd-signal">-</span></div><div class="flex justify-between"><span class="text-gray-400">Clients</span><span class="text-white" id="wd-clients">0</span></div><div class="flex justify-between"><span class="text-gray-400">Beacon</span><span class="text-white">100ms</span></div></div>
+                </div>
+            </div>
+            <div class="w-1/2 flex flex-col relative bg-gradient-to-b from-black/40 to-transparent">
+                <div id="capture-visual" class="flex-1 relative flex flex-col items-center justify-center">
+                    <div id="capture-idle" class="flex flex-col items-center gap-2 opacity-50"><div class="w-16 h-16 border border-dashed border-gray-600 rounded-full flex items-center justify-center"><i data-lucide="crosshair" class="w-6 h-6 text-gray-600"></i></div><span class="text-[10px] text-gray-600">Ready to engage</span></div>
+                    <div id="capture-active" class="hidden absolute inset-0 flex flex-col items-center justify-center"><div class="absolute inset-0 flex items-center justify-center"><div class="w-32 h-32 border border-red-500/30 rounded-full animate-ping" style="animation-duration: 2s"></div><div class="w-20 h-20 border border-red-500/50 rounded-full animate-ping" style="animation-duration: 2s; animation-delay: 1s"></div></div><i id="capture-icon" data-lucide="radio-receiver" class="w-8 h-8 text-red-500 relative z-10 mb-4"></i><div id="capture-text" class="text-red-400 font-bold tracking-widest text-[10px] relative z-10 animate-pulse text-center">INJECTING<br>FRAMES</div></div>
+                </div>
+                <div class="h-1/3 border-t border-white/10 bg-black/40 p-3 flex flex-col justify-end gap-3">
+                    <div class="space-y-1"><div class="flex justify-between text-[9px] text-gray-400 uppercase font-bold"><span id="cap-status-line">Status: IDLE</span><span id="cap-timer">00:00</span></div><div class="h-1 bg-gray-800 rounded overflow-hidden"><div id="capture-bar" class="h-full bg-red-500 w-0 transition-all duration-300"></div></div></div>
+                    <button id="btn-capture" class="w-full py-2 bg-white/5 border border-white/10 hover:border-red-500/50 hover:bg-red-500/10 text-gray-300 hover:text-red-400 transition-all flex justify-center items-center gap-2 group rounded text-[11px] font-bold tracking-wider">CAPTURE HANDSHAKE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CRACKER -->
+    <div id="content-cracker" class="hidden">
+        <div class="flex flex-col h-full bg-black/60 p-6 items-center justify-center relative">
+            <div id="cracker-init" class="flex flex-col items-center gap-6 w-full max-w-sm text-center">
+                <div class="w-24 h-24 rounded-full bg-cyber-danger/10 border border-cyber-danger/50 flex items-center justify-center animate-pulse-fast"><i data-lucide="unlock" class="w-10 h-10 text-cyber-danger"></i></div>
+                <div class="space-y-2"><h2 class="text-lg font-bold text-white tracking-widest">WPA2 CRACKER</h2><p class="text-gray-400 text-xs">Seleccione un archivo de captura (.pcap) para iniciar el ataque de fuerza bruta.</p></div>
+                <button id="btn-select-pcap" class="px-6 py-2 bg-cyber-danger text-black font-bold rounded hover:bg-red-400 transition-colors flex items-center gap-2"><i data-lucide="folder-search" class="w-4 h-4"></i> SELECCIONAR ARCHIVO</button>
+            </div>
+            <div id="cracker-process" class="hidden w-full max-w-md space-y-6">
+                <div class="font-mono text-xs space-y-1 text-cyber-danger h-32 overflow-hidden relative border border-cyber-danger/20 p-2 bg-black/50" id="cracker-log"></div>
+                <div class="space-y-2"><div class="flex justify-between text-xs font-bold text-gray-400"><span id="crack-status">INITIALIZING...</span><span id="crack-progress">0%</span></div><div class="h-2 bg-gray-800 rounded overflow-hidden"><div id="crack-bar" class="h-full bg-cyber-danger w-0 transition-all duration-100"></div></div></div>
+                <div class="text-center bg-black/40 border border-white/5 rounded p-4"><div class="text-[10px] text-gray-500 uppercase tracking-widest mb-3">TARGET PASSWORD</div><div id="crack-display" class="flex flex-wrap justify-center gap-1 text-3xl font-mono font-bold text-white tracking-wider min-h-[40px]"></div></div>
+            </div>
+            <div id="cracker-success" class="hidden flex flex-col items-center gap-4 text-center animate-slide-up-fade">
+                <div class="w-20 h-20 rounded-full border-2 border-green-500 flex items-center justify-center bg-green-500/10"><i data-lucide="check" class="w-10 h-10 text-green-500"></i></div>
+                <div><h2 class="text-xl font-bold text-green-400">KEY FOUND</h2><div class="text-3xl font-mono font-bold text-white mt-2 p-3 bg-white/10 rounded select-all tracking-widest border border-green-500/30" id="final-password">PASSWORD</div></div>
+                <div class="text-xs text-gray-500 mt-2">Saved to /home/root/cracker/cracked.txt</div>
+                <button class="mt-4 px-6 py-2 border border-white/20 hover:bg-white/10 rounded text-gray-300 text-xs uppercase tracking-wide" onclick="wm.openWindow('cracker')">Nueva Operación</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SYSMON -->
+    <div id="content-sysmon" class="hidden">
+        <div class="h-full flex flex-col gap-4 p-4 bg-black/40 text-xs font-mono overflow-y-auto">
+            <div class="grid grid-cols-2 gap-4 h-32">
+                <div class="bg-black/40 border border-white/5 p-3 rounded flex flex-col relative overflow-hidden group hover:border-cyber-primary/30 transition-colors"><div class="flex justify-between items-center mb-2 z-10"><span class="text-cyber-primary font-bold">CPU CORE</span><span class="text-white font-bold" id="sys-cpu-val">0%</span></div><div class="flex-1 flex items-end gap-1 z-10" id="sys-cpu-graph"></div><div class="absolute inset-0 bg-gradient-to-t from-cyber-primary/5 to-transparent pointer-events-none"></div></div>
+                <div class="bg-black/40 border border-white/5 p-3 rounded flex flex-col relative hover:border-cyber-secondary/30 transition-colors"><div class="flex justify-between items-center mb-2"><span class="text-cyber-secondary font-bold">GPU LOAD</span><span class="text-white font-bold" id="sys-gpu-val">0%</span></div><div class="flex-1 flex items-end gap-1" id="sys-gpu-graph"></div><div class="absolute inset-0 bg-gradient-to-t from-cyber-secondary/5 to-transparent pointer-events-none"></div></div>
+            </div>
+            <div class="grid grid-cols-2 gap-4 h-24">
+                 <div class="bg-black/40 border border-white/5 p-3 rounded flex flex-col justify-between hover:border-cyber-success/30 transition-colors"><span class="text-cyber-success font-bold">MEMORY (RAM)</span><div class="flex items-end gap-2"><div class="text-2xl text-white font-bold" id="sys-ram-val">0.0 GB</div><div class="text-gray-500 mb-1">/ 64 GB</div></div><div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden"><div id="sys-ram-bar" class="h-full bg-cyber-success w-0 transition-all duration-500 shadow-[0_0_10px_rgba(0,255,157,0.5)]"></div></div></div>
+                 <div class="bg-black/40 border border-white/5 p-3 rounded flex flex-col gap-1 text-[10px] justify-center"><div class="flex justify-between border-b border-white/5 pb-1"><span class="text-gray-400">UPTIME</span><span class="text-white font-mono">14:22:01</span></div><div class="flex justify-between border-b border-white/5 pb-1 pt-1"><span class="text-gray-400">TASKS</span><span class="text-white font-mono">142 active</span></div><div class="flex justify-between pt-1"><span class="text-gray-400">TEMP</span><span class="text-cyber-warning font-bold animate-pulse">42°C</span></div></div>
+            </div>
+            <div class="flex-1 bg-black/40 border border-white/5 rounded p-0 overflow-hidden flex flex-col"><div class="bg-white/5 p-2 flex justify-between text-[10px] text-gray-500 font-bold border-b border-white/5"><span class="w-1/2">PROCESS NAME</span><span class="w-1/4 text-right">PID</span><span class="w-1/4 text-right">CPU</span></div><div class="flex-1 overflow-y-auto p-2 space-y-1 custom-scrollbar" id="sys-proc-list"></div></div>
+        </div>
+    </div>
+
+    <!-- NETWORK -->
+    <div id="content-network" class="hidden">
+        <div class="h-full flex flex-col bg-black/40 text-xs font-mono relative overflow-hidden">
+            <div class="absolute inset-0 bg-grid opacity-20 pointer-events-none"></div>
+            <div class="flex-1 relative" id="net-map-container"><canvas id="net-canvas" class="block w-full h-full"></canvas><div class="absolute top-3 left-3 p-2 bg-black/80 border border-cyber-primary/30 rounded backdrop-blur"><div class="text-cyber-primary font-bold animate-pulse">SCANNING NETWORK...</div><div class="text-[10px] text-gray-400 mt-1">TARGET: 192.168.0.x/24</div><div class="text-[10px] text-gray-500">NODES FOUND: <span class="text-white">5</span></div></div></div>
+            <div class="h-32 border-t border-white/10 bg-black/80 p-2 overflow-y-auto font-mono text-[10px] custom-scrollbar" id="net-logs"><div class="text-gray-500">> Initializing network mapper...</div></div>
+        </div>
+    </div>
+
+    <!-- FILE EXPLORER -->
+    <div id="content-files" class="hidden">
+        <div class="flex h-full flex-1" oncontextmenu="fm.handleRightClick(event, 'window')">
+            <div class="w-44 bg-[#181820] border-r border-white/5 p-2 flex flex-col gap-1 text-xs select-none">
+                <div class="px-2 py-1.5 text-gray-500 font-bold uppercase text-[10px] mt-2">Favoritos</div>
+                <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded cursor-pointer text-gray-300 transition-colors" onclick="fm.navigateTo(['home','Desktop'])"><i data-lucide="monitor" class="w-3.5 h-3.5 text-purple-400"></i> Desktop</div>
+                <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded cursor-pointer text-gray-300 transition-colors" onclick="fm.navigateTo(['home','root','documents'])"><i data-lucide="file-text" class="w-3.5 h-3.5 text-yellow-400"></i> Documents</div>
+                <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded cursor-pointer text-gray-300 transition-colors" onclick="fm.navigateTo(['home','root','handshakes'])"><i data-lucide="hash" class="w-3.5 h-3.5 text-red-400"></i> Handshakes</div>
+                <div class="flex items-center gap-2 px-2 py-1.5 hover:bg-white/5 rounded cursor-pointer text-gray-300 transition-colors" onclick="fm.navigateTo(['home','root'])"><i data-lucide="home" class="w-3.5 h-3.5 text-blue-400"></i> Home</div>
+                <div class="px-2 py-1.5 text-gray-500 font-bold uppercase text-[10px] mt-4">Unidades</div>
+                <div class="flex items-center gap-2 px-2 py-1.5 bg-white/5 rounded text-white cursor-pointer"><i data-lucide="hard-drive" class="w-3.5 h-3.5 text-gray-400"></i> Local (C:)</div>
+            </div>
+            <div class="flex-1 flex flex-col bg-[#0f0f13]">
+                <div class="h-10 border-b border-white/5 flex items-center px-3 gap-2 bg-[#181820]">
+                    <button class="btn-up p-1.5 hover:bg-white/10 rounded text-gray-400 transition-colors"><i data-lucide="arrow-up" class="w-4 h-4"></i></button>
+                    <div class="breadcrumb flex-1 bg-black/20 border border-white/5 rounded px-3 py-1.5 text-xs text-gray-400 font-mono overflow-hidden whitespace-nowrap select-all">/home</div>
+                    <div class="flex gap-1">
+                        <button class="p-1.5 hover:bg-white/10 rounded text-gray-400" title="Nueva Carpeta" onclick="fm.createFolder()"><i data-lucide="folder-plus" class="w-4 h-4"></i></button>
+                        <button class="p-1.5 hover:bg-white/10 rounded text-gray-400" title="Nuevo Archivo" onclick="fm.createFile()"><i data-lucide="file-plus" class="w-4 h-4"></i></button>
+                    </div>
+                </div>
+                <div class="file-grid p-4 grid grid-cols-5 gap-2 overflow-y-auto content-start flex-1" onclick="fm.clearSelection()"></div>
+                <div class="h-6 bg-[#181820] border-t border-white/5 flex items-center px-3 justify-between text-[10px] text-gray-500 select-none">
+                    <span class="file-count">0 items</span>
+                    <span>Read/Write</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- FILE PICKER -->
+    <template id="tpl-file-picker">
+        <div class="flex flex-col h-full bg-[#181820] text-xs">
+            <div class="p-2 border-b border-white/10 flex items-center gap-2 bg-black/20">
+                <button class="btn-up p-1 hover:bg-white/10 rounded text-gray-400"><i data-lucide="arrow-up" class="w-4 h-4"></i></button>
+                <div class="breadcrumb flex-1 bg-black/40 px-2 py-1 rounded text-gray-400 font-mono truncate">/home</div>
+            </div>
+            <div class="flex-1 p-2 overflow-y-auto grid grid-cols-4 gap-2 content-start bg-[#0f0f13] file-grid"></div>
+            <div class="p-2 border-t border-white/10 flex justify-end gap-2 bg-black/20">
+                <button class="btn-cancel px-3 py-1 text-gray-400 hover:text-white">Cancelar</button>
+                <button class="btn-select px-4 py-1 bg-blue-600 text-white rounded hover:bg-blue-500 disabled:opacity-50 disabled:cursor-not-allowed" disabled>Escoger</button>
+            </div>
+        </div>
+    </template>
+
+    <!-- Main Application Logic -->
+    <script src="assets/app.js"></script>
+</body>
+</html>
