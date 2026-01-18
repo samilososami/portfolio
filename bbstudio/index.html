@@ -1,0 +1,348 @@
+<!doctype html>
+<html lang="es" data-theme="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Bash Bunny Payload Studio + AI</title>
+
+  <!-- Favicons -->
+  <link rel="icon" href="favicon.ico" sizes="any">
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- Fonts: Inter for UI, JetBrains Mono for Editor -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos Externos -->
+  <link rel="stylesheet" href="assets/styles.css">
+</head>
+
+<body>
+  <div class="app-container">
+    <!-- ACTIVITY BAR -->
+    <div class="activity-bar">
+      <div class="activity-icon active" data-target="explorer" title="Explorer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+      </div>
+
+      <div class="activity-icon" data-target="snippets" title="Snippets">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+      </div>
+
+      <div class="activity-icon" data-target="search" title="Find/Replace">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="11" cy="11" r="8"></circle>
+          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        </svg>
+      </div>
+
+      <!-- NEW CONSOLE ICON -->
+      <div class="activity-icon" data-target="console" title="Console">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="4 17 10 11 4 5"></polyline>
+          <line x1="12" y1="19" x2="20" y2="19"></line>
+        </svg>
+      </div>
+
+      <!-- ChatGPT Icon -->
+      <div class="activity-icon" data-target="chatgpt" title="ChatGPT AI">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" alt="ChatGPT" style="filter: invert(1); opacity: 0.8;">
+      </div>
+
+      <div style="flex:1"></div>
+
+      <div class="activity-icon" id="btnSettings" title="Settings">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </div>
+    </div>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <div id="view-explorer" class="sidebar-content active">
+        <div class="sidebar-header">Explorer</div>
+        <div id="fileList"></div>
+      </div>
+
+      <div id="view-snippets" class="sidebar-content">
+        <div class="sidebar-header">Snippets</div>
+        <div id="snippetList"></div>
+      </div>
+
+      <div id="view-search" class="sidebar-content">
+        <div class="sidebar-header">Search</div>
+        <div style="padding:16px;" class="search-group">
+          <input id="findInput" placeholder="Find in file..." autocomplete="off">
+          <input id="replaceInput" placeholder="Replace with..." autocomplete="off">
+          <div class="grid-2" style="margin-top:12px;">
+            <button class="btn" id="btnFindNext">Next</button>
+            <button class="btn" id="btnReplace">Replace</button>
+          </div>
+          <button class="btn" style="width:100%; margin-top:8px;" id="btnReplaceAll">Replace All</button>
+        </div>
+      </div>
+
+      <!-- NEW CONSOLE VIEW -->
+      <div id="view-console" class="sidebar-content" style="flex-direction:column; height:100%; padding:0; background: #0c0c0c;">
+        <div class="sidebar-header" style="background:#111; border-bottom:1px solid #333;">
+          <span>Bash Terminal</span>
+          <div class="console-expand-btn" id="btnConsoleExp" onclick="toggleViewFull('view-console', 'btnConsoleExp')" title="Expandir/Contraer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+        <div id="console-output" onclick="focusConsole()">
+          <div style="opacity:0.5; margin-bottom:10px;">BashBunny Environment v1.0<br>Type 'clear' to clean. Commands run via Piston API.</div>
+          <!-- Dynamic prompts will be appended here -->
+        </div>
+      </div>
+
+      <!-- CHATGPT VIEW -->
+      <div id="view-chatgpt" class="sidebar-content" style="flex-direction:column; height:100%; padding:0; background: var(--bg-sidebar);">
+        <div class="sidebar-header" style="background:var(--bg-panel-header); border-bottom:1px solid var(--border);">
+          <span>ChatGPT Assistant</span>
+          <div class="console-expand-btn" id="btnChatExp" onclick="toggleViewFull('view-chatgpt', 'btnChatExp')" title="Expandir/Contraer">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" width="16" height="16" stroke-width="2.5"><polyline points="9 18 15 12 9 6"></polyline></svg>
+          </div>
+        </div>
+        <div id="chatgpt-output">
+          <div class="chat-msg ai">Hello! I can analyze your code and create payloads. Set your API Key in Settings first.</div>
+        </div>
+        <div class="chat-input-area">
+          <textarea id="chatInput" placeholder="Ask ChatGPT..." onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();sendChat();}"></textarea>
+          <button class="icon-btn" onclick="sendChat()" style="width:40px; height:40px; align-self:flex-end; background:var(--btn-active); color:var(--btn-active-fg); border:none;"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></button>
+        </div>
+      </div>
+    </div>
+
+    <!-- MAIN EDITOR -->
+    <div class="main-editor">
+      <div class="toolbar">
+        <div class="file-tabs">
+          <div class="tab">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path>
+              <polyline points="13 2 13 9 20 9"></polyline>
+            </svg>
+            <span id="activeFileName">payload.txt</span>
+          </div>
+        </div>
+
+        <div class="tool-actions">
+          <div id="saveInd" class="autosave-icon" title="Auto-saved">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+              <path d="M19 16.5c2.2 0 4-1.8 4-4 0-1.9-1.4-3.5-3.2-3.9-.3-2.3-2.3-4.1-4.8-4.1-2.1 0-4 1.4-4.7 3.3-.3-.1-.7-.2-1-.2-2.8 0-5 2.2-5 5 0 .3.1.7.2 1"></path>
+              <polyline points="12 14 12 22"></polyline>
+              <polyline points="8 18 12 22 16 18"></polyline>
+            </svg>
+          </div>
+
+          <button class="icon-btn" id="btnAutoFix" title="Auto Fix with AI" style="color:#a78bfa;" onclick="autoFix()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2a3 3 0 0 0-3 3v7a3 3 0 0 0 6 0V5a3 3 0 0 0-3-3Z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line></svg></button>
+
+          <div class="divider"></div>
+
+          <!-- Run / Simulate Button -->
+          <button class="icon-btn" id="btnRun" title="Run Payload (Ctrl+M)" style="color: #4dff88;">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </button>
+
+          <div class="divider"></div>
+
+          <button class="icon-btn" id="btnNew" title="New File">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path>
+              <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path>
+            </svg>
+          </button>
+
+          <button class="icon-btn" id="btnSave" title="Save (Ctrl+S)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"></path>
+              <polyline points="17 21 17 13 7 13 7 21"></polyline>
+              <polyline points="7 3 7 8 15 8"></polyline>
+            </svg>
+          </button>
+
+          <div class="divider"></div>
+
+          <button class="icon-btn" id="btnLint" title="Lint Code">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+              <polyline points="22 4 12 14.01 9 11.01"></polyline>
+            </svg>
+          </button>
+
+          <button class="icon-btn" id="btnExport" title="Export .txt">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+          </button>
+
+          <div class="divider"></div>
+
+          <button class="icon-btn" id="btnDelete" title="Delete File" style="color: #f7768e">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="3 6 5 6 21 6"></polyline>
+              <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <div class="editor-wrapper">
+        <div class="gutter" id="gutter"></div>
+        <div class="code-container">
+          <pre id="highlight" aria-hidden="true"></pre>
+          <div id="selLayer" aria-hidden="true"></div>
+          <textarea id="editor" spellcheck="false" autocomplete="off" autocapitalize="off"></textarea>
+        </div>
+
+        <!-- TERMINAL PANEL (Bottom) -->
+        <div id="term-panel">
+          <div class="term-header">
+            <span>Remote Execution (Piston API)</span>
+            <span class="term-close" onclick="toggleTerm(false)">✕</span>
+          </div>
+          <div id="term-content"></div>
+        </div>
+      </div>
+
+      <div class="status-bar">
+        <div class="status-left">
+          <div class="status-item" id="stLineCol">Ln 1, Col 1</div>
+        </div>
+        <div class="status-right">
+          <div class="status-item" id="stIndent">Spaces: 2</div>
+          <div class="status-item" id="stLang">Bash Bunny</div>
+          <div class="status-item" id="stTheme">Neon Dark</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- AUTOCOMPLETE -->
+  <div id="ac"></div>
+
+  <!-- ERROR TIP -->
+  <div id="errTip" aria-hidden="true">
+    <div class="et-head">
+      <svg class="et-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+        <line x1="12" y1="9" x2="12" y2="13"></line>
+        <line x1="12" y1="17" x2="12.01" y2="17"></line>
+      </svg>
+      <div class="et-title" id="errTitle">Error</div>
+    </div>
+    <div class="et-msg" id="errMsg">Message</div>
+  </div>
+
+  <!-- TOAST -->
+  <div id="toast">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+      <polyline points="20 6 9 17 4 12"></polyline>
+    </svg>
+    <span id="toastMsg">Saved successfully</span>
+  </div>
+
+  <!-- WARNING POPUP -->
+  <div id="warn" role="alert" aria-live="polite">
+    <svg class="w-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+      <line x1="12" y1="9" x2="12" y2="13"></line>
+      <line x1="12" y1="17" x2="12.01" y2="17"></line>
+    </svg>
+    <div class="w-wrap">
+      <div class="w-title">commands.txt no encontrado</div>
+      <div class="w-text" id="warnText">No se pudo cargar ./commands.txt.</div>
+    </div>
+  </div>
+
+  <!-- SETTINGS DIALOG -->
+  <dialog id="dlgSettings">
+    <div class="dlg-header">Settings <button onclick="closeDlg('dlgSettings')" style="background:none;border:none;color:inherit;cursor:pointer">✕</button></div>
+    <div class="dlg-body">
+      <div class="grid-2">
+        <div>
+          <div class="label">Theme</div>
+          <select id="prefTheme">
+            <option value="dark">Neon Dark</option>
+            <option value="light">Clean Light</option>
+          </select>
+        </div>
+        <div>
+          <div class="label">Font Size</div>
+          <input type="number" id="prefFontSize" value="14" min="10" max="24">
+        </div>
+      </div>
+
+      <div class="switch-container">
+        <span class="switch-label">Autocomplete</span>
+        <label class="switch">
+          <input type="checkbox" id="prefAC" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-container">
+        <span class="switch-label">Word Wrap</span>
+        <label class="switch">
+          <input type="checkbox" id="prefWrap">
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="switch-container">
+        <span class="switch-label">Error Highlighting</span>
+        <label class="switch">
+          <input type="checkbox" id="prefErr" checked>
+          <span class="slider"></span>
+        </label>
+      </div>
+
+      <div class="label" style="margin-top:24px">ChatGPT API Key</div>
+      <input id="prefAiKey" type="password" placeholder="sk-...">
+
+      <div class="label" style="margin-top:16px">Project Meta (Name)</div>
+      <input id="metaName" placeholder="Payload Name">
+
+      <div class="label" style="margin-top:16px">Accent Color</div>
+      <input type="color" id="prefAccent" value="#fb923c" style="height:44px;padding:4px;cursor:pointer;width:100%">
+    </div>
+    <div class="dlg-footer">
+      <button class="btn primary" id="btnSavePrefs">Save Settings</button>
+    </div>
+  </dialog>
+
+  <!-- NEW FILE DIALOG -->
+  <dialog id="dlgNewFile">
+    <div class="dlg-header">New File <button onclick="closeDlg('dlgNewFile')" style="background:none;border:none;color:inherit;cursor:pointer">✕</button></div>
+    <div class="dlg-body">
+      <div class="label">Filename</div>
+      <input id="newFileName" placeholder="e.g. payload.txt" />
+      <div class="label" style="color:var(--fg-secondary)">Tip: use <b>.sh</b> for shell payloads.</div>
+    </div>
+    <div class="dlg-footer">
+      <button class="btn" id="btnCancelNew">Cancel</button>
+      <button class="btn primary" id="btnCreateNew">Create</button>
+    </div>
+  </dialog>
+
+  <!-- Script Principal -->
+  <script src="assets/app.js"></script>
+</body>
+</html>

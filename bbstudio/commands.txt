@@ -1,0 +1,516 @@
+format: COMMAND|TYPE|DESCRIPTION
+
+TYPE can be: function | arg | bash | condition | loop
+
+ATTACKMODE|function|Sets Bash Bunny attack modes (HID, STORAGE, RNDIS_ETHERNET, SERIAL)
+LED|function|Sets the LED status/color (R, G, B, Y, C, M, W, OFF, SPECIAL)
+QUACK|function|Sends keystrokes / ducky-style commands (STRING, ENTER, DELAY, GUI, ALT, CTRL, SHIFT)
+Q|function|Alias for QUACK
+REQUIRETOOL|function|Validates that a required tool exists
+WAIT_FOR_PRESENT|function|Waits until a USB device ID is present
+WAIT_FOR_TARGET|function|Waits for the target to be ready
+DELAY|function|Pauses execution for the given milliseconds
+RUN|function|Executes a script or command
+GET|function|Retrieves/exfiltrates a file (loot helper)
+WOW|function|Prints wow on console
+
+HID|arg|Attack mode: HID keyboard
+STORAGE|arg|Attack mode: Mass Storage
+RNDIS_ETHERNET|arg|Attack mode: RNDIS Ethernet
+SERIAL|arg|Attack mode: Serial
+STRING|arg|QUACK: types the following text
+ENTER|arg|QUACK: press Enter
+GUI|arg|QUACK: press GUI/Windows key (Meta)
+ALT|arg|QUACK: press Alt
+CTRL|arg|QUACK: press Ctrl
+SHIFT|arg|QUACK: press Shift
+
+----------------------------
+
+Bash builtins / keywords
+
+----------------------------
+
+read|bash|Read input into variable(s)
+echo|bash|Print text
+printf|bash|Formatted output
+cd|bash|Change directory
+pwd|bash|Print working directory
+exit|bash|Exit shell/script
+return|bash|Return from a function
+break|loop|Break out of a loop
+continue|loop|Continue to next loop iteration
+if|condition|Start conditional block
+then|condition|Begin conditional body
+elif|condition|Else-if branch
+else|condition|Else branch
+fi|condition|End conditional block
+case|condition|Pattern matching multi-branch statement
+in|loop|Used in case/select/for constructs
+esac|condition|End case statement
+for|loop|For loop
+while|loop|While loop
+until|loop|Until loop
+do|loop|Begin loop body
+done|loop|End loop body
+select|loop|Interactive menu loop
+function|bash|Define a function
+export|bash|Export variable to environment
+unset|bash|Unset variables/functions
+set|bash|Set shell options/positional parameters
+shift|bash|Shift positional parameters
+getopts|bash|Parse short options
+trap|bash|Run handler on signals/exit
+alias|bash|Create an alias
+unalias|bash|Remove an alias
+source|bash|Load a file into current shell
+.|bash|Load a file into current shell (dot)
+eval|bash|Evaluate a string as code
+exec|bash|Replace shell with a command
+test|condition|Evaluate expressions ([ ... ])
+declare|bash|Declare variables and attributes
+local|bash|Create local variable (inside function)
+readonly|bash|Mark variable as read-only
+let|bash|Arithmetic evaluation
+true|condition|Always succeeds (exit code 0)
+false|condition|Always fails (exit code 1)
+type|bash|Show how a command name is interpreted
+command|bash|Run a command bypassing functions/aliases
+help|bash|Help for shell builtins
+history|bash|Show command history
+jobs|bash|List background jobs
+fg|bash|Bring job to foreground
+bg|bash|Resume job in background
+wait|bash|Wait for process/job to finish
+kill|bash|Send a signal to a process/job
+ulimit|bash|Set resource limits
+umask|bash|Set default permission mask
+
+----------------------------
+
+Core utils (files / dirs)
+
+----------------------------
+
+ls|bash|List directory contents
+dir|bash|List directory contents (dir-style)
+vdir|bash|List directory contents (verbose dir-style)
+tree|bash|Display directory tree
+stat|bash|Show file metadata and timestamps
+file|bash|Detect file type
+touch|bash|Create file / update timestamps
+cp|bash|Copy files/directories
+mv|bash|Move/rename files/directories
+rm|bash|Remove files/directories
+rmdir|bash|Remove empty directories
+mkdir|bash|Create directories
+ln|bash|Create hard/symbolic links
+unlink|bash|Remove a single file/link
+install|bash|Copy files and set mode/owner
+chmod|bash|Change file permissions
+chown|bash|Change file owner (and group)
+chgrp|bash|Change file group
+mount|bash|Mount a filesystem
+umount|bash|Unmount a filesystem
+df|bash|Show filesystem disk space usage
+du|bash|Show directory/file space usage
+find|bash|Search files by name/attrs
+locate|bash|Quick file search using database
+updatedb|bash|Update locate database
+whereis|bash|Locate binary/source/man page for a command
+which|bash|Locate executable in PATH
+realpath|bash|Resolve absolute path
+readlink|bash|Print resolved path of symlink (or target)
+basename|bash|Strip directory and suffix from path
+dirname|bash|Strip last path component
+mktemp|bash|Create temporary file/dir
+sync|bash|Flush filesystem buffers
+dd|bash|Block-level copy/convert data
+tee|bash|Write stdin to stdout and file(s)
+xargs|bash|Build/execute commands from stdin
+watch|bash|Run a command repeatedly
+time|bash|Measure command execution time
+sleep|bash|Pause for a specified time
+nohup|bash|Run command immune to hangups
+nice|bash|Run with adjusted priority
+renice|bash|Change priority of a running process
+chroot|bash|Run command with a different root directory
+
+----------------------------
+
+Text viewing / editing
+
+----------------------------
+
+cat|bash|Print file contents
+tac|bash|Print file contents in reverse
+less|bash|Scrollable pager
+more|bash|Simple pager
+head|bash|Print first lines of a file
+tail|bash|Print last lines of a file (use -f to follow)
+nl|bash|Number lines of files
+od|bash|Dump files in octal/hex/format
+hexdump|bash|Hex dump
+strings|bash|Extract printable strings from binaries
+nano|bash|Terminal text editor
+vim|bash|Advanced terminal text editor
+vi|bash|Classic terminal text editor
+emacs|bash|Extensible text editor
+sed|bash|Stream editor (search/replace/transform)
+awk|bash|Pattern scanning and processing language
+grep|bash|Search text for patterns
+egrep|bash|Search using extended regex (often grep -E)
+fgrep|bash|Search fixed strings (often grep -F)
+rg|bash|Fast recursive search (ripgrep)
+cut|bash|Extract columns/fields from lines
+paste|bash|Merge lines side-by-side
+join|bash|Join lines on a common field
+sort|bash|Sort lines
+uniq|bash|Filter adjacent duplicates
+wc|bash|Count lines/words/bytes
+tr|bash|Translate/delete characters
+rev|bash|Reverse characters per line
+fmt|bash|Simple text reformatter
+fold|bash|Wrap lines to a given width
+pr|bash|Paginate/format for printing
+expand|bash|Convert tabs to spaces
+unexpand|bash|Convert spaces to tabs
+split|bash|Split a file into chunks
+csplit|bash|Split a file by context
+diff|bash|Compare files line-by-line
+cmp|bash|Compare files byte-by-byte
+comm|bash|Compare two sorted files linewise
+patch|bash|Apply a diff/patch to files
+column|bash|Align text into columns
+
+----------------------------
+
+Archives / compression
+
+----------------------------
+
+tar|bash|Create/extract tar archives
+gzip|bash|Gzip compression
+gunzip|bash|Gzip decompression
+zcat|bash|View gzip-compressed content
+bzip2|bash|Bzip2 compression
+bunzip2|bash|Bzip2 decompression
+xz|bash|XZ compression
+unxz|bash|XZ decompression
+zip|bash|Create zip archives
+unzip|bash|Extract zip archives
+7z|bash|7-Zip archiver
+rar|bash|Create rar archives (if available)
+unrar|bash|Extract rar archives (if available)
+lz4|bash|LZ4 compression/decompression
+zstd|bash|Zstandard compression/decompression
+pigz|bash|Parallel gzip compression
+
+----------------------------
+
+Users / permissions / auth
+
+----------------------------
+
+id|bash|Show user/group IDs
+whoami|bash|Print effective username
+who|bash|Show logged-in users
+w|bash|Show logged-in users and activity
+last|bash|Show last logins
+groups|bash|Show group memberships
+passwd|bash|Change user password
+chage|bash|View/change password aging info
+su|bash|Switch user
+sudo|bash|Run command as another user (often root)
+visudo|bash|Safely edit sudoers configuration
+useradd|bash|Create a user
+usermod|bash|Modify a user
+userdel|bash|Delete a user
+groupadd|bash|Create a group
+groupmod|bash|Modify a group
+groupdel|bash|Delete a group
+gpasswd|bash|Manage group membership
+newgrp|bash|Switch primary group in current session
+getent|bash|Query system databases (passwd/group/hosts)
+login|bash|Start a login session
+ssh-keygen|bash|Generate SSH keys
+ssh-agent|bash|SSH authentication agent
+ssh-add|bash|Add keys to ssh-agent
+
+----------------------------
+
+Processes / monitoring
+
+----------------------------
+
+ps|bash|Show process list/status
+top|bash|Interactive process viewer
+htop|bash|Enhanced interactive process viewer
+pgrep|bash|Find processes by name/pattern
+pkill|bash|Send signal to processes by name/pattern
+pidof|bash|Get PID(s) for a program
+killall|bash|Kill processes by name
+pstree|bash|Display process tree
+uptime|bash|Show uptime and load average
+free|bash|Show memory usage
+vmstat|bash|Virtual memory statistics
+iostat|bash|CPU/I/O statistics (sysstat)
+mpstat|bash|Per-CPU statistics (sysstat)
+sar|bash|System activity reporting (sysstat)
+lsof|bash|List open files and sockets
+fuser|bash|Show processes using a file/socket
+strace|bash|Trace syscalls and signals
+ltrace|bash|Trace library calls
+timeout|bash|Run command with a time limit
+
+----------------------------
+
+System info / hardware
+
+----------------------------
+
+uname|bash|Show kernel/system information
+hostname|bash|Show or set hostname
+hostnamectl|bash|Manage hostname (systemd)
+date|bash|Show or set date/time
+timedatectl|bash|Manage time/date settings (systemd)
+cal|bash|Show calendar
+env|bash|Show environment variables
+printenv|bash|Print environment variables
+locale|bash|Show locale settings
+lsb_release|bash|Show distro information (if available)
+dmesg|bash|Show kernel ring buffer messages
+journalctl|bash|Query system logs (systemd journal)
+logger|bash|Send message to system log
+sysctl|bash|Read/write kernel parameters
+lsmod|bash|List loaded kernel modules
+modprobe|bash|Load/unload kernel modules with dependencies
+insmod|bash|Insert a kernel module
+rmmod|bash|Remove a kernel module
+lspci|bash|List PCI devices
+lsusb|bash|List USB devices
+lsblk|bash|List block devices
+blkid|bash|Show block device attributes (UUID, TYPE)
+fdisk|bash|View/edit partition tables
+parted|bash|Partition editor (GPT/MBR)
+mkfs|bash|Create a filesystem (wrapper)
+mkfs.ext4|bash|Create an ext4 filesystem
+fsck|bash|Check/repair filesystems
+tune2fs|bash|Adjust ext2/3/4 filesystem parameters
+swapon|bash|Enable swap
+swapoff|bash|Disable swap
+lsmem|bash|List memory ranges
+lscpu|bash|Show CPU architecture info
+dmidecode|bash|Read DMI/SMBIOS hardware info (root)
+sensors|bash|Read hardware sensors (lm-sensors)
+acpi|bash|Show battery/thermal ACPI info
+hwinfo|bash|Hardware info (if installed)
+
+----------------------------
+
+Services / boot / scheduling
+
+----------------------------
+
+systemctl|bash|Control systemd services/units
+service|bash|Manage services (SysV/systemd wrapper)
+init|bash|Init process entrypoint (varies by distro)
+reboot|bash|Reboot the system
+shutdown|bash|Shut down or reboot
+poweroff|bash|Power off the system
+halt|bash|Halt the system
+loginctl|bash|Manage user logins/sessions (systemd)
+crontab|bash|Edit/list user cron jobs
+cron|bash|Cron scheduler daemon name (service)
+at|bash|Schedule one-time tasks
+atq|bash|List pending at jobs
+atrm|bash|Remove at jobs
+chrt|bash|Set real-time scheduling attributes
+
+----------------------------
+
+Networking (core)
+
+----------------------------
+
+ip|bash|Configure interfaces, routes, and addresses
+ifconfig|bash|Configure network interfaces (legacy)
+route|bash|View/manage routing table (legacy)
+ss|bash|Socket statistics (netstat replacement)
+netstat|bash|Network statistics (legacy)
+ping|bash|ICMP echo test
+ping6|bash|ICMPv6 echo test
+traceroute|bash|Trace the route to a host
+mtr|bash|Traceroute + ping in real time
+arp|bash|View/manipulate ARP cache (legacy)
+nmcli|bash|NetworkManager CLI
+nmtui|bash|NetworkManager text UI
+ethtool|bash|Query/change NIC settings
+iw|bash|Wireless configuration (nl80211)
+iwconfig|bash|Wireless configuration (legacy)
+rfkill|bash|Enable/disable radio devices
+resolvectl|bash|Manage DNS resolver state (systemd-resolved)
+dig|bash|DNS lookup tool
+host|bash|DNS lookup tool
+nslookup|bash|DNS lookup tool (legacy)
+whois|bash|WHOIS domain/IP lookup
+curl|bash|Transfer data via URL (HTTP/S, etc.)
+wget|bash|Download files via HTTP/FTP
+scp|bash|Secure copy over SSH
+sftp|bash|Interactive file transfer over SSH
+ssh|bash|Remote shell over SSH
+rsync|bash|Fast file sync (local/remote)
+nc|bash|TCP/UDP utility (netcat)
+socat|bash|Relay sockets/streams
+telnet|bash|Remote terminal protocol client (legacy)
+ftp|bash|FTP client (legacy)
+tftp|bash|TFTP client
+openssl|bash|TLS/crypto toolkit and client/server helpers
+nmap|bash|Network discovery and port scanning
+tcpdump|bash|Packet capture
+tshark|bash|CLI packet capture/analyzer
+wireshark|bash|GUI packet analyzer
+iptables|bash|Firewall rules (legacy)
+nft|bash|Firewall rules (nftables)
+ufw|bash|Simple firewall frontend
+firewall-cmd|bash|Manage firewalld rules
+
+----------------------------
+
+Interpreters / scripting / dev basics
+
+----------------------------
+
+python3|bash|Python 3 interpreter
+python|bash|Python interpreter (system default)
+perl|bash|Perl interpreter
+ruby|bash|Ruby interpreter
+node|bash|Node.js runtime
+npm|bash|Node package manager
+pip|bash|Python package installer
+pip3|bash|Python 3 package installer
+git|bash|Version control system CLI
+git-lfs|bash|Large File Storage support for git
+screen|bash|Terminal multiplexer
+tmux|bash|Terminal multiplexer
+
+----------------------------
+
+Disk / storage management
+
+----------------------------
+
+cfdisk|bash|Partition editor (curses UI)
+mkswap|bash|Create swap area
+cryptsetup|bash|Manage LUKS/dm-crypt volumes
+lvm|bash|Manage LVM volumes
+pvcreate|bash|Create LVM physical volume
+vgcreate|bash|Create LVM volume group
+lvcreate|bash|Create LVM logical volume
+
+----------------------------
+
+Package managers (distro dependent)
+
+----------------------------
+
+apt|bash|Debian/Ubuntu package manager
+apt-get|bash|Debian/Ubuntu package manager (legacy interface)
+apt-cache|bash|Query apt cache metadata
+dpkg|bash|Install/query .deb packages
+snap|bash|Snap package manager
+flatpak|bash|Flatpak package manager
+dnf|bash|Fedora/RHEL package manager
+yum|bash|RHEL/CentOS package manager (legacy)
+rpm|bash|Install/query .rpm packages
+pacman|bash|Arch package manager
+yay|bash|Arch AUR helper (if installed)
+zypper|bash|openSUSE package manager
+apk|bash|Alpine package manager
+emerge|bash|Gentoo package manager
+
+----------------------------
+
+Build / debugging tools
+
+----------------------------
+
+make|bash|Build automation tool
+cmake|bash|Project build generator
+gcc|bash|C compiler
+g++|bash|C++ compiler
+clang|bash|LLVM C/C++ compiler
+ld|bash|Linker
+ar|bash|Create/modify static libraries
+nm|bash|List symbols from object files
+objdump|bash|Inspect object files/binaries
+readelf|bash|Inspect ELF binaries
+strip|bash|Remove symbols from binaries
+pkg-config|bash|Query installed library compile/link flags
+ldd|bash|Show shared library dependencies
+gdb|bash|Debugger
+valgrind|bash|Memory/debug profiler
+shellcheck|bash|Shell script linter
+
+----------------------------
+
+Containers / virtualization (if installed)
+
+----------------------------
+
+docker|bash|Container engine CLI
+podman|bash|Rootless container engine CLI
+docker-compose|bash|Multi-container app runner (compose v1)
+kubectl|bash|Kubernetes cluster CLI
+helm|bash|Kubernetes package manager
+virsh|bash|libvirt virtualization CLI
+qemu-system-x86_64|bash|System emulator/virtualizer (x86_64)
+
+----------------------------
+
+Logs / troubleshooting
+
+----------------------------
+
+logrotate|bash|Rotate/compress log files
+reset|bash|Reset terminal state
+clear|bash|Clear terminal screen
+stty|bash|Configure terminal line settings
+tput|bash|Query terminal capabilities
+
+----------------------------
+
+Crypto / integrity / auditing (generic)
+
+----------------------------
+
+gpg|bash|Encrypt/sign data and manage keys
+gpg-agent|bash|Key handling agent for GPG
+sha256sum|bash|Compute SHA-256 checksum
+sha1sum|bash|Compute SHA-1 checksum
+md5sum|bash|Compute MD5 checksum
+pass|bash|Password store manager (if installed)
+fail2ban-client|bash|Manage fail2ban jail rules (if installed)
+auditctl|bash|Control Linux audit rules (if installed)
+ausearch|bash|Search audit logs (if installed)
+apparmor_status|bash|Show AppArmor status (if installed)
+getenforce|bash|Show SELinux mode (if installed)
+setenforce|bash|Set SELinux mode (if installed)
+
+----------------------------
+
+Misc utilities
+
+----------------------------
+
+man|bash|View manual pages
+info|bash|View GNU info documentation
+apropos|bash|Search man page descriptions
+whatis|bash|One-line description from man database
+bc|bash|Arbitrary precision calculator
+expr|bash|Evaluate expressions
+seq|bash|Print numeric sequences
+yes|bash|Output a string repeatedly
+jq|bash|Process JSON (if installed)
+yq|bash|Process YAML (if installed)
+fzf|bash|Fuzzy finder (if installed)
