@@ -42,10 +42,10 @@ export default function About() {
 
           <FadeInBlock delay={0.1}>
             <p className="text-body" style={{ color: 'var(--text-primary)', fontSize: '1.2rem', fontWeight: 400, marginBottom: '2rem' }}>
-              Tengo 17 años. Nacido el 9 de marzo de 2009 en El Cairo y formado entre Barcelona y Tarragona. Estudiante de 1º de Bachillerato interesado en ciberseguridad.
+              Nacido el 9 de marzo de 2009 en El Cairo y formado entre Barcelona y Tarragona. Estudiante de 1º de Bachillerato interesado en ciberseguridad.
             </p>
             <p className="text-body" style={{ marginBottom: '1.5rem' }}>
-              Me llamo <strong>Sami González Kamel</strong>. Empecé la primaria en Barcelona y en 2016, con 7 años, me mudé a Tarragona, donde completé la etapa primaria en la Escuela de Práctiques. Actualmente, curso primero de Bachillerato en el IES Tarragona, donde integro mis estudios con una constante evolución en el sector tecnológico.
+              Me llamo <strong>Sami González Kamel</strong>. Empecé la primaria en Barcelona y en 2016, con 7 años, me mudé a Tarragona, donde completé la etapa primaria en la Escuela de Práctiques. Actualmente, con 17 años, curso primero de Bachillerato en el IES Tarragona, donde integro mis estudios con una constante evolución en el sector tecnológico.
             </p>
             <p className="text-body" style={{ marginBottom: '1.5rem' }}>
               Mi fascinación por la tecnología comenzó a los 14 años explorando el ecosistema Windows. Sin embargo, fue a los 15 cuando encontró mi verdadera vocación en la <strong>ciberseguridad y el pentesting</strong>. Desde entonces, he desarrollado un dominio avanzado operando laboratorios virtuales y distribuciones especializadas como Kali Linux y Parrot OS.
