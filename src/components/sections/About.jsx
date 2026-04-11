@@ -42,7 +42,7 @@ export default function About() {
 
           <FadeInBlock delay={0.1}>
             <p className="text-body" style={{ color: 'var(--text-primary)', fontSize: '1.2rem', fontWeight: 400, marginBottom: '2rem' }}>
-              Nacido el 9 de marzo de 2009 en El Cairo y formado entre Barcelona y Tarragona. Estudiante de 1º de Bachillerato interesado en ciberseguridad.
+              Tengo 17 años. Nacido el 9 de marzo de 2009 en El Cairo y formado entre Barcelona y Tarragona. Estudiante de 1º de Bachillerato interesado en ciberseguridad.
             </p>
             <p className="text-body" style={{ marginBottom: '1.5rem' }}>
               Me llamo <strong>Sami González Kamel</strong>. Empecé la primaria en Barcelona y en 2016, con 7 años, me mudé a Tarragona, donde completé la etapa primaria en la Escuela de Práctiques. Actualmente, curso primero de Bachillerato en el IES Tarragona, donde integro mis estudios con una constante evolución en el sector tecnológico.
