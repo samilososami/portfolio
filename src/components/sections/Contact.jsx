@@ -109,7 +109,7 @@ const AnimatedEmailLink = () => {
 
 export default function Contact() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-100px" });
+  const isInView = useInView(ref, { once: true, margin: "-200px" });
 
   return (
     <section id="contact" title="Contacto y Redes Sociales de Sami González Kamel" style={{ padding: '10rem 5vw', background: '#111111', position: 'relative', overflow: 'hidden' }}>
