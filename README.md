@@ -2,38 +2,46 @@
 
 # samilososami.com
 
-Mi portfolio personal. Minimalista, oscuro e interactivo.
+Portfolio personal minimalista, oscuro e interactivo.  
+Diseñado para rendimiento, estética y máxima indexación SEO.
 
 **[→ Ver en vivo](https://samilososami.com)**
+
+<br>
+
+<img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" alt="React" />
+<img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=white" alt="Vite" />
+<img src="https://img.shields.io/badge/Framer_Motion-0055FF?style=for-the-badge&logo=framer&logoColor=white" alt="Framer Motion" />
+<img src="https://img.shields.io/badge/Vercel-000000?style=for-the-badge&logo=vercel&logoColor=white" alt="Vercel" />
 
 </div>
 
 ---
 
-### Stack
+### ✦ Características
 
-| | Tecnología |
-|---|---|
-| ⚡ | React + Vite |
-| 🎞️ | Framer Motion |
-| 🎨 | CSS puro |
-| 🔍 | SEO con JSON-LD, Open Graph y Sitemap |
+- 🖱️ Cursor con aura dinámica + grid iluminado que sigue al ratón
+- ⌨️ Terminal animada en tiempo real con herramientas reales de pentesting
+- 📧 Enlace de correo con subrayado direccional según posición del ratón
+- 🎴 Tarjetas de redes con gradientes de marca y auras personalizadas
+- 🔍 SEO completo: JSON-LD, Open Graph, Twitter Cards, Sitemap con imágenes
+- 📱 Navegación con detección de sección activa y transiciones suaves
 
-### Estructura
+### ✦ Estructura
 
 ```
 src/
-├── App.jsx                        # Layout principal + cursor aura
+├── App.jsx                        # Layout + cursor aura + grid
 ├── components/
-│   ├── layout/Navigation.jsx      # Barra de navegación
+│   ├── layout/Navigation.jsx      # Barra de navegación animada
 │   └── sections/
-│       ├── Hero.jsx               # Inicio + terminal animado
-│       ├── About.jsx              # Perfil y bio
+│       ├── Hero.jsx               # Inicio + terminal typewriter
+│       ├── About.jsx              # Perfil, bio y fotos
 │       ├── Projects.jsx           # Proyectos destacados
-│       └── Contact.jsx            # Contacto y redes
+│       └── Contact.jsx            # Contacto, email y redes
 ```
 
-### Desarrollo local
+### ✦ Desarrollo local
 
 ```bash
 npm install
