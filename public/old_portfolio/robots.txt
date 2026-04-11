@@ -1,0 +1,8 @@
+# robots.txt
+# Portfolio personal de Sami González Kamel
+# Qué haces aqui?
+
+User-agent: *
+Allow: /
+
+Sitemap: https://samilososami.com/sitemap.xml
