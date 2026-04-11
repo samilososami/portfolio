@@ -20,12 +20,12 @@ Diseñado para rendimiento, estética y máxima indexación SEO.
 
 ### ✦ Características
 
-- 🖱️ Cursor con aura dinámica + grid iluminado que sigue al ratón
-- ⌨️ Terminal animada en tiempo real con herramientas reales de pentesting
-- 📧 Enlace de correo con subrayado direccional según posición del ratón
-- 🎴 Tarjetas de redes con gradientes de marca y auras personalizadas
-- 🔍 SEO completo: JSON-LD, Open Graph, Twitter Cards, Sitemap con imágenes
-- 📱 Navegación con detección de sección activa y transiciones suaves
+- Cursor con aura dinámica + grid iluminado que sigue al ratón
+- Terminal animada en tiempo real con herramientas reales de pentesting
+- Enlace de correo con subrayado direccional según posición del ratón
+- Tarjetas de redes con gradientes de marca y auras personalizadas
+- SEO completo: JSON-LD, Open Graph, Twitter Cards, Sitemap con imágenes
+- Navegación con detección de sección activa y transiciones suaves
 
 ### ✦ Estructura
 
