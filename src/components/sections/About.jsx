@@ -5,7 +5,7 @@ import { motion, useInView } from 'framer-motion';
 
 function FadeInBlock({ children, delay = 0 }) {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-250px" });
+  const isInView = useInView(ref, { once: true, margin: "-150px" });
 
   return (
     <motion.div
@@ -28,7 +28,7 @@ function FadeInBlock({ children, delay = 0 }) {
 
 export default function About() {
   const gridRef = useRef(null);
-  const isGridInView = useInView(gridRef, { once: true, margin: "-250px" });
+  const isGridInView = useInView(gridRef, { once: true, margin: "-150px" });
   const sidePhotoRef = useRef(null);
   const isSidePhotoInView = useInView(sidePhotoRef, { once: true, margin: "-150px" });
 
@@ -55,7 +55,7 @@ export default function About() {
                className="profile-photo"
                initial={{ opacity: 0, x: -40 }}
                animate={isSidePhotoInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+               transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
                style={{
                  width: '100%',
                  aspectRatio: '1/1', /* Formato cuadrado: muestra mucha más altura original */
@@ -96,7 +96,7 @@ export default function About() {
                className="profile-photo"
                initial={{ opacity: 0, x: 40 }}
                animate={isGridInView ? { opacity: 1, x: 0 } : { opacity: 0, x: 40 }}
-               transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1] }}
+               transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
                style={{
                  width: '100%',
                  aspectRatio: '1/1',

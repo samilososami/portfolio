@@ -4,7 +4,7 @@ import { Github, Bot, MessageSquare, Book, Star, GitFork, Phone, Video, Send } f
 
 export default function Projects() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-400px' });
+  const isInView = useInView(ref, { once: true, margin: '-200px' });
   const [callState, setCallState] = useState('idle');
 
   const handleCall = (e) => {
