@@ -109,7 +109,9 @@ const AnimatedEmailLink = () => {
 
 export default function Contact() {
   const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: "-200px" });
+  const socialsRef = useRef(null);
+  const isInView = useInView(ref, { once: true, margin: "-300px" });
+  const socialsInView = useInView(socialsRef, { once: true, margin: "-150px" });
 
   return (
     <section id="contact" title="Contacto y Redes Sociales de Sami González Kamel" style={{ padding: '10rem 5vw', background: '#111111', position: 'relative', overflow: 'hidden' }}>
@@ -135,9 +137,10 @@ export default function Contact() {
 
         {/* Social Grid */}
         <motion.div
+          ref={socialsRef}
           initial={{ opacity: 0 }}
-          animate={isInView ? { opacity: 1 } : { opacity: 0 }}
-          transition={{ duration: 1, delay: 0.3 }}
+          animate={socialsInView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 1 }}
           style={{ marginBottom: '8rem' }}
         >
           <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>
@@ -154,9 +157,9 @@ export default function Contact() {
                   rel="noreferrer"
                   title={s.label}
                   aria-label={s.aria}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-                  transition={{ duration: 0.8, delay: 0.4 + (i * 0.1) }}
+                  initial={{ opacity: 0, y: 25 }}
+                  animate={socialsInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 25 }}
+                  transition={{ duration: 0.9, delay: 0.15 + (i * 0.12), ease: [0.16, 1, 0.3, 1] }}
                   style={{
                     display: 'flex',
                     flexDirection: 'column',
