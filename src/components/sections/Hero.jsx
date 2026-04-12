@@ -245,7 +245,7 @@ export default function Hero() {
             </span>
             <h1 
               className="heading-hero" 
-              title="Sami González Kamel | Especialista en Ciberseguridad"
+              title="Sami González Kamel | Estudiante de bachillerato e investigador en ciberseguridad, pentesting y automatización"
               style={{ lineHeight: 1.1, whiteSpace: 'nowrap' }}
             >
               Sami González Kamel

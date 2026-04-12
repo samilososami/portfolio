@@ -75,7 +75,7 @@ export default function About() {
              >
                <img
                  src="/sami-gonzalez-kamel-pentesting-automatizacion.jpg"
-                 alt="Sami González Kamel - Especialista en Ciberseguridad y Pentesting en Tarragona"
+                 alt="Sami González Kamel - Estudiante de bachillerato e investigador en ciberseguridad, pentesting y automatización"
                  style={{
                    width: '100%',
                    height: '100%',
