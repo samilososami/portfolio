@@ -167,7 +167,7 @@ export default function Projects() {
           {/* Card 3: wowMessenger (Chat App Theme) */}
           <motion.a
             className="project-card"
-            href="https://github.com/samilososami/wow"
+            href="https://github.com/samilososami/wowmessenger"
             target="_blank"
             rel="noreferrer"
             title="wowMessenger - App de mensajería experimental"
