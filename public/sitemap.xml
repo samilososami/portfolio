@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://samilososami.com/</loc>
-    <lastmod>2026-04-11</lastmod>
+    <lastmod>2026-04-30</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     
@@ -24,6 +24,30 @@
       <image:loc>https://samilososami.com/sami-gonzalez-kamel-mirror-discovery.jpg</image:loc>
       <image:title>Sami González Kamel - Mirror Discovery Image</image:title>
       <image:caption>Imagen de descubrimiento para la indexación de Sami González Kamel en buscadores visuales.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://samilososami.com/sami-gonzalez-kamel-tunel-espaldas.jpg</image:loc>
+      <image:title>Sami Gonzalez Kamel - Retrato de espaldas en un tunel</image:title>
+      <image:caption>Foto personal de Sami Gonzalez Kamel de espaldas en un tunel para Google Images.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://samilososami.com/sami-gonzalez-kamel-atardecer-contraluz.jpg</image:loc>
+      <image:title>Sami Gonzalez Kamel - Retrato con contraluz de atardecer</image:title>
+      <image:caption>Foto personal de Sami Gonzalez Kamel con backlight de atardecer para buscadores visuales.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://samilososami.com/sami-gonzalez-kamel-cielo-nocturno.jpg</image:loc>
+      <image:title>Sami Gonzalez Kamel - Retrato bajo cielo nocturno</image:title>
+      <image:caption>Foto personal de Sami Gonzalez Kamel de noche con cielo nocturno.</image:caption>
+    </image:image>
+
+    <image:image>
+      <image:loc>https://samilososami.com/sami-gonzalez-kamel-japon-espaldas.jpg</image:loc>
+      <image:title>Sami Gonzalez Kamel - Retrato de espaldas delante de un restaurante japones</image:title>
+      <image:caption>Foto personal de Sami Gonzalez Kamel de espaldas delante de un restaurante japones.</image:caption>
     </image:image>
 
     <image:image>
