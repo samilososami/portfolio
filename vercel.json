@@ -3,11 +3,11 @@
   "rewrites": [
     {
       "source": "/tools/ai-web-designer",
-      "destination": "https://ai-web-designer.samilososami.com"
+      "destination": "https://ai-web-designer-cdyvg6ynb-samilososamis-projects.vercel.app/tools/ai-web-designer"
     },
     {
       "source": "/tools/ai-web-designer/:path*",
-      "destination": "https://ai-web-designer.samilososami.com/:path*"
+      "destination": "https://ai-web-designer-cdyvg6ynb-samilososamis-projects.vercel.app/tools/ai-web-designer/:path*"
     }
   ]
 }
