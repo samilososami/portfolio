@@ -1,0 +1,9 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    {
+      "source": "/tools/ai-web-designer/:path*",
+      "destination": "https://ai-web-designer-87uuw89ki-samilososamis-projects.vercel.app/:path*"
+    }
+  ]
+}
