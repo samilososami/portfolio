@@ -2,12 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/tools/ai-web-designer",
-      "destination": "https://ai-web-designer-cdyvg6ynb-samilososamis-projects.vercel.app/tools/ai-web-designer"
-    },
-    {
       "source": "/tools/ai-web-designer/:path*",
-      "destination": "https://ai-web-designer-cdyvg6ynb-samilososamis-projects.vercel.app/tools/ai-web-designer/:path*"
+      "destination": "https://ai-web-designer-mfkpqnzhm-samilososamis-projects.vercel.app/:path*"
     }
   ]
 }
