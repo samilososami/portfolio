@@ -5,92 +5,293 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tools — Samilososami</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+
     * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --bg: #050505;
+      --surface: #0a0a0a;
+      --surface-hover: #111111;
+      --border: rgba(255,255,255,0.08);
+      --border-hover: rgba(255,255,255,0.18);
+      --text: #ffffff;
+      --text-secondary: rgba(255,255,255,0.45);
+      --text-muted: rgba(255,255,255,0.25);
+      --accent: #ffffff;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
-      background: #0f172a;
-      color: #e2e8f0;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
       min-height: 100vh;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .noise {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      opacity: 0.03;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+      background-size: 128px 128px;
+    }
+
+    .wrap {
+      position: relative;
+      z-index: 1;
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--text-muted);
+      text-decoration: none;
+      margin-bottom: 48px;
+      transition: color 0.2s;
+    }
+    .back:hover { color: var(--text); }
+    .back svg { width: 14px; height: 14px; }
+
+    .hero {
+      margin-bottom: 72px;
+    }
+    .hero h1 {
+      font-size: clamp(36px, 6vw, 56px);
+      font-weight: 800;
+      letter-spacing: -0.04em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .hero p {
+      font-size: 16px;
+      color: var(--text-secondary);
+      max-width: 480px;
+      font-weight: 400;
+      line-height: 1.6;
+    }
+
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .tool-card {
       display: flex;
       flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px;
-    }
-    .container {
-      max-width: 520px;
-      width: 100%;
-    }
-    h1 {
-      font-size: 20px;
-      font-weight: 700;
-      margin-bottom: 24px;
-      color: #cbd5e1;
-    }
-    .card {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      background: #1e293b;
-      border: 1px solid #334155;
+      background: var(--surface);
+      border: 1px solid var(--border);
       border-radius: 16px;
-      padding: 20px;
+      padding: 28px;
       text-decoration: none;
       color: inherit;
-      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      transition: border-color 0.3s, transform 0.3s, background 0.3s;
+      position: relative;
+      overflow: hidden;
     }
-    .card:hover {
-      transform: translateY(-2px);
-      border-color: #6366f1;
-      box-shadow: 0 10px 25px -5px rgba(99, 102, 241, 0.2);
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: 16px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
+      pointer-events: none;
     }
-    .logo {
-      width: 48px;
-      height: 48px;
-      background: linear-gradient(135deg, #6366f1, #8b5cf6);
+    .tool-card:hover {
+      border-color: var(--border-hover);
+      background: var(--surface-hover);
+      transform: translateY(-3px);
+    }
+    .tool-card:hover::before { opacity: 1; }
+
+    .tool-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 18px;
+    }
+
+    .tool-icon {
+      width: 44px;
+      height: 44px;
       border-radius: 12px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 14px;
-      font-weight: 700;
-      color: white;
-      flex-shrink: 0;
-    }
-    .info h2 {
-      font-size: 15px;
-      font-weight: 600;
-      margin-bottom: 4px;
-      color: #f1f5f9;
-    }
-    .info p {
       font-size: 13px;
-      color: #94a3b8;
-      line-height: 1.4;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      flex-shrink: 0;
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      color: var(--text);
     }
+
+    .tool-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateX(-6px);
+      transition: opacity 0.25s, transform 0.25s;
+      background: rgba(255,255,255,0.06);
+    }
+    .tool-card:hover .tool-arrow {
+      opacity: 1;
+      transform: translateX(0);
+    }
+    .tool-arrow svg { width: 14px; height: 14px; stroke: var(--text-secondary); }
+
+    .tool-title {
+      font-size: 17px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      margin-bottom: 6px;
+    }
+
+    .tool-desc {
+      font-size: 14px;
+      color: var(--text-secondary);
+      line-height: 1.55;
+      margin-bottom: 20px;
+    }
+
+    .tool-meta {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
     .badge {
-      margin-left: auto;
       font-size: 11px;
       font-weight: 500;
-      color: #6366f1;
-      background: rgba(99, 102, 241, 0.1);
+      letter-spacing: 0.02em;
       padding: 4px 10px;
-      border-radius: 20px;
-      white-space: nowrap;
+      border-radius: 6px;
+      border: 1px solid rgba(255,255,255,0.10);
+      color: var(--text-muted);
+      text-transform: uppercase;
+    }
+
+    .badge.new {
+      color: var(--text);
+      border-color: rgba(255,255,255,0.20);
+      background: rgba(255,255,255,0.05);
+    }
+
+    .footer {
+      margin-top: 80px;
+      text-align: center;
+    }
+    .footer p {
+      font-size: 13px;
+      color: var(--text-muted);
+    }
+
+    @media (max-width: 640px) {
+      .wrap { padding: 48px 20px 80px; }
+      .tools-grid { grid-template-columns: 1fr; gap: 14px; }
+      .tool-card { padding: 22px; }
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <h1>Tools</h1>
-    <a href="/tools/ai-web-designer" class="card">
-      <div class="logo">AWB</div>
-      <div class="info">
-        <h2>AI Web Designer</h2>
-        <p>Genera paginas web con IA usando Ollama Cloud. Landing pages, portfolios, dashboards y mas.</p>
-      </div>
-      <span class="badge">Nuevo</span>
+  <div class="noise"></div>
+
+  <div class="wrap">
+    <a href="/" class="back">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+      samilososami.com
     </a>
+
+    <div class="hero">
+      <h1>Herramientas</h1>
+      <p>Proyectos personales y utilidades desarrolladas para resolver problemas reales.</p>
+    </div>
+
+    <div class="tools-grid">
+      <a href="/tools/ai-web-designer" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon">AWB</div>
+          <div class="tool-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="tool-title">AI Web Designer</div>
+        <div class="tool-desc">Generador de paginas web con IA usando Ollama Cloud. Landing pages, portfolios, dashboards y mas. Incluye app Android nativa.</div>
+        <div class="tool-meta">
+          <span class="badge new">Nuevo</span>
+          <span class="badge">Web + Android</span>
+        </div>
+      </a>
+
+      <a href="/tools/newsm" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon">SM</div>
+          <div class="tool-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="tool-title">newSM</div>
+        <div class="tool-desc">Entorno de desarrollo y herramienta de flasheo desde el navegador para placas ESP32 con MicroPython.</div>
+        <div class="tool-meta">
+          <span class="badge">Web</span>
+          <span class="badge">ESP32</span>
+        </div>
+      </a>
+
+      <a href="https://mpflasher.samilososami.com" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon">MP</div>
+          <div class="tool-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="tool-title">MP Flasher</div>
+        <div class="tool-desc">Herramienta web profesional para flashear MicroPython en placas ESP32 directamente desde el navegador.</div>
+        <div class="tool-meta">
+          <span class="badge">Web</span>
+          <span class="badge">Hardware</span>
+        </div>
+      </a>
+
+      <a href="/tools/winshooter" class="tool-card">
+        <div class="tool-header">
+          <div class="tool-icon">WS</div>
+          <div class="tool-arrow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
+          </div>
+        </div>
+        <div class="tool-title">WinShooter</div>
+        <div class="tool-desc">Agente de diagnostico autonomo para Windows potenciado por IA (Ollama / Groq). Diagnostico y reparacion inteligente.</div>
+        <div class="tool-meta">
+          <span class="badge">Windows</span>
+          <span class="badge">IA</span>
+        </div>
+      </a>
+    </div>
+
+    <div class="footer">
+      <p>Todos los proyectos son de codigo abierto.</p>
+    </div>
   </div>
 </body>
 </html>
