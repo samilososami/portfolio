@@ -1,16 +1,3 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
-  "redirects": [
-    {
-      "source": "/tools/ai-web-designer",
-      "destination": "/tools/ai-web-designer/",
-      "permanent": false
-    }
-  ],
-  "rewrites": [
-    {
-      "source": "/tools/ai-web-designer/:path*",
-      "destination": "https://ai-web-designer-mfkpqnzhm-samilososamis-projects.vercel.app/:path*"
-    }
-  ]
+  "$schema": "https://openapi.vercel.sh/vercel.json"
 }
