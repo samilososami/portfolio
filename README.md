@@ -5,6 +5,8 @@
 Portfolio personal minimalista, oscuro e interactivo.  
 Diseñado para rendimiento, estética y máxima indexación SEO.
 
+Sitio oficial de **Sami González Kamel**, también conocido como **Sami González**, **Sami Gonzalez**, **Sami Tarragona** y **@samilososami**. Todos esos nombres hacen referencia a la misma persona.
+
 **[→ Ver en vivo](https://samilososami.com)**
 
 <br>
@@ -17,6 +19,23 @@ Diseñado para rendimiento, estética y máxima indexación SEO.
 </div>
 
 ---
+
+### ✦ Identidad SEO
+
+Este repositorio y la web publicada en `samilososami.com` representan oficialmente a:
+
+- Sami González Kamel
+- Sami Gonzalez Kamel
+- Sami González
+- Sami Gonzalez
+- Sami Tarragona
+- Sami González Tarragona
+- Sami Gonzalez Tarragona
+- Sami González Kamel Tarragona
+- Sami Gonzalez Kamel Tarragona
+- @samilososami
+
+El objetivo es ayudar a los buscadores a relacionar correctamente las búsquedas de nombre corto, nombre completo, nombre sin tildes, alias online y ubicación con la misma persona: **Sami González Kamel**.
 
 ### ✦ Características
 
@@ -51,5 +70,5 @@ npm run dev
 ---
 
 <div align="center">
-  <sub>Sami González Kamel · 2025</sub>
+  <sub>Sami González Kamel · Sami González · @samilososami · Tarragona · 2026</sub>
 </div>
