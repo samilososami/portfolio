@@ -3,27 +3,27 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://samilososami.com/</loc>
-    <lastmod>2026-04-30</lastmod>
+    <lastmod>2026-05-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     
     <!-- Imágenes para Google Images -->
     <image:image>
       <image:loc>https://samilososami.com/sami-gonzalez-kamel-ciberseguridad-perfil.png</image:loc>
-      <image:title>Sami González Kamel - Estudiante de bachillerato e investigador en ciberseguridad</image:title>
-      <image:caption>Retrato oficial de Sami González Kamel (@samilososami) enfocado en ciberseguridad, pentesting y automatización.</image:caption>
+      <image:title>Sami González Kamel / Sami González - Estudiante de bachillerato e investigador en ciberseguridad</image:title>
+      <image:caption>Retrato oficial de Sami González Kamel (@samilososami), también conocido como Sami González y Sami de Tarragona, enfocado en ciberseguridad, pentesting y automatización.</image:caption>
     </image:image>
     
     <image:image>
       <image:loc>https://samilososami.com/sami-gonzalez-kamel-pentesting-automatizacion.jpg</image:loc>
-      <image:title>Sami González Kamel - Pentesting y Automatización</image:title>
-      <image:caption>Sami González Kamel trabajando en proyectos de automatización con Python y seguridad ofensiva.</image:caption>
+      <image:title>Sami González Kamel - Sami González Tarragona - Pentesting y Automatización</image:title>
+      <image:caption>Sami González Kamel, también buscado como Sami González Tarragona, trabajando en proyectos de automatización con Python y seguridad ofensiva.</image:caption>
     </image:image>
     
     <image:image>
       <image:loc>https://samilososami.com/sami-gonzalez-kamel-mirror-discovery.jpg</image:loc>
       <image:title>Sami González Kamel - Mirror Discovery Image</image:title>
-      <image:caption>Imagen de descubrimiento para la indexación de Sami González Kamel en buscadores visuales.</image:caption>
+      <image:caption>Imagen de descubrimiento para la indexación de Sami González Kamel, Sami González y @samilososami en buscadores visuales.</image:caption>
     </image:image>
 
     <image:image>
@@ -52,8 +52,8 @@
 
     <image:image>
       <image:loc>https://samilososami.com/portfolio-tecnico-sami-gonzalez-kamel.png</image:loc>
-      <image:title>Portfolio Técnico de Sami González Kamel</image:title>
-      <image:caption>Vista previa del portfolio técnico de Sami González Kamel (@samilososami).</image:caption>
+      <image:title>Portfolio Técnico de Sami González Kamel / Sami González</image:title>
+      <image:caption>Vista previa del portfolio técnico oficial de Sami González Kamel (@samilososami), también conocido como Sami González en Tarragona.</image:caption>
     </image:image>
   </url>
 </urlset>
