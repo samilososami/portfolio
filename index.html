@@ -2,38 +2,42 @@
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" href="/sami-gonzalez-kamel-portfolio-icon.png" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" sizes="48x48" />
+    <link rel="icon" type="image/png" href="/sami-gonzalez-kamel-portfolio-icon.png" sizes="192x192" />
+    <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <meta name="author" content="Sami González Kamel" />
 
     <!-- SEO básico -->
-    <title>Sami González Kamel | Sami González en Tarragona | Portfolio técnico</title>
-    <meta name="description" content="Portfolio oficial de Sami González Kamel, también conocido como Sami González, @samilososami y Sami de Tarragona. Ciberseguridad, pentesting e IA." />
-    <meta name="keywords" content="Sami González Kamel, Sami Gonzalez Kamel, Sami González, Sami Gonzalez, Sami Tarragona, Sami González Tarragona, Sami Gonzalez Tarragona, Sami González Kamel Tarragona, Sami Gonzalez Kamel Tarragona, samilososami, ciberseguridad, pentesting, python, automatización, seguridad informática Tarragona, hacking ético" />
+    <title>Sami González Kamel — Ciberseguridad, IA y desarrollo</title>
+    <meta name="description" content="Portfolio de Sami González Kamel (@samilososami), estudiante de Bachillerato en Tarragona: proyectos de ciberseguridad, pentesting, IA y automatización." />
     <meta name="robots" content="index,follow,max-image-preview:large" />
-    <link rel="canonical" href="https://samilososami.com/" />
+    <link rel="canonical" href="https://www.samilososami.com/" />
     <meta name="theme-color" content="#05070a" />
     <!-- Google Search Console -->
     <meta name="google-site-verification" content="Kcuep-i7o4Y4NWZ7UcZ3v6qpOkrf7dM7mfHAa0k3miA" />
 
     <!-- Open Graph (Google/Discord/WhatsApp/etc.) -->
     <meta property="og:type" content="profile" />
+    <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content="Sami González Kamel — Portfolio Oficial" />
     <meta property="og:title" content="Sami González Kamel / Sami González - Portfolio Técnico" />
-    <meta property="og:description" content="Sami González Kamel, también conocido como Sami González y @samilososami en Tarragona. Portfolio de ciberseguridad, pentesting, automatización e IA." />
-    <meta property="og:url" content="https://samilososami.com/" />
-    <meta property="og:image" content="https://samilososami.com/portfolio-tecnico-sami-gonzalez-kamel.png" />
-    <meta property="og:image:width" content="1200" />
-    <meta property="og:image:height" content="630" />
+    <meta property="og:description" content="Proyectos de ciberseguridad, pentesting, inteligencia artificial y automatización de Sami González Kamel (@samilososami)." />
+    <meta property="og:url" content="https://www.samilososami.com/" />
+    <meta property="og:image" content="https://www.samilososami.com/portfolio-tecnico-sami-gonzalez-kamel.png" />
+    <meta property="og:image:type" content="image/png" />
+    <meta property="og:image:width" content="1478" />
+    <meta property="og:image:height" content="483" />
+    <meta property="og:image:alt" content="Portfolio técnico de Sami González Kamel" />
     <meta property="profile:first_name" content="Sami" />
     <meta property="profile:last_name" content="González Kamel" />
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="Sami González Kamel / Sami González - Portfolio Técnico" />
-    <meta name="twitter:description" content="Portfolio oficial de Sami González Kamel (@samilososami), también conocido como Sami González en Tarragona." />
-    <meta name="twitter:image" content="https://samilososami.com/portfolio-tecnico-sami-gonzalez-kamel.png" />
+    <meta name="twitter:description" content="Proyectos de ciberseguridad, pentesting, inteligencia artificial y automatización de Sami González Kamel." />
+    <meta name="twitter:image" content="https://www.samilososami.com/portfolio-tecnico-sami-gonzalez-kamel.png" />
+    <meta name="twitter:image:alt" content="Portfolio técnico de Sami González Kamel" />
 
     <!-- Schema.org (JSON-LD) -->
     <script type="application/ld+json">
@@ -42,8 +46,8 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "https://samilososami.com/#website",
-            "url": "https://samilososami.com/",
+            "@id": "https://www.samilososami.com/#website",
+            "url": "https://www.samilososami.com/",
             "name": "Sami González Kamel — Portfolio",
             "alternateName": [
               "Sami González",
@@ -54,15 +58,32 @@
             "inLanguage": "es-ES",
             "description": "Portfolio técnico oficial de Sami González Kamel, también conocido como Sami González y @samilososami, enfocado en ciberseguridad, pentesting, automatización e inteligencia artificial.",
             "about": {
-              "@id": "https://samilososami.com/#person"
+              "@id": "https://www.samilososami.com/#person"
             },
             "mainEntity": {
-              "@id": "https://samilososami.com/#person"
+              "@id": "https://www.samilososami.com/#person"
+            }
+          },
+          {
+            "@type": "ProfilePage",
+            "@id": "https://www.samilososami.com/#webpage",
+            "url": "https://www.samilososami.com/",
+            "name": "Sami González Kamel — Portfolio técnico",
+            "dateModified": "2026-07-20",
+            "inLanguage": "es-ES",
+            "isPartOf": {
+              "@id": "https://www.samilososami.com/#website"
+            },
+            "mainEntity": {
+              "@id": "https://www.samilososami.com/#person"
+            },
+            "primaryImageOfPage": {
+              "@id": "https://www.samilososami.com/#primaryimage"
             }
           },
           {
             "@type": "Person",
-            "@id": "https://samilososami.com/#person",
+            "@id": "https://www.samilososami.com/#person",
             "name": "Sami González Kamel",
             "givenName": "Sami",
             "familyName": "González Kamel",
@@ -78,8 +99,8 @@
               "samilososami",
               "@samilososami"
             ],
-            "url": "https://samilososami.com/",
-            "mainEntityOfPage": "https://samilososami.com/",
+            "url": "https://www.samilososami.com/",
+            "mainEntityOfPage": "https://www.samilososami.com/",
             "identifier": "samilososami",
             "jobTitle": "Investigador en Ciberseguridad, Pentesting y Automatización",
             "description": "Sami González Kamel es la misma persona que Sami González, Sami de Tarragona y @samilososami. Estudiante enfocado en ciberseguridad, pentesting, inteligencia artificial y desarrollo de herramientas de automatización en Python.",
@@ -97,37 +118,43 @@
             "image": [
               {
                 "@type": "ImageObject",
-                "url": "https://samilososami.com/sami-gonzalez-kamel-ciberseguridad-perfil.png",
+                "@id": "https://www.samilososami.com/#primaryimage",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-retrato-exterior.jpg",
+                "caption": "Retrato exterior de Sami González Kamel"
+              },
+              {
+                "@type": "ImageObject",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-ciberseguridad-perfil.png",
                 "caption": "Sami González Kamel, también conocido como Sami González, perfil profesional de ciberseguridad"
               },
               {
                 "@type": "ImageObject",
-                "url": "https://samilososami.com/sami-gonzalez-kamel-pentesting-automatizacion.jpg",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-pentesting-automatizacion.jpg",
                 "caption": "Sami González Kamel - Investigador en pentesting y automatización"
               },
               {
                 "@type": "ImageObject",
-                "url": "https://samilososami.com/sami-gonzalez-kamel-mirror-discovery.jpg",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-mirror-discovery.jpg",
                 "caption": "Sami González Kamel - Especialista en ciberseguridad"
               },
               {
                 "@type": "ImageObject",
-                "url": "https://samilososami.com/sami-gonzalez-kamel-tunel-espaldas.jpg",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-tunel-espaldas.jpg",
                 "caption": "Sami Gonzalez Kamel de espaldas en un tunel"
               },
               {
                 "@type": "ImageObject",
-                "url": "https://samilososami.com/sami-gonzalez-kamel-atardecer-contraluz.jpg",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-atardecer-contraluz.jpg",
                 "caption": "Sami Gonzalez Kamel con contraluz de atardecer"
               },
               {
                 "@type": "ImageObject",
-                "url": "https://samilososami.com/sami-gonzalez-kamel-cielo-nocturno.jpg",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-cielo-nocturno.jpg",
                 "caption": "Sami Gonzalez Kamel bajo el cielo nocturno"
               },
               {
                 "@type": "ImageObject",
-                "url": "https://samilososami.com/sami-gonzalez-kamel-japon-espaldas.jpg",
+                "url": "https://www.samilososami.com/sami-gonzalez-kamel-japon-espaldas.jpg",
                 "caption": "Sami Gonzalez Kamel de espaldas delante de un restaurante japones"
               }
             ],
@@ -159,13 +186,6 @@
   </head>
   <body>
     <div id="root"></div>
-    
-    <!-- Hidden image for search engine indexing (not visible to users) -->
-    <img src="/sami-gonzalez-kamel-mirror-discovery.jpg" alt="Sami González Kamel, también conocido como Sami González y @samilososami en Tarragona - Retrato" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; pointer-events: none; opacity: 0;" />
-    <img src="/sami-gonzalez-kamel-tunel-espaldas.jpg" alt="Sami Gonzalez Kamel de espaldas en un tunel - retrato personal" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; pointer-events: none; opacity: 0;" />
-    <img src="/sami-gonzalez-kamel-atardecer-contraluz.jpg" alt="Sami Gonzalez Kamel con contraluz de atardecer - retrato personal" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; pointer-events: none; opacity: 0;" />
-    <img src="/sami-gonzalez-kamel-cielo-nocturno.jpg" alt="Sami Gonzalez Kamel bajo el cielo nocturno - retrato personal" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; pointer-events: none; opacity: 0;" />
-    <img src="/sami-gonzalez-kamel-japon-espaldas.jpg" alt="Sami Gonzalez Kamel de espaldas delante de un restaurante japones - retrato personal" style="position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0, 0, 0, 0); border: 0; pointer-events: none; opacity: 0;" />
 
     <script type="module" src="/src/main.jsx"></script>
   </body>

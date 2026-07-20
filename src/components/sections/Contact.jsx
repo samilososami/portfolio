@@ -15,7 +15,7 @@ const SOCIALS = [
     url: 'https://github.com/samilososami',
     icon: Github,
     desc: 'Aquí subo mis proyectos personales',
-    aria: 'Visitar perfil de GitHub de Sami González Kamel (samilososami)',
+    aria: 'GitHub — visitar el perfil de Sami González Kamel (samilososami)',
     hoverShadow: '0 0 30px rgba(255,255,255,0.25)',
     hoverBorder: 'rgba(255,255,255,0.2)',
     iconColor: '#fff'
@@ -26,7 +26,7 @@ const SOCIALS = [
     url: 'https://instagram.com/samilososami',
     icon: Instagram,
     desc: 'Fotos y demás',
-    aria: 'Visitar perfil de Instagram de Sami González Kamel',
+    aria: 'Instagram — visitar el perfil de Sami González Kamel',
     hoverShadow: '0 0 30px rgba(225,48,108,0.25)',
     hoverBorder: 'linear-gradient(45deg, rgba(245,133,41,0.5), rgba(221,42,123,0.5), rgba(129,52,175,0.5))',
     iconColor: '#e1306c'
@@ -37,7 +37,7 @@ const SOCIALS = [
     url: 'https://tiktok.com/@samilososam1',
     icon: TikTokIcon,
     desc: 'Donde scrolleo todo el dia',
-    aria: 'Visitar perfil de TikTok de Sami González Kamel',
+    aria: 'TikTok — visitar el perfil de Sami González Kamel',
     hoverShadow: '-10px 0 30px rgba(0,242,234,0.1), 10px 0 30px rgba(255,0,80,0.1)',
     hoverBorder: 'linear-gradient(45deg, rgba(0,242,234,0.5), rgba(255,0,80,0.5))',
     iconColor: '#fff'
@@ -47,8 +47,8 @@ const SOCIALS = [
     handle: '@samilososami',
     url: 'https://youtube.com/@samilososami',
     icon: Youtube,
-    desc: '¿Que veo mientras ceno sino?',
-    aria: 'Visitar canal de YouTube de Sami González Kamel',
+    desc: '¿Qué veo mientras ceno si no?',
+    aria: 'YouTube — visitar el canal de Sami González Kamel',
     hoverShadow: '0 0 30px rgba(244,26,26,0.25)',
     hoverBorder: 'rgba(244,26,26,0.3)',
     iconColor: '#f41a1a'
@@ -82,6 +82,7 @@ const AnimatedEmailLink = () => {
 
   return (
     <a
+      className="contact-email"
       href="mailto:samilososami@gmail.com"
       title="Enviar un correo electrónico a Sami González Kamel"
       onMouseEnter={handleMouseEnter}
@@ -146,7 +147,7 @@ export default function Contact() {
           <p style={{ fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.2em', color: 'var(--text-secondary)', marginBottom: '2.5rem' }}>
             Redes
           </p>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
+          <div className="social-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1rem' }}>
             {SOCIALS.map((s, i) => {
               const Icon = s.icon;
               return (

@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect, useRef } from 'react';
+import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const terminalSequence = [
@@ -58,11 +58,15 @@ const terminalSequence = [
 ];
 
 function AnimatedTerminal() {
+  const terminalRef = useRef(null);
+  const isInView = useInView(terminalRef, { margin: '160px' });
   const [history, setHistory] = useState([]);
   const [currentPrompt, setCurrentPrompt] = useState('samilososami@kali:~# ');
   const [typedText, setTypedText] = useState('');
   
   useEffect(() => {
+    if (!isInView) return undefined;
+
     let step = 0;
     let isTyping = false;
     let timeout;
@@ -130,11 +134,12 @@ function AnimatedTerminal() {
       clearTimeout(timeout);
       clearInterval(typeInterval);
     };
-  }, []);
+  }, [isInView]);
 
   return (
-    <div 
-      aria-label="Fondo decorativo de terminal técnico animado ejecutando herramientas de ciberseguridad"
+    <div
+      ref={terminalRef}
+      aria-hidden="true"
       style={{
       /* Reduced importance: very faint background, no border, just faint text */
       padding: '2rem',
@@ -195,6 +200,8 @@ export default function Hero() {
       
       {/* Abstract Graphic Alternative - Terminal (Moved to absolute section bounds) */}
       <motion.div
+         className="hero-terminal"
+         aria-hidden="true"
          initial={{ opacity: 0 }}
          animate={{ opacity: 1 }}
          transition={{ duration: 2.5, delay: 1.2, ease: 'easeOut' }}
@@ -223,9 +230,9 @@ export default function Hero() {
       >
         {/* Text Content */}
         <motion.div
-           initial={{ opacity: 0, y: 40, filter: 'blur(10px)' }}
-           animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
-           transition={{ duration: 1.5, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+           initial={{ opacity: 1, y: 18 }}
+           animate={{ opacity: 1, y: 0 }}
+           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
            style={{ position: 'relative', zIndex: 10, width: '100%' }}
         >
           <div style={{ marginBottom: '1.5rem' }}>
@@ -233,7 +240,7 @@ export default function Hero() {
               title="Nickname de Sami González Kamel"
               style={{ 
               display: 'block', 
-              color: 'rgba(255, 255, 255, 0.28)', /* Lowered even more to feel like a watermark */
+              color: 'rgba(255, 255, 255, 0.36)',
               fontSize: 'clamp(1.8rem, 3.5vw, 3rem)', 
               fontFamily: "'Major Mono Display', monospace",
               letterSpacing: '-0.02em', 
@@ -244,9 +251,9 @@ export default function Hero() {
               samilososami
             </span>
             <h1 
-              className="heading-hero" 
+              className="heading-hero hero-title"
               title="Sami González Kamel | Estudiante de bachillerato e investigador en ciberseguridad, pentesting y automatización"
-              style={{ lineHeight: 1.1, whiteSpace: 'nowrap' }}
+              style={{ lineHeight: 1.1 }}
             >
               Sami González Kamel
             </h1>
@@ -262,7 +269,6 @@ export default function Hero() {
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               title="Ver proyectos de Sami González Kamel"
-              aria-label="Navegar a la sección de proyectos destacados"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -282,7 +288,6 @@ export default function Hero() {
               href="#contact"
               whileHover={{ opacity: 0.7 }}
               title="Contactar con Sami González Kamel"
-              aria-label="Navegar a la sección de contacto"
               style={{
                 fontSize: '0.9rem',
                 color: 'var(--text-secondary)',

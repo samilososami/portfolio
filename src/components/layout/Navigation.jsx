@@ -5,12 +5,15 @@ const NAV_ITEMS = [
   { id: 'hero', label: 'Inicio' },
   { id: 'about', label: 'Perfil' },
   { id: 'projects', label: 'Proyectos' },
+  { id: 'audits', label: 'Auditorías' },
   { id: 'contact', label: 'Contacto' }
 ];
 
 export default function Navigation() {
   const [activeItem, setActiveItem] = useState('hero');
   const [isScrolled, setIsScrolled] = useState(false);
+  const navigationRef = React.useRef(null);
+  const linkRefs = React.useRef({});
   const isManualScrolling = React.useRef(false);
   const timeoutRef = React.useRef(null);
 
@@ -49,6 +52,16 @@ export default function Navigation() {
     };
   }, []);
 
+  useEffect(() => {
+    const navigation = navigationRef.current;
+    const activeLink = linkRefs.current[activeItem];
+
+    if (!navigation || !activeLink || navigation.scrollWidth <= navigation.clientWidth) return;
+
+    const targetLeft = activeLink.offsetLeft - (navigation.clientWidth - activeLink.offsetWidth) / 2;
+    navigation.scrollTo({ left: targetLeft, behavior: 'smooth' });
+  }, [activeItem]);
+
   const handleManualClick = (id) => {
     // 1. Bloqueamos la detección automática del observer
     isManualScrolling.current = true;
@@ -68,6 +81,9 @@ export default function Navigation() {
 
   return (
     <motion.nav
+      ref={navigationRef}
+      className="site-navigation"
+      aria-label="Navegación principal"
       initial={{ y: -100, opacity: 0 }}
       animate={{ y: 0, opacity: 1 }}
       transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
@@ -87,9 +103,12 @@ export default function Navigation() {
       }}
     >
       {NAV_ITEMS.map((item) => (
-        <a 
+        <a
+          ref={(element) => { linkRefs.current[item.id] = element; }}
+          className="site-navigation__link"
           key={item.id}
           href={`#${item.id}`}
+          aria-current={activeItem === item.id ? 'page' : undefined}
           onClick={(e) => {
             e.preventDefault();
             handleManualClick(item.id);
@@ -109,6 +128,7 @@ export default function Navigation() {
           {item.label}
           {activeItem === item.id && (
             <motion.div
+              className="site-navigation__indicator"
               layoutId="nav-line"
               style={{
                 position: 'absolute',

@@ -2,6 +2,18 @@ import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Github, Bot, MessageSquare, Book, Star, GitFork, Phone, Video, Send } from 'lucide-react';
 
+const AtlasMark = () => (
+  <svg
+    className="atlas-mark"
+    viewBox="0 0 400 520"
+    fill="none"
+    aria-hidden="true"
+  >
+    <path d="M28 472 200 34l172 438-172-98L28 472Z" />
+    <path d="m112 337 88-222 88 222-88-54-88 54Z" />
+  </svg>
+);
+
 export default function Projects() {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: '-200px' });
@@ -42,7 +54,7 @@ export default function Projects() {
       <div style={{ position: 'absolute', top: '-1px', left: '50%', transform: 'translateX(-50%)', width: '100px', height: '1px', background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)' }} />
       
       <div style={{ maxWidth: '1200px', margin: '0 auto' }} ref={ref}>
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}>
+        <div className="projects-header" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '4rem' }}>
           <div>
             <h2 className="heading-section">Proyectos Destacados</h2>
             <p className="text-body" style={{ marginTop: '1rem' }}>Desarrollos personales, investigaciones y repositorios</p>
@@ -52,7 +64,6 @@ export default function Projects() {
             target="_blank" 
             rel="noreferrer" 
             title="Ver perfil completo de GitHub de @samilososami"
-            aria-label="Ver todos los repositorios en GitHub de Sami González Kamel"
             style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.2rem', fontSize: '1.05rem', transition: 'color 0.3s' }} 
             onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} 
             onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
@@ -62,7 +73,7 @@ export default function Projects() {
         </div>
 
         {/* Grid de Proyectos */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
+        <div className="projects-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '2rem' }}>
           
           {/* Card 1: ESP32-SUITE (GitHub Theme) */}
           <motion.a
@@ -71,7 +82,7 @@ export default function Projects() {
             target="_blank"
             rel="noreferrer"
             title="Proyecto ESP32-SUITE en GitHub"
-            aria-label="Herramientas y firmware para ESP32 desarrollado por Sami González Kamel"
+            aria-label="ESP32-SUITE — herramientas y firmware para ESP32 desarrollado por Sami González Kamel"
             initial={{ opacity: 0, y: 25, filter: 'blur(4px)' }}
             animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 25, filter: 'blur(4px)' }}
             transition={{ duration: 1.1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
@@ -121,11 +132,11 @@ export default function Projects() {
             </div>
           </motion.a>
 
-          {/* Card 2: OpenAtlas (Minimalista Extremo) */}
+          {/* Card 2: ATLAS (Minimalista Extremo) */}
           <motion.div
-            className="project-card"
-            title="OpenAtlas - Agente de IA Experimental"
-            aria-label="OpenAtlas: Agente de IA para automatización y domótica por Sami González Kamel"
+            className="project-card atlas-card"
+            title="ATLAS - Agente de IA Experimental"
+            aria-label="ATLAS: Agente de IA para automatización y domótica por Sami González Kamel"
             initial={{ opacity: 0, y: 25, filter: 'blur(4px)' }}
             animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 25, filter: 'blur(4px)' }}
             transition={{ duration: 1.1, delay: 0.25, ease: [0.16, 1, 0.3, 1] }}
@@ -148,13 +159,15 @@ export default function Projects() {
               e.currentTarget.style.boxShadow = 'inset 0 0 0 1px #000, 0 0 35px rgba(255,255,255,0), 0 0 60px rgba(255,255,255,0), inset 0 0 20px rgba(255,255,255,0)';
             }}
           >
+            <AtlasMark />
+
             <div style={{ position: 'absolute', top: '2rem', right: '2rem', display: 'flex', alignItems: 'center', gap: '6px' }}>
               <span style={{ fontSize: '0.65rem', fontWeight: 800, color: '#000', letterSpacing: '0.1em' }}>AI</span>
               <span style={{ width: '6px', height: '6px', background: '#000', borderRadius: '50%', animation: 'pulse 2s infinite' }} />
             </div>
 
-            <div style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
-              <h3 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#000', marginBottom: '1.5rem', letterSpacing: '-0.05em', lineHeight: 1 }}>Open<br/>Atlas.</h3>
+            <div className="atlas-card__content" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+              <h3 style={{ fontSize: '2.5rem', fontWeight: 900, color: '#000', marginBottom: '1.5rem', letterSpacing: '-0.05em', lineHeight: 1 }}>ATLAS.</h3>
               <p style={{ color: '#666', fontSize: '0.95rem', flex: 1, marginBottom: '2rem', lineHeight: 1.5, fontWeight: 500 }}>
                 Mi proyecto de TDR del instituto. Es un agente de IA para automatizar tareas y domótica, basado en la arquitectura de OpenClaw.
               </p>
@@ -171,7 +184,7 @@ export default function Projects() {
             target="_blank"
             rel="noreferrer"
             title="wowMessenger - App de mensajería experimental"
-            aria-label="wowMessenger: Aplicación de mensajería con soporte de voz y video por Sami González Kamel"
+            aria-label="wowMessenger — aplicación de mensajería con soporte de voz y video por Sami González Kamel"
             initial={{ opacity: 0, y: 25, filter: 'blur(4px)' }}
             animate={isInView ? { opacity: 1, y: 0, filter: 'blur(0px)' } : { opacity: 0, y: 25, filter: 'blur(4px)' }}
             transition={{ duration: 1.1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}

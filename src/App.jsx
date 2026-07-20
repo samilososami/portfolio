@@ -1,11 +1,20 @@
 import React, { useEffect, useState } from 'react';
-import { motion, useScroll, useSpring } from 'framer-motion';
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue,
+  useReducedMotion,
+  useScroll,
+  useSpring,
+  useTransform
+} from 'framer-motion';
 
 // Component imports
 import Navigation from './components/layout/Navigation';
 import Hero from './components/sections/Hero';
 import About from './components/sections/About';
 import Projects from './components/sections/Projects';
+import SecurityAudits from './components/sections/SecurityAudits';
 import Contact from './components/sections/Contact';
 
 function App() {
@@ -16,47 +25,52 @@ function App() {
     restDelta: 0.001
   });
 
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
+  const mouseX = useMotionValue(0);
+  const mouseY = useMotionValue(0);
+  const auraX = useTransform(mouseX, (value) => value - 300);
+  const auraY = useTransform(mouseY, (value) => value - 300);
+  const gridMask = useMotionTemplate`radial-gradient(circle 200px at ${mouseX}px ${mouseY}px, black 0%, transparent 100%)`;
+  const prefersReducedMotion = useReducedMotion();
   const [cursorHidden, setCursorHidden] = useState(false);
 
   useEffect(() => {
     const updateMousePosition = (e) => {
-      setMousePosition({ x: e.clientX, y: e.clientY });
+      mouseX.set(e.clientX);
+      mouseY.set(e.clientY);
     };
-    window.addEventListener('mousemove', updateMousePosition);
+    const interactiveSelector = '#projects .project-card, .profile-photo';
+    const handleOver = (e) => {
+      if (e.target.closest?.(interactiveSelector)) setCursorHidden(true);
+    };
+    const handleOut = (e) => {
+      if (e.target.closest?.(interactiveSelector)) setCursorHidden(false);
+    };
 
-    // Ocultar el cursor glow cuando el ratón está sobre project cards o la foto de perfil
-    const handleOver = () => setCursorHidden(true);
-    const handleOut = () => setCursorHidden(false);
+    mouseX.set(window.innerWidth / 2);
+    mouseY.set(window.innerHeight / 2);
 
-    const observer = new MutationObserver(() => {
-      document.querySelectorAll('#projects .project-card, .profile-photo').forEach(el => {
-        el.removeEventListener('mouseenter', handleOver);
-        el.removeEventListener('mouseleave', handleOut);
-        el.addEventListener('mouseenter', handleOver);
-        el.addEventListener('mouseleave', handleOut);
-      });
-    });
-    observer.observe(document.body, { childList: true, subtree: true });
+    const hasFinePointer = window.matchMedia('(pointer: fine)').matches;
 
-    // Bind initially too
-    setTimeout(() => {
-      document.querySelectorAll('#projects .project-card, .profile-photo').forEach(el => {
-        el.addEventListener('mouseenter', handleOver);
-        el.addEventListener('mouseleave', handleOut);
-      });
-    }, 1000);
+    if (!prefersReducedMotion && hasFinePointer) {
+      window.addEventListener('pointermove', updateMousePosition, { passive: true });
+    }
+    if (hasFinePointer) {
+      document.addEventListener('pointerover', handleOver);
+      document.addEventListener('pointerout', handleOut);
+    }
 
     return () => {
-      window.removeEventListener('mousemove', updateMousePosition);
-      observer.disconnect();
+      window.removeEventListener('pointermove', updateMousePosition);
+      document.removeEventListener('pointerover', handleOver);
+      document.removeEventListener('pointerout', handleOut);
     };
-  }, []);
+  }, [mouseX, mouseY, prefersReducedMotion]);
 
   return (
     <div className="app-container" style={{ position: 'relative' }}>
       {/* Premium custom cursor effect - Soft aura */}
       <motion.div
+        className="cursor-aura"
         animate={{ opacity: cursorHidden ? 0 : 1 }}
         transition={{ duration: cursorHidden ? 0.3 : 0.5, ease: "easeInOut" }}
         style={{
@@ -67,13 +81,14 @@ function App() {
           background: 'radial-gradient(circle, rgba(255, 223, 0, 0.03) 0%, rgba(212, 175, 55, 0.01) 40%, rgba(255,255,255,0) 70%)',
           pointerEvents: 'none',
           zIndex: -2,
-          x: mousePosition.x - 300,
-          y: mousePosition.y - 300
+          x: auraX,
+          y: auraY
         }}
       />
 
       {/* Illuminating Grid overlay */}
       <motion.div
+        className="cursor-grid"
         animate={{ opacity: cursorHidden ? 0 : 1 }}
         transition={{ duration: cursorHidden ? 0.3 : 0.5, ease: "easeInOut" }}
         style={{
@@ -86,8 +101,8 @@ function App() {
             linear-gradient(90deg, rgba(255, 255, 255, 0.08) 1px, transparent 1px)
           `,
           backgroundSize: '50px 50px',
-          WebkitMaskImage: `radial-gradient(circle 200px at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`,
-          maskImage: `radial-gradient(circle 200px at ${mousePosition.x}px ${mousePosition.y}px, black 0%, transparent 100%)`
+          WebkitMaskImage: gridMask,
+          maskImage: gridMask
         }}
       />
 
@@ -111,6 +126,7 @@ function App() {
         <Hero />
         <About />
         <Projects />
+        <SecurityAudits />
         <Contact />
       </main>
     </div>

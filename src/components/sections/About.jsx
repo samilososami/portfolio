@@ -34,7 +34,7 @@ export default function About() {
 
   return (
     <section id="about" title="Perfil de Sami González Kamel" style={{ padding: '10rem 5vw', borderTop: '1px solid var(--border-color)' }}>
-      <div style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6rem' }}>
+      <div className="about-grid" style={{ maxWidth: '1200px', margin: '0 auto', display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '6rem' }}>
 
         {/* Left Column: The Bio Blocks */}
         <div>
@@ -45,20 +45,20 @@ export default function About() {
               Nacido el 9 de marzo de 2009 en El Cairo y formado entre Barcelona y Tarragona. Estudiante de 1º de Bachillerato interesado en ciberseguridad.
             </p>
             <p className="text-body" style={{ marginBottom: '1.5rem' }}>
-              Me llamo <strong>Sami González Kamel</strong>. Empecé la primaria en Barcelona y en 2016, con 7 años, me mudé a Tarragona, donde completé la etapa primaria en la Escuela de Práctiques. Actualmente, con 17 años, curso primero de Bachillerato en el IES Tarragona, donde integro mis estudios con una constante evolución en el sector tecnológico.
+              Me llamo <strong>Sami González Kamel</strong>. Empecé la primaria en Barcelona y en 2016, con 7 años, me mudé a Tarragona, donde completé la etapa primaria. Actualmente, con 17 años, curso primero de Bachillerato, donde integro mis estudios con una constante evolución en el sector tecnológico.
             </p>
             <p className="text-body" style={{ marginBottom: '1.5rem' }}>
-              Mi fascinación por la tecnología comenzó a los 14 años explorando el ecosistema Windows. Sin embargo, fue a los 15 cuando encontró mi verdadera vocación en la <strong>ciberseguridad y el pentesting</strong>. Desde entonces, he desarrollado un dominio avanzado operando laboratorios virtuales y distribuciones especializadas como Kali Linux y Parrot OS.
+              Mi fascinación por la tecnología comenzó a los 14 años explorando el ecosistema Windows. Sin embargo, fue a los 15 cuando encontré mi verdadera vocación en la <strong>ciberseguridad y el pentesting</strong>. Desde entonces, he desarrollado un dominio avanzado operando laboratorios virtuales y distribuciones especializadas como Kali Linux y Parrot OS.
             </p>
             <motion.div
                ref={sidePhotoRef}
-               className="profile-photo"
+               className="profile-photo profile-photo--portrait"
                initial={{ opacity: 0, x: -40 }}
                animate={isSidePhotoInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
                transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
                style={{
                  width: '100%',
-                 aspectRatio: '1/1', /* Formato cuadrado: muestra mucha más altura original */
+                 aspectRatio: '4/5',
                  borderRadius: '16px',
                  overflow: 'hidden',
                  border: '1px solid var(--border-color)',
@@ -73,24 +73,37 @@ export default function About() {
                  e.currentTarget.style.boxShadow = '0 0 50px rgba(255,255,255,0), 0 0 80px rgba(255,255,255,0)';
                }}
              >
-               <img
-                 src="/sami-gonzalez-kamel-pentesting-automatizacion.jpg"
-                 alt="Sami González Kamel - Estudiante de bachillerato e investigador en ciberseguridad, pentesting y automatización"
-                 style={{
-                   width: '100%',
-                   height: '100%',
-                   objectFit: 'cover',
-                   objectPosition: 'center 20%', /* Bajamos la foto dentro del recuadro (enseña más por arriba) */
-                   display: 'block',
-                   filter: 'grayscale(15%) contrast(105%)'
-                 }}
-               />
+               <picture>
+                 <source
+                   srcSet="/sami-gonzalez-kamel-retrato-exterior-480.webp 480w, /sami-gonzalez-kamel-retrato-exterior.webp 864w"
+                   sizes="(max-width: 700px) 90vw, (max-width: 980px) 70vw, 42vw"
+                   type="image/webp"
+                 />
+                 <img
+                   src="/sami-gonzalez-kamel-retrato-exterior.jpg"
+                   srcSet="/sami-gonzalez-kamel-retrato-exterior-480.jpg 480w, /sami-gonzalez-kamel-retrato-exterior.jpg 864w"
+                   sizes="(max-width: 700px) 90vw, (max-width: 980px) 70vw, 42vw"
+                   alt="Sami González Kamel en un retrato exterior"
+                   width="864"
+                   height="1536"
+                   loading="lazy"
+                   decoding="async"
+                   style={{
+                     width: '100%',
+                     height: '100%',
+                     objectFit: 'cover',
+                     objectPosition: 'center 34%',
+                     display: 'block',
+                     filter: 'grayscale(8%) contrast(104%)'
+                   }}
+                 />
+               </picture>
              </motion.div>
           </FadeInBlock>
         </div>
 
         {/* Right Column: Tags & Arsenal */}
-        <div style={{ paddingTop: '9.7rem' }} ref={gridRef}>
+        <div className="about-grid__secondary" style={{ paddingTop: '9.7rem' }} ref={gridRef}>
            <div style={{ marginBottom: '2rem' }}>
              <motion.div
                className="profile-photo"
@@ -113,16 +126,27 @@ export default function About() {
                  e.currentTarget.style.boxShadow = '0 0 50px rgba(255,255,255,0), 0 0 80px rgba(255,255,255,0)';
                }}
              >
-               <img
-                 src="/sami-gonzalez-kamel-ciberseguridad-perfil.png"
-                 alt="Sami González Kamel - Retrato profesional de ciberseguridad"
-                 style={{
-                   width: '100%',
-                   height: '100%',
-                   objectFit: 'cover',
-                   filter: 'grayscale(15%) contrast(105%)'
-                 }}
-               />
+               <picture>
+                 <source
+                   srcSet="/sami-gonzalez-kamel-ciberseguridad-perfil-360.webp 360w, /sami-gonzalez-kamel-ciberseguridad-perfil.webp 614w"
+                   sizes="(max-width: 700px) 90vw, (max-width: 980px) 70vw, 42vw"
+                   type="image/webp"
+                 />
+                 <img
+                   src="/sami-gonzalez-kamel-ciberseguridad-perfil.png"
+                   alt="Sami González Kamel - Retrato profesional de ciberseguridad"
+                   width="614"
+                   height="921"
+                   loading="lazy"
+                   decoding="async"
+                   style={{
+                     width: '100%',
+                     height: '100%',
+                     objectFit: 'cover',
+                     filter: 'grayscale(15%) contrast(105%)'
+                   }}
+                 />
+               </picture>
              </motion.div>
            </div>
 
