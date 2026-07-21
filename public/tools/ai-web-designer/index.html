@@ -44,6 +44,18 @@
     <link rel="stylesheet" crossorigin href="/tools/ai-web-designer/assets/index-DSWb8KwA.css">
   </head>
   <body>
-    <div id="root"></div>
+    <main id="root"></main>
+    <script>
+      const accessibilityObserver = new MutationObserver(() => {
+        const submitButton = document.querySelector('form button[type="submit"]')
+        if (submitButton && !submitButton.hasAttribute('aria-label')) {
+          submitButton.setAttribute('aria-label', 'Enviar mensaje')
+        }
+      })
+      accessibilityObserver.observe(document.getElementById('root'), {
+        childList: true,
+        subtree: true
+      })
+    </script>
   </body>
 </html>
