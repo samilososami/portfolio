@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Github, Bot, MessageSquare, Book, Star, GitFork, Phone, Video, Send } from 'lucide-react';
+import { Github, Book, Star, GitFork, Phone, Video, Send, Wrench } from 'lucide-react';
 
 const AtlasMark = () => (
   <svg
@@ -59,17 +59,24 @@ export default function Projects() {
             <h2 className="heading-section">Proyectos Destacados</h2>
             <p className="text-body" style={{ marginTop: '1rem' }}>Desarrollos personales, investigaciones y repositorios</p>
           </div>
-          <a 
-            href="https://github.com/samilososami" 
-            target="_blank" 
-            rel="noreferrer" 
-            title="Ver perfil completo de GitHub de @samilososami"
-            style={{ display: 'flex', alignItems: 'center', gap: '0.5rem', color: 'var(--text-secondary)', borderBottom: '1px solid var(--border-color)', paddingBottom: '0.2rem', fontSize: '1.05rem', transition: 'color 0.3s' }} 
-            onMouseEnter={(e) => e.currentTarget.style.color = '#fff'} 
-            onMouseLeave={(e) => e.currentTarget.style.color = 'var(--text-secondary)'}
-          >
-            Ver todo en GitHub <Github size={18} />
-          </a>
+          <div className="projects-actions">
+            <a
+              className="projects-action"
+              href="/tools/"
+              title="Abrir las herramientas web de Sami González Kamel"
+            >
+              Abrir herramientas <Wrench size={17} aria-hidden="true" />
+            </a>
+            <a
+              className="projects-action"
+              href="https://github.com/samilososami"
+              target="_blank"
+              rel="noreferrer"
+              title="Ver perfil completo de GitHub de @samilososami"
+            >
+              Ver todo en GitHub <Github size={18} aria-hidden="true" />
+            </a>
+          </div>
         </div>
 
         {/* Grid de Proyectos */}

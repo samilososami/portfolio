@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.samilososami.com/</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     
@@ -42,5 +42,17 @@
     <image:image>
       <image:loc>https://www.samilososami.com/portfolio-tecnico-sami-gonzalez-kamel.png</image:loc>
     </image:image>
+  </url>
+  <url>
+    <loc>https://www.samilososami.com/tools/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.samilososami.com/tools/ai-web-designer/</loc>
+    <lastmod>2026-07-21</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
   </url>
 </urlset>
