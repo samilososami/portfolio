@@ -53,10 +53,10 @@ export default function Recognition() {
 
         <div className="recognition__content">
           <p className="recognition__lead">
-            <strong>Sami González Kamel</strong> —citado en los medios como <strong>Sami González</strong>—,
-            Emilio Hernández y Marc Ferré formaron el equipo responsable del vídeo del
-            Gran Concurso del Hormigón 2026. Su trabajo recibió el premio a la creatividad
-            en la fase de Tarragona.
+            Junto a <strong>Emilio Hernández</strong> y <strong>Marc Ferré</strong>, formé el equipo
+            responsable del vídeo del Gran Concurso del Hormigón 2026. Nuestro trabajo recibió
+            el premio a la creatividad en la fase de Tarragona. En las publicaciones sobre el
+            concurso aparezco como <strong>Sami González</strong>.
           </p>
 
           <a
