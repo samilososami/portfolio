@@ -52,12 +52,27 @@ export default function Recognition() {
         </div>
 
         <div className="recognition__content">
-          <p className="recognition__lead">
-            Junto a <strong>Emilio Hernández</strong> y <strong>Marc Ferré</strong>, formé el equipo
-            responsable del vídeo del Gran Concurso del Hormigón 2026. Nuestro trabajo recibió
-            el premio a la creatividad en la fase de Tarragona. En las publicaciones sobre el
-            concurso aparezco como <strong>Sami González</strong>.
-          </p>
+          <blockquote
+            className="recognition__quote"
+            cite="https://www.diaridetarragona.com/tarragona/260572/institut-tarragona-conquista-gran-concurso-hormigon-competira-final-estatal_amp.html"
+          >
+            <p>
+              «Además del primer premio provincial, los alumnos Sami Gonzalez, Emilio Hernández
+              y Marc Ferré […] han conseguido el premio a la creatividad.»
+            </p>
+            <footer>
+              <cite>
+                <a
+                  href="https://www.diaridetarragona.com/tarragona/260572/institut-tarragona-conquista-gran-concurso-hormigon-competira-final-estatal_amp.html"
+                  target="_blank"
+                  rel="noopener"
+                >
+                  Diari de Tarragona
+                </a>
+              </cite>
+              <time dateTime="2026-05-19">19 mayo 2026</time>
+            </footer>
+          </blockquote>
 
           <a
             className="recognition__detail-link"

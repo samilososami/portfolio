@@ -176,22 +176,44 @@ article {
   line-height: 1;
 }
 
-.statement .lead {
+.press-quote {
   margin-bottom: 2rem;
-  color: rgba(17, 17, 17, 0.78);
   font-size: clamp(1.2rem, 2.2vw, 1.65rem);
   font-weight: 350;
   line-height: 1.65;
 }
 
-.statement p:last-child,
+.press-quote p {
+  color: var(--ink);
+  font-style: italic;
+}
+
+.press-quote footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem 1rem;
+  margin-top: 1.5rem;
+  color: var(--muted);
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 0.68rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.press-quote cite {
+  color: var(--ink);
+  font-style: normal;
+  font-weight: 600;
+}
+
+.statement .context-copy,
 .identity p {
   max-width: 720px;
   color: var(--muted);
   font-size: 1rem;
 }
 
-.statement strong,
 .identity strong {
   color: var(--ink);
   font-weight: 600;

@@ -215,7 +215,7 @@ a {
   padding-top: 3rem;
 }
 
-.recognition__lead {
+.recognition__quote {
   max-width: 650px;
   color: rgba(17, 17, 17, 0.7);
   font-size: clamp(1.15rem, 2vw, 1.5rem);
@@ -223,8 +223,27 @@ a {
   line-height: 1.65;
 }
 
-.recognition__lead strong {
+.recognition__quote p {
   color: #111;
+  font-style: italic;
+}
+
+.recognition__quote footer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+  margin-top: 1.6rem;
+  color: rgba(17, 17, 17, 0.68);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-style: normal;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.recognition__quote cite {
+  color: #111;
+  font-style: normal;
   font-weight: 600;
 }
 
