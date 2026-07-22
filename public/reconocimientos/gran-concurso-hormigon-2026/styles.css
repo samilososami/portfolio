@@ -188,6 +188,10 @@ article {
   font-style: italic;
 }
 
+.press-quote strong {
+  font-weight: 700;
+}
+
 .press-quote footer {
   display: flex;
   flex-wrap: wrap;

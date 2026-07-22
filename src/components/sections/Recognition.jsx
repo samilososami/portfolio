@@ -57,8 +57,8 @@ export default function Recognition() {
             cite="https://www.diaridetarragona.com/tarragona/260572/institut-tarragona-conquista-gran-concurso-hormigon-competira-final-estatal_amp.html"
           >
             <p>
-              «Además del primer premio provincial, los alumnos Sami Gonzalez, Emilio Hernández
-              y Marc Ferré […] han conseguido el premio a la creatividad.»
+              «Además del primer premio provincial, los alumnos <strong>Sami González</strong>,
+              Emilio Hernández y Marc Ferré […] han conseguido el premio a la creatividad.»
             </p>
             <footer>
               <cite>

@@ -228,6 +228,10 @@ a {
   font-style: italic;
 }
 
+.recognition__quote strong {
+  font-weight: 700;
+}
+
 .recognition__quote footer {
   display: flex;
   flex-wrap: wrap;
