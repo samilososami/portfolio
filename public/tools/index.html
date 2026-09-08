@@ -1,358 +1,62 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" type="image/x-icon" href="/favicon.ico">
-  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <title>Herramientas de Sami González Kamel — IA, ESP32 y Windows</title>
-  <meta name="description" content="Herramientas web y proyectos de Sami González Kamel: diseño con IA, desarrollo para ESP32, MicroPython y diagnóstico inteligente de Windows.">
-  <meta name="robots" content="index,follow,max-image-preview:large">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Mis herramientas — Sami González Kamel</title>
+  <meta name="description" content="Aplicaciones y proyectos de inteligencia artificial, hardware y desarrollo web de Sami González Kamel. CasioVideo, CasioLLM, newSM, Platefy y más.">
+  <meta name="theme-color" content="#101112">
   <link rel="canonical" href="https://www.samilososami.com/tools/">
-  <meta name="theme-color" content="#050505">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/tools/directory.css">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="es_ES">
-  <meta property="og:title" content="Herramientas de Sami González Kamel">
-  <meta property="og:description" content="Aplicaciones web de IA, ESP32, MicroPython y diagnóstico de Windows desarrolladas por Sami González Kamel.">
+  <meta property="og:title" content="Mis herramientas — Sami González Kamel">
+  <meta property="og:description" content="Aplicaciones y proyectos de inteligencia artificial, hardware y desarrollo web.">
   <meta property="og:url" content="https://www.samilososami.com/tools/">
-  <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Herramientas de Sami González Kamel">
-  <meta name="twitter:description" content="Aplicaciones web de IA, ESP32, MicroPython y diagnóstico de Windows.">
-  <script type="application/ld+json">
-    {
-      "@context": "https://schema.org",
-      "@type": "CollectionPage",
-      "name": "Herramientas de Sami González Kamel",
-      "url": "https://www.samilososami.com/tools/",
-      "description": "Colección de herramientas web y proyectos desarrollados por Sami González Kamel.",
-      "isPartOf": {
-        "@id": "https://www.samilososami.com/#website"
-      },
-      "mainEntity": {
-        "@type": "ItemList",
-        "itemListElement": [
-          {
-            "@type": "ListItem",
-            "position": 1,
-            "name": "AI Web Designer",
-            "url": "https://www.samilososami.com/tools/ai-web-designer/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 2,
-            "name": "newSM",
-            "url": "https://newsm.samilososami.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 3,
-            "name": "MP Flasher",
-            "url": "https://mpflasher.samilososami.com/"
-          },
-          {
-            "@type": "ListItem",
-            "position": 4,
-            "name": "WinShooter",
-            "url": "https://winshooter.samilososami.com/"
-          }
-        ]
-      }
-    }
-  </script>
-  <style>
-    @font-face {
-      font-family: 'Inter';
-      src: url('/fonts/inter-latin.woff2') format('woff2');
-      font-weight: 300 700;
-      font-style: normal;
-      font-display: swap;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    :root {
-      --bg: #050505;
-      --surface: #0a0a0a;
-      --surface-hover: #111111;
-      --border: rgba(255,255,255,0.08);
-      --border-hover: rgba(255,255,255,0.18);
-      --text: #ffffff;
-      --text-secondary: rgba(255,255,255,0.55);
-      --text-muted: rgba(255,255,255,0.52);
-      --accent: #ffffff;
-    }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-      background: var(--bg);
-      color: var(--text);
-      min-height: 100vh;
-      line-height: 1.5;
-      -webkit-font-smoothing: antialiased;
-    }
-
-    .noise {
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: 0;
-      opacity: 0.03;
-      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-      background-size: 128px 128px;
-    }
-
-    .wrap {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 80px 24px 120px;
-    }
-
-    .back {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 13px;
-      font-weight: 400;
-      color: var(--text-muted);
-      text-decoration: none;
-      margin-bottom: 48px;
-      transition: color 0.2s;
-    }
-    .back:hover { color: var(--text); }
-    .back svg { width: 14px; height: 14px; }
-
-    .hero {
-      margin-bottom: 72px;
-    }
-    .hero h1 {
-      font-size: clamp(36px, 6vw, 56px);
-      font-weight: 800;
-      letter-spacing: -0.04em;
-      line-height: 1.05;
-      margin-bottom: 16px;
-    }
-    .hero p {
-      font-size: 16px;
-      color: var(--text-secondary);
-      max-width: 480px;
-      font-weight: 400;
-      line-height: 1.6;
-    }
-
-    .tools-grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-      gap: 20px;
-    }
-
-    .tool-card {
-      display: flex;
-      flex-direction: column;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 28px;
-      text-decoration: none;
-      color: inherit;
-      transition: border-color 0.3s, transform 0.3s, background 0.3s;
-      position: relative;
-      overflow: hidden;
-    }
-    .tool-card::before {
-      content: '';
-      position: absolute;
-      inset: 0;
-      border-radius: 16px;
-      opacity: 0;
-      transition: opacity 0.3s;
-      box-shadow: inset 0 0 0 1px rgba(255,255,255,0.08);
-      pointer-events: none;
-    }
-    .tool-card:hover {
-      border-color: var(--border-hover);
-      background: var(--surface-hover);
-      transform: translateY(-3px);
-    }
-    .tool-card:hover::before { opacity: 1; }
-
-    .tool-header {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      margin-bottom: 18px;
-    }
-
-    .tool-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 12px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 13px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      flex-shrink: 0;
-      background: rgba(255,255,255,0.06);
-      border: 1px solid rgba(255,255,255,0.08);
-      color: var(--text);
-    }
-
-    .tool-arrow {
-      width: 32px;
-      height: 32px;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      opacity: 0;
-      transform: translateX(-6px);
-      transition: opacity 0.25s, transform 0.25s;
-      background: rgba(255,255,255,0.06);
-    }
-    .tool-card:hover .tool-arrow {
-      opacity: 1;
-      transform: translateX(0);
-    }
-    .tool-arrow svg { width: 14px; height: 14px; stroke: var(--text-secondary); }
-
-    .tool-title {
-      font-size: 17px;
-      font-weight: 600;
-      letter-spacing: -0.01em;
-      margin-bottom: 6px;
-    }
-
-    .tool-desc {
-      font-size: 14px;
-      color: var(--text-secondary);
-      line-height: 1.55;
-      margin-bottom: 20px;
-    }
-
-    .tool-meta {
-      margin-top: auto;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .badge {
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.02em;
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid rgba(255,255,255,0.10);
-      color: var(--text-muted);
-      text-transform: uppercase;
-    }
-
-    .badge.new {
-      color: var(--text);
-      border-color: rgba(255,255,255,0.20);
-      background: rgba(255,255,255,0.05);
-    }
-
-    .footer {
-      margin-top: 80px;
-      text-align: center;
-    }
-    .footer p {
-      font-size: 13px;
-      color: var(--text-muted);
-    }
-
-    @media (max-width: 640px) {
-      .wrap { padding: 48px 20px 80px; }
-      .tools-grid { grid-template-columns: 1fr; gap: 14px; }
-      .tool-card { padding: 22px; }
-    }
-  </style>
 </head>
 <body>
-  <div class="noise"></div>
-
-  <main class="wrap">
-    <a href="/" class="back">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
-      samilososami.com
-    </a>
-
-    <div class="hero">
-      <h1>Herramientas</h1>
-      <p>Proyectos personales y utilidades desarrolladas para resolver problemas reales.</p>
-    </div>
-
-    <div class="tools-grid">
-      <a href="/tools/ai-web-designer" class="tool-card">
-        <div class="tool-header">
-          <div class="tool-icon">AWB</div>
-          <div class="tool-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header shell">
+    <a href="/" class="wordmark" aria-label="Sami González Kamel, inicio">samilososami</a>
+    <nav aria-label="Navegación principal"><a href="/">Inicio</a><a href="https://github.com/samilososami" target="_blank" rel="noreferrer">GitHub <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a></nav>
+  </header>
+  <main id="contenido" class="shell">
+    <section class="hero" aria-labelledby="titulo">
+      <div class="hero-copy">
+        <h1 id="titulo">Mis herramientas</h1>
+        <p class="intro">Aplicaciones y proyectos de inteligencia artificial,<br class="desktop-break"> hardware y desarrollo web.</p>
+        <div class="feature-copy">
+          <h2>CasioVideo</h2>
+          <p>Un pequeño cine en una calculadora.<br>Convierte tus vídeos, cópialos por USB y dale al play.</p>
+          <a class="feature-link" href="/tools/casiovideo/">Abrir CasioVideo <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a>
         </div>
-        <div class="tool-title">AI Web Designer</div>
-        <div class="tool-desc">Generador de páginas web con IA usando Ollama Cloud. Landing pages, portfolios, dashboards y más. Incluye app Android nativa.</div>
-        <div class="tool-meta">
-          <span class="badge new">Nuevo</span>
-          <span class="badge">Web + Android</span>
-        </div>
-      </a>
-
-      <a href="https://newsm.samilososami.com/" class="tool-card">
-        <div class="tool-header">
-          <div class="tool-icon">SM</div>
-          <div class="tool-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
-        <div class="tool-title">newSM</div>
-        <div class="tool-desc">Entorno de desarrollo y herramienta de flasheo desde el navegador para placas ESP32 con MicroPython.</div>
-        <div class="tool-meta">
-          <span class="badge">Web</span>
-          <span class="badge">ESP32</span>
-        </div>
-      </a>
-
-      <a href="https://mpflasher.samilososami.com" class="tool-card">
-        <div class="tool-header">
-          <div class="tool-icon">MP</div>
-          <div class="tool-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
-        <div class="tool-title">MP Flasher</div>
-        <div class="tool-desc">Herramienta web profesional para flashear MicroPython en placas ESP32 directamente desde el navegador.</div>
-        <div class="tool-meta">
-          <span class="badge">Web</span>
-          <span class="badge">Hardware</span>
-        </div>
-      </a>
-
-      <a href="https://winshooter.samilososami.com" class="tool-card">
-        <div class="tool-header">
-          <div class="tool-icon">WS</div>
-          <div class="tool-arrow">
-            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H7M17 7v10"/></svg>
-          </div>
-        </div>
-        <div class="tool-title">WinShooter</div>
-        <div class="tool-desc">Agente de diagnóstico autónomo para Windows potenciado por IA (Ollama / Groq). Diagnóstico y reparación inteligente.</div>
-        <div class="tool-meta">
-          <span class="badge">Windows</span>
-          <span class="badge">IA</span>
-        </div>
-      </a>
-    </div>
-
-    <div class="footer">
-      <p>Todos los proyectos son de código abierto.</p>
-    </div>
+      </div>
+      <a href="/tools/casiovideo/" class="feature-art" aria-label="Abrir el reproductor y conversor CasioVideo"><img src="/tools/assets/casiovideo-calculator-v2.png" alt="Ilustración de una calculadora con una pantalla de vídeo en color" width="1230" height="1278" fetchpriority="high"></a>
+    </section>
+    <section class="directory" aria-label="Directorio de herramientas">
+      <div class="filters" role="group" aria-label="Filtrar herramientas">
+        <button type="button" data-filter="all" aria-pressed="true">Todo</button>
+        <button type="button" data-filter="ai" aria-pressed="false">Inteligencia artificial</button>
+        <button type="button" data-filter="hardware" aria-pressed="false">Hardware</button>
+        <button type="button" data-filter="web" aria-pressed="false">Web</button>
+      </div>
+      <p class="sr-only" id="filter-status" role="status"></p>
+      <div class="project-list">
+        <a class="project" data-category="ai hardware" href="https://github.com/samilososami/CasioLLM" target="_blank" rel="noreferrer"><span class="index">01</span><h2>CasioLLM</h2><p>Modelos de lenguaje, dentro de una calculadora.</p><span class="destination">GitHub <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="hardware web" href="https://newsm.samilososami.com/" target="_blank" rel="noreferrer"><span class="index">02</span><h2>newSM</h2><p>Tu entorno MicroPython para ESP32, en el navegador.</p><span class="destination">Web <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="ai web" href="https://platefy.samilososami.com/" target="_blank" rel="noreferrer"><span class="index">03</span><h2>Platefy</h2><p>Un asistente de IA para la experiencia de restaurante.</p><span class="destination">Web <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="ai hardware" href="https://github.com/samilososami/ATLAS" target="_blank" rel="noreferrer"><span class="index">04</span><h2>ATLAS</h2><p>Un agente de IA conversacional en un prototipo físico.</p><span class="destination">GitHub <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="ai hardware" href="https://github.com/samilososami/TinyATLAS" target="_blank" rel="noreferrer"><span class="index">05</span><h2>TinyATLAS</h2><p>Un modelo de lenguaje local en un ESP32. Sin conexión.</p><span class="destination">GitHub <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="ai" href="https://github.com/samilososami/L-AGENT" target="_blank" rel="noreferrer"><span class="index">06</span><h2>L-AGENT</h2><p>Un agente de voz y una aplicación de escritorio para Linux.</p><span class="destination">GitHub <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="ai web" href="https://winshooter.samilososami.com/" target="_blank" rel="noreferrer"><span class="index">07</span><h2>WinShooter</h2><p>Diagnóstico de Windows asistido por inteligencia artificial.</p><span class="destination">Web <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="hardware web" href="https://mpflasher.samilososami.com/" target="_blank" rel="noreferrer"><span class="index">08</span><h2>MP Flasher</h2><p>Instala MicroPython en tu ESP32 directamente desde la web.</p><span class="destination">Web <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+        <a class="project" data-category="web" href="https://github.com/samilososami/wowmessenger" target="_blank" rel="noreferrer"><span class="index">09</span><h2>WowMessenger</h2><p>Mensajería web con la estética del Messenger clásico.</p><span class="destination">GitHub <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></span></a>
+      </div>
+    </section>
   </main>
+  <footer class="site-footer shell"><span>Sami González Kamel</span><a href="https://github.com/samilososami?tab=repositories" target="_blank" rel="noreferrer">Todos los repositorios <svg class="arrow" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 18 18 6M6 6h12v12"/></svg></a></footer>
+  <script type="module" src="/tools/directory.js"></script>
 </body>
 </html>

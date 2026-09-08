@@ -17,3 +17,4 @@ yarn-error.log*
 .env.production.local
 .vercel
 public/tools/winshooter/script.ps1
+.env*

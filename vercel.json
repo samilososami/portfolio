@@ -2,6 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
+      "source": "/tools/casiovideo/:path*",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "Permissions-Policy", "value": "camera=(), microphone=(), geolocation=()" },
+        { "key": "Content-Security-Policy", "value": "default-src 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data: blob:; font-src 'self'; media-src 'self' blob:; connect-src 'self'; upgrade-insecure-requests" }
+      ]
+    },
+    {
       "source": "/",
       "headers": [
         { "key": "X-Content-Type-Options", "value": "nosniff" },
@@ -25,6 +34,26 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/tools",
+      "destination": "/tools/index.html"
+    },
+    {
+      "source": "/tools/",
+      "destination": "/tools/index.html"
+    },
+    {
+      "source": "/tools/casiovideo",
+      "destination": "/tools/casiovideo/index.html"
+    },
+    {
+      "source": "/tools/casiovideo/",
+      "destination": "/tools/casiovideo/index.html"
+    },
+    {
+      "source": "/tools/casiovideo/api/release",
+      "destination": "/api/casiovideo-release"
+    },
     {
       "source": "/api/:path*",
       "destination": "https://api.ollama.com/api/:path*"
