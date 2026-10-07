@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CasioLLM — Modelos de lenguaje locales en una fx-CG50</title>
+  <meta name="description" content="CasioLLM ejecuta modelos de lenguaje cuantizados completamente offline en una Casio fx-CG50, leyendo sus pesos desde la memoria flash por bloques.">
+  <meta name="theme-color" content="#171717">
+  <link rel="canonical" href="https://www.samilososami.com/tools/casio/casiollm/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/tools/casio/assets/casio.css">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="CasioLLM — Un modelo de lenguaje dentro de una calculadora">
+  <meta property="og:description" content="TinyTalk y NanoLM, cuantizados y ejecutados offline en una Casio fx-CG50.">
+  <meta property="og:url" content="https://www.samilososami.com/tools/casio/casiollm/">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"CasioLLM","description":"Offline language models on Casio fx-CG50 graphing calculators.","codeRepository":"https://github.com/samilososami/CasioLLM","programmingLanguage":"C","author":{"@type":"Person","name":"Sami González Kamel"}}</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="header-inner shell">
+      <a class="brand" href="/tools/casio/"><span class="brand-mark" aria-hidden="true"></span> Casio / Sami</a>
+      <nav class="site-nav" aria-label="Navegación del proyecto">
+        <a href="#modelos">Modelos</a>
+        <a class="optional" href="#rendimiento">Rendimiento</a>
+        <a href="https://github.com/samilososami/CasioLLM" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="detail-hero shell">
+      <div>
+        <p class="eyebrow" data-reveal>Offline / Casio fx-CG50</p>
+        <h1 data-reveal>Casio<br>LLM.</h1>
+        <p class="hero-lead" data-reveal>Modelos de lenguaje completos dentro de una calculadora. Sin Wi-Fi, sin servidor y sin fingir que el hardware es más potente de lo que es.</p>
+        <div class="hero-actions" data-reveal>
+          <a class="button" href="https://github.com/samilososami/CasioLLM/releases" target="_blank" rel="noreferrer">Descargar modelos</a>
+          <a class="button button-secondary" href="https://github.com/samilososami/CasioLLM" target="_blank" rel="noreferrer">Ver el código</a>
+        </div>
+      </div>
+      <div class="detail-visual" data-reveal>
+        <div class="llm-demo" aria-label="Ejemplo de conversación local">
+          <div class="llm-demo-head"><span>CasioLLM / local</span><span class="llm-demo-dot" aria-hidden="true"></span></div>
+          <div class="llm-dialogue">
+            <p><span>you</span>hi</p>
+            <p class="model-answer"><span>model</span>Hello! How are you doing today?</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="manifesto shell" data-reveal>
+      <p>Los pesos no caben en RAM. <em>Así que la inferencia aprende a vivir desde la flash.</em></p>
+    </section>
+
+    <div class="stat-line shell" aria-label="Datos técnicos" data-reveal>
+      <div class="stat"><span>Funcionamiento</span><strong>100% offline</strong></div>
+      <div class="stat"><span>TinyTalk</span><strong>≈ 2,27 MB</strong></div>
+      <div class="stat"><span>NanoLM</span><strong>≈ 13,29 MB</strong></div>
+      <div class="stat"><span>Memoria de trabajo</span><strong>≈ 512 KB</strong></div>
+    </div>
+
+    <section class="section shell" aria-labelledby="funcionamiento">
+      <div class="section-head" data-reveal>
+        <p class="section-number">01 / FUNCIONAMIENTO</p>
+        <div>
+          <h2 class="section-title" id="funcionamiento">La flash como almacén de pesos.</h2>
+          <p class="section-copy">El add-in mantiene en RAM solo las activaciones y el estado imprescindible. Las matrices cuantizadas permanecen como archivos externos y se leen por bloques durante cada operación.</p>
+        </div>
+      </div>
+      <div class="architecture" data-reveal>
+        <div class="architecture-node"><span>01 · Entrada</span><strong>Prompt nuevo</strong><small>Cada consulta es independiente.</small></div>
+        <div class="architecture-node"><span>02 · Tokenizer</span><strong>Vocabulario podado</strong><small>Menos almacenamiento y trabajo.</small></div>
+        <div class="architecture-node"><span>03 · Pesos</span><strong>Flash por bloques</strong><small>Q4 en un formato propio compacto.</small></div>
+        <div class="architecture-node"><span>04 · Salida</span><strong>Token a token</strong><small>La respuesta aparece al generarse.</small></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="modelos" aria-labelledby="comparacion">
+      <div class="section-head" data-reveal>
+        <p class="section-number">02 / MODELOS</p>
+        <div>
+          <h2 class="section-title" id="comparacion">Dos límites distintos.</h2>
+          <p class="section-copy">TinyTalk prioriza tiempo y tamaño. NanoLM intenta conservar más capacidad, pero ocupa casi toda la unidad y responde con mucha más lentitud.</p>
+        </div>
+      </div>
+      <table class="model-table" data-reveal>
+        <thead><tr><th>Modelo</th><th>Paquete</th><th>Ventaja</th><th>Coste</th><th>Release</th></tr></thead>
+        <tbody>
+          <tr><td>TinyTalk v1 Q4</td><td>≈ 2,27 MB</td><td>Mucho más rápido y deja espacio libre.</td><td>Vocabulario limitado y alucinaciones frecuentes.</td><td><a href="https://github.com/samilososami/CasioLLM/releases/tag/v0.8.2-tinytalk" target="_blank" rel="noreferrer">v0.8.2 ↗</a></td></tr>
+          <tr><td>NanoLM Q4-20K CG4</td><td>≈ 13,29 MB</td><td>Más capacidad y un vocabulario más amplio.</td><td>Extremadamente lento; pierde conceptos tras la cuantización.</td><td><a href="https://github.com/samilososami/CasioLLM/releases/tag/v0.10.1-nanolm" target="_blank" rel="noreferrer">v0.10.1 ↗</a></td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section shell" id="rendimiento" aria-labelledby="medicion">
+      <div class="section-head" data-reveal>
+        <p class="section-number">03 / MEDICIÓN</p>
+        <div>
+          <h2 class="section-title" id="medicion">Optimizar segundos, no benchmarks abstractos.</h2>
+          <p class="section-copy">En una prueba física con el prompt “hi”, TinyTalk v0.8.1 redujo el primer token de 9,382 s a 5,695 s y el total de 34,296 s a 27,078 s frente a la base v0.7.0.</p>
+        </div>
+      </div>
+      <table class="model-table" data-reveal>
+        <thead><tr><th>Versión TinyTalk</th><th>Prompt</th><th>Primer token</th><th>Respuesta completa</th></tr></thead>
+        <tbody>
+          <tr><td>v0.7.0 original</td><td>hi</td><td>9,382 s</td><td>34,296 s</td></tr>
+          <tr><td>v0.8.1 optimizada</td><td>hi</td><td>5,695 s</td><td>27,078 s</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="section shell">
+      <aside class="notice" data-reveal>
+        <h3>Es una demostración técnica.</h3>
+        <p>Estos modelos son diminutos y están cuantizados de forma agresiva. Pueden inventar datos, repetir texto o responder mal a conceptos sencillos. NanoLM no equivale a un asistente moderno por ocupar más: solo empuja un poco más lejos el límite de la calculadora.</p>
+      </aside>
+      <div class="cta-row" data-reveal>
+        <a class="button" href="https://github.com/samilososami/CasioLLM/releases" target="_blank" rel="noreferrer">Abrir releases</a>
+        <a class="button button-secondary" href="https://github.com/samilososami/CasioLLM/blob/main/README.md" target="_blank" rel="noreferrer">Leer documentación</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>CasioLLM · Offline · © <span data-year></span> Sami González Kamel</span>
+    <nav aria-label="Enlaces del pie"><a href="/tools/casio/">Proyectos Casio</a><a href="/tools/casio/cg50-espmod/">Mod con Wi-Fi</a><a href="https://github.com/samilososami/CasioLLM" target="_blank" rel="noreferrer">GitHub</a></nav>
+  </footer>
+  <script type="module" src="/tools/casio/assets/casio.js"></script>
+</body>
+</html>

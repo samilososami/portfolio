@@ -18,7 +18,7 @@ export default defineConfig({
   server: {
     port: 3000,
     proxy: {
-      '/tools/casiovideo': {target:'http://localhost:5178',changeOrigin:true}
+      '/tools/casio/casiovideo': {target:'http://localhost:5178',changeOrigin:true}
     }
   }
 })

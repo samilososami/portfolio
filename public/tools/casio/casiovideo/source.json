@@ -1,15 +1,15 @@
 {
   "repository": "https://github.com/samilososami/CasioVideo",
-  "revision": "e59b2b39915d604daecd77f48eec735057608aaa",
+  "revision": "b2000743d1e278335b7a225d621af2581d466282",
   "version": "0.1.1",
   "checksums": {
-    "assets/index-3i2kjVDe.css": "cbcbdc92284d834ecb366f973d88f70eb7989c8398b311babd96622b2eba394f",
-    "assets/index-C2dwZJ-a.js": "26a897e00b795063ae44532abf9dede82f84922f0ef80dff5bf5a0c5b6f9db1b",
+    "assets/index-BIdDyH25.css": "3240a0f31ae601680f3d30c4aa8b8d6fc03384813385dfc0851ce3d586794312",
+    "assets/index-C6gneWfd.js": "2c9d54512c012c6369be2b60a7de199fafa425b9a8f47037aff9b86b819f8004",
     "fonts/Inter-OFL.txt": "5b9321a4298cfeb6b34354164a1c3afc3db114569984c502b9b35d988fd58c57",
     "fonts/JetBrainsMono-OFL.txt": "a76abf002c49097d146e86740a3105a5d00450b1592e820a1109a8c5680cd697",
     "fonts/inter-latin.woff2": "c940764593d0fe5d596be327ca7558855e018039fb78509aa21921fd3644c3e4",
     "fonts/jetbrains-mono-latin.woff2": "2c32b9b3ee358c119e210f6f5195f9bd34894d78a785ff2e95d60e718e400af4",
-    "index.html": "0d56132d621d7ffc523ded919134bdac9334ff170779a5afefa697eb1359fb23",
+    "index.html": "f15b3cdd5144b99a3184d16d22f8be2de009d800babc4bb79969e2582774404f",
     "play.svg": "ef021289030d174c173d80c9d3ef6c5b3b959699da17f309f5fdbb76a2a1eb9a",
     "api/release.mjs": "112614586236ba0e8e5c0c963e99f59fe0c7838b004a77d2e5a708090c6890f6"
   }

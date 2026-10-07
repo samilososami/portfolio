@@ -14,7 +14,7 @@ if (execFileSync('git', ['status', '--porcelain', '--', 'web', 'api'], {cwd: sou
   throw new Error('Commit the CasioVideo web/API changes before recording a source revision.');
 }
 execFileSync('npm', ['run', 'build'], {cwd: resolve(source, 'web'), stdio: 'inherit'});
-const destination = resolve(root, 'public/tools/casiovideo');
+const destination = resolve(root, 'public/tools/casio/casiovideo');
 await mkdir(destination, {recursive: true});
 await mkdir(resolve(root, 'api'), {recursive: true});
 // Copy a versioned build. Old hashed files may remain, keeping prior open tabs valid.
@@ -35,4 +35,4 @@ await writeFile(resolve(destination, 'source.json'), JSON.stringify({
   repository: 'https://github.com/samilososami/CasioVideo', revision,
   version: manifest.version, checksums
 }, null, 2) + '\n');
-console.log(`Mounted CasioVideo ${manifest.version} (${revision}) at /tools/casiovideo/.`);
+console.log(`Mounted CasioVideo ${manifest.version} (${revision}) at /tools/casio/casiovideo/.`);

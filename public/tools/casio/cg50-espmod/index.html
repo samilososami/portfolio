@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>cg50-espmod — Wi-Fi e IA en una Casio fx-CG50</title>
+  <meta name="description" content="Mod open source de Casio fx-CG50 con una XIAO ESP32-C3 integrada por UART: Wi-Fi, HTTPS, CasioWIFI y CasioGPT con respuestas en streaming.">
+  <meta name="theme-color" content="#171717">
+  <link rel="canonical" href="https://www.samilososami.com/tools/casio/cg50-espmod/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/tools/casio/assets/casio.css">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="cg50-espmod — Internet dentro de una Casio">
+  <meta property="og:description" content="Wi-Fi, HTTPS e IA mediante una XIAO ESP32-C3 integrada en la fx-CG50.">
+  <meta property="og:url" content="https://www.samilososami.com/tools/casio/cg50-espmod/">
+  <meta property="og:image" content="https://www.samilososami.com/tools/casio/assets/cg50-espmod-social.png">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"cg50-espmod","description":"Mod open source que añade Wi-Fi y asistencia mediante IA a una Casio fx-CG50 usando una XIAO ESP32-C3 integrada por UART.","codeRepository":"https://github.com/samilososami/cg50-espmod","programmingLanguage":["C","C++"],"author":{"@type":"Person","name":"Sami González Kamel"}}</script>
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="header-inner shell">
+      <a class="brand" href="/tools/casio/" aria-label="Volver a proyectos Casio"><span class="brand-mark" aria-hidden="true"></span> Casio / Sami</a>
+      <nav class="site-nav" aria-label="Navegación del proyecto">
+        <a href="#apps">Apps</a>
+        <a class="optional" href="#hardware">Hardware</a>
+        <a href="https://github.com/samilososami/cg50-espmod" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="hero hero-compact shell">
+      <p class="eyebrow" data-reveal>Casio fx-CG50 × XIAO ESP32-C3</p>
+      <h1 data-reveal>Internet dentro<br>de una Casio.</h1>
+      <p class="hero-lead" data-reveal>Una modificación física y una plataforma de software que añaden Wi-Fi, HTTPS y asistencia mediante IA a una calculadora gráfica.</p>
+      <div class="hero-actions" data-reveal>
+        <a class="button" href="https://github.com/samilososami/cg50-espmod/releases/latest" target="_blank" rel="noreferrer">Descargar release <svg class="arrow" viewBox="0 0 24 24"><path d="M6 18 18 6M7 6h11v11"/></svg></a>
+        <a class="button button-secondary" href="https://github.com/samilososami/cg50-espmod" target="_blank" rel="noreferrer">Ver el código</a>
+      </div>
+    </section>
+
+    <figure class="shell" data-reveal>
+      <div class="hero-media is-device-photo"><img src="/tools/casio/assets/casiogpt-on-calculator.jpg" alt="CasioGPT ejecutándose en una Casio fx-CG50 modificada" width="721" height="1280" fetchpriority="high"></div>
+      <figcaption class="media-caption"><span>CasioGPT en hardware real</span><span>fx-CG50 · 384 × 216 px</span></figcaption>
+    </figure>
+
+    <section class="manifesto shell" data-reveal>
+      <p>La calculadora conserva su identidad. <em>La ESP32 solo le presta aquello que nunca tuvo: una salida al mundo.</em></p>
+    </section>
+
+    <div class="stat-line shell" aria-label="Datos técnicos" data-reveal>
+      <div class="stat"><span>Enlace interno</span><strong>UART 9600 8N1</strong></div>
+      <div class="stat"><span>Placa auxiliar</span><strong>XIAO ESP32-C3</strong></div>
+      <div class="stat"><span>Pantalla</span><strong>384 × 216</strong></div>
+      <div class="stat"><span>Licencia</span><strong>MIT</strong></div>
+    </div>
+
+    <section class="section shell" aria-labelledby="arquitectura">
+      <div class="section-head" data-reveal>
+        <p class="section-number">01 / ARQUITECTURA</p>
+        <div>
+          <h2 class="section-title" id="arquitectura">Dos dispositivos. Una experiencia.</h2>
+          <p class="section-copy">La fx-CG50 sigue dibujando la interfaz, leyendo el teclado y gestionando la conversación. La ESP32 se ocupa de la radio, TLS y las peticiones de red.</p>
+        </div>
+      </div>
+      <div class="architecture" data-reveal>
+        <div class="architecture-node"><span>01 · Entrada</span><strong>Casio fx-CG50</strong><small>Interfaz, teclado e historial visible.</small></div>
+        <div class="architecture-node"><span>02 · Enlace</span><strong>UART con checksum</strong><small>Frames, IDs, fragmentación y reintentos.</small></div>
+        <div class="architecture-node"><span>03 · Puente</span><strong>XIAO ESP32-C3</strong><small>Wi-Fi, NVS, HTTPS y streaming.</small></div>
+        <div class="architecture-node"><span>04 · Red</span><strong>Router / Ollama</strong><small>Conectividad y modelo conversacional.</small></div>
+      </div>
+    </section>
+
+    <section class="section shell" id="apps" aria-labelledby="aplicaciones">
+      <div class="section-head" data-reveal>
+        <p class="section-number">02 / SOFTWARE</p>
+        <div>
+          <h2 class="section-title" id="aplicaciones">Dos aplicaciones. Un firmware.</h2>
+          <p class="section-copy">Un único firmware sirve a los dos add-ins. CasioWIFI prepara la conexión; CasioGPT la convierte en una conversación.</p>
+        </div>
+      </div>
+
+      <article class="app-feature" data-reveal>
+        <div class="app-feature-copy">
+          <div>
+            <p class="eyebrow">01 / GESTOR DE RED</p>
+            <h3>CasioWIFI</h3>
+            <p>Escanea, diferencia redes abiertas y protegidas, introduce contraseñas con el teclado físico y conserva hasta ocho conexiones confirmadas.</p>
+          </div>
+          <a class="text-link" href="/tools/casio/cg50-espmod/casiowifi/">Explorar CasioWIFI <svg class="arrow" viewBox="0 0 24 24"><path d="M6 18 18 6M7 6h11v11"/></svg></a>
+        </div>
+        <div class="app-feature-media"><div class="screen"><img src="/tools/casio/assets/casiowifi-list.png" alt="Lista de redes en CasioWIFI" width="384" height="216"></div></div>
+      </article>
+
+      <article class="app-feature" data-reveal>
+        <div class="app-feature-copy">
+          <div>
+            <p class="eyebrow">02 / CHAT EN LA NUBE</p>
+            <h3>CasioGPT</h3>
+            <p>Envía prompts desde la calculadora y muestra la respuesta a medida que llega. Sin interfaz web intermedia y con cancelación física mediante F6.</p>
+          </div>
+          <a class="text-link" href="/tools/casio/cg50-espmod/casiogpt/">Explorar CasioGPT <svg class="arrow" viewBox="0 0 24 24"><path d="M6 18 18 6M7 6h11v11"/></svg></a>
+        </div>
+        <div class="app-feature-media"><div class="screen"><img src="/tools/casio/assets/casiogpt-ui.png" alt="Interfaz de conversación CasioGPT" width="384" height="216"></div></div>
+      </article>
+    </section>
+
+    <section class="section shell" id="hardware" aria-labelledby="montaje">
+      <div class="section-head" data-reveal>
+        <p class="section-number">03 / HARDWARE</p>
+        <div>
+          <h2 class="section-title" id="montaje">Del prototipo al interior de la carcasa.</h2>
+          <p class="section-copy">La placa se probó primero fuera de la calculadora. Solo después de identificar y medir cada señal se integró la XIAO en el interior.</p>
+        </div>
+      </div>
+
+      <div class="photo-grid">
+        <figure data-reveal><img src="/tools/casio/assets/hardware-prototype.jpg" alt="Prototipo de la conexión entre la Casio y la ESP32 en protoboard" loading="lazy"><figcaption><span>01</span>Prototipo externo y primeras pruebas UART.</figcaption></figure>
+        <figure data-reveal><img src="/tools/casio/assets/hardware-probing.jpg" alt="Casio fx-CG50 abierta durante la identificación de señales" loading="lazy"><figcaption><span>02</span>Identificación de masa, TX y RX.</figcaption></figure>
+        <figure data-reveal><img src="/tools/casio/assets/hardware-measurement.jpg" alt="Mediciones eléctricas en la calculadora abierta" loading="lazy"><figcaption><span>03</span>Continuidad, tensión y comprobación de cortos.</figcaption></figure>
+        <figure data-reveal><img src="/tools/casio/assets/hardware-xiao.jpg" alt="Primer plano de la XIAO ESP32-C3 instalada" loading="lazy"><figcaption><span>04</span>La XIAO soldada con resistencias en serie.</figcaption></figure>
+        <figure data-reveal><img src="/tools/casio/assets/hardware-layout.jpg" alt="Distribución interna final de la XIAO en la Casio" loading="lazy"><figcaption><span>05</span>Distribución final y acceso al USB-C.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="cableado">
+      <div class="section-head" data-reveal>
+        <p class="section-number">04 / CABLEADO</p>
+        <div>
+          <h2 class="section-title" id="cableado">Tres señales. Cruzadas con intención.</h2>
+          <p class="section-copy">TX de la calculadora entra en D7/RX. D6/TX vuelve al RX de la calculadora. Ambos dispositivos comparten masa.</p>
+        </div>
+      </div>
+      <div class="architecture" data-reveal>
+        <div class="architecture-node"><span>CG50 · TX</span><strong>→ D7 / RX</strong><small>Resistencia en serie de 1 kΩ.</small></div>
+        <div class="architecture-node"><span>CG50 · RX</span><strong>← D6 / TX</strong><small>Resistencia en serie de 1 kΩ.</small></div>
+        <div class="architecture-node"><span>CG50 · GND</span><strong>— GND común</strong><small>Masa del conector serie.</small></div>
+        <div class="architecture-node"><span>Alimentación</span><strong>USB-C propio</strong><small>No alimentar desde las cuatro AAA.</small></div>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="instalacion">
+      <div class="section-head" data-reveal>
+        <p class="section-number">05 / INSTALACIÓN</p>
+        <div>
+          <h2 class="section-title" id="instalacion">Software reproducible.</h2>
+          <p class="section-copy">Código, binarios, checksums, protocolo y guía de cableado viven juntos en el repositorio.</p>
+        </div>
+      </div>
+      <div class="steps" data-reveal>
+        <article class="step"><h3>Flashea la XIAO.</h3><p>Compila y flashea con <code>./tools/flash-esp32 /dev/ttyACM0</code>, o usa el binario fusionado de la release.</p></article>
+        <article class="step"><h3>Copia los add-ins.</h3><p>Instala <code>CASIOWIFI.g3a</code> y <code>CASIOGPT.g3a</code> en la raíz del almacenamiento de la CG50.</p></article>
+        <article class="step"><h3>Añade tu credencial.</h3><p>Para CasioGPT, crea <code>casiogpt_api.txt</code> en la raíz. La clave no se compila en el firmware.</p></article>
+      </div>
+      <div class="cta-row" data-reveal>
+        <a class="button" href="https://github.com/samilososami/cg50-espmod/releases/latest" target="_blank" rel="noreferrer">Obtener la última release</a>
+        <a class="button button-secondary" href="https://github.com/samilososami/cg50-espmod/blob/main/hardware/WIRING.md" target="_blank" rel="noreferrer">Leer la guía de cableado</a>
+      </div>
+    </section>
+
+    <section class="section shell">
+      <aside class="notice" data-reveal>
+        <h3>Una modificación física exige cuidado.</h3>
+        <p>Abrir y soldar la calculadora puede anular su garantía o dañarla. Desconecta pilas y USB antes de soldar, confirma cada señal con un multímetro y no uses el color de los cables o una fotografía como pinout.</p>
+      </aside>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>cg50-espmod · MIT · © <span data-year></span> Sami González Kamel</span>
+    <nav aria-label="Enlaces del pie">
+      <a href="/tools/casio/">Proyectos Casio</a>
+      <a href="https://github.com/samilososami/cg50-espmod" target="_blank" rel="noreferrer">GitHub</a>
+      <a href="https://github.com/samilososami/cg50-espmod/releases" target="_blank" rel="noreferrer">Releases</a>
+    </nav>
+  </footer>
+  <script type="module" src="/tools/casio/assets/casio.js"></script>
+</body>
+</html>

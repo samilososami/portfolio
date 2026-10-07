@@ -23,15 +23,15 @@ El filtro Hardware muestra cinco proyectos y oculta los demás; Todo restaura lo
 
 ## CasioVideo en el mismo dominio
 
-La aplicación mantiene su código fuente en [samilososami/CasioVideo](https://github.com/samilososami/CasioVideo). Aquí se publica un snapshot compilado en `public/tools/casiovideo/` y una copia de su función de releases en `api/casiovideo-release.mjs`.
+La aplicación mantiene su código fuente en [samilososami/CasioVideo](https://github.com/samilososami/CasioVideo). Aquí se publica un snapshot compilado en `public/tools/casio/casiovideo/` y una copia de su función de releases en `api/casiovideo-release.mjs`.
 
 ```sh
 node scripts/sync-casiovideo.mjs ../CasioVideo
 npm run build
 ```
 
-El script compila el repositorio local indicado, copia únicamente los artefactos de esa aplicación y registra el commit y sus checksums en `public/tools/casiovideo/source.json`. Sus dependencias se instalan con `npm ci --prefix ../CasioVideo/web` antes de sincronizar. Puede ejecutarse como usuario normal o root con acceso a ambos repositorios.
+El script compila el repositorio local indicado, copia únicamente los artefactos de esa aplicación y registra el commit y sus checksums en `public/tools/casio/casiovideo/source.json`. Sus dependencias se instalan con `npm ci --prefix ../CasioVideo/web` antes de sincronizar. Puede ejecutarse como usuario normal o root con acceso a ambos repositorios.
 
-Esta integración evita enlazar al alias de Vercel protegido del proyecto independiente y no desactiva Deployment Protection. La ruta `/tools/casiovideo/api/release` resuelve a la función local del portfolio. El proxy existente de Ollama se conserva. Los vídeos siguen procesándose en el navegador; no pasan por Vercel.
+Esta integración evita enlazar al alias de Vercel protegido del proyecto independiente y no desactiva Deployment Protection. La ruta `/tools/casio/casiovideo/api/release` resuelve a la función local del portfolio. El proxy existente de Ollama se conserva. Los vídeos siguen procesándose en el navegador; no pasan por Vercel.
 
 Para actualizar CasioVideo, sincronizar un commit limpio de su repo y desplegar el portfolio. Su app y `.g3a` no se actualizan silenciosamente en ninguna calculadora: la instalación requiere la acción del usuario.

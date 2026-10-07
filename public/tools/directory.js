@@ -10,6 +10,6 @@ for (const button of buttons) {
       project.hidden = category!=='all' && !project.dataset.category.split(' ').includes(category);
       if(!project.hidden) count++;
     }
-    status.textContent = count + ' herramientas en ' + button.textContent + '. CasioVideo sigue destacado arriba.';
+    status.textContent = count + ' herramientas en ' + button.textContent + '. Los proyectos Casio siguen destacados arriba.';
   });
 }

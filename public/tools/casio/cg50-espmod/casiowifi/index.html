@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CasioWIFI — Wi-Fi para Casio fx-CG50</title>
+  <meta name="description" content="CasioWIFI escanea, conecta y conserva redes Wi-Fi desde una Casio fx-CG50 modificada con XIAO ESP32-C3.">
+  <meta name="theme-color" content="#171717">
+  <link rel="canonical" href="https://www.samilososami.com/tools/casio/cg50-espmod/casiowifi/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/tools/casio/assets/casio.css">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="CasioWIFI — Wi-Fi para Casio fx-CG50">
+  <meta property="og:description" content="Escaneo, conexión y persistencia de redes desde la calculadora.">
+  <meta property="og:url" content="https://www.samilososami.com/tools/casio/cg50-espmod/casiowifi/">
+  <meta property="og:image" content="https://www.samilososami.com/tools/casio/assets/casiowifi-list.png">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="header-inner shell">
+      <a class="brand" href="/tools/casio/cg50-espmod/"><span class="brand-mark" aria-hidden="true"></span> cg50-espmod</a>
+      <nav class="site-nav" aria-label="Navegación del proyecto">
+        <a aria-current="page" href="/tools/casio/cg50-espmod/casiowifi/">CasioWIFI</a>
+        <a href="/tools/casio/cg50-espmod/casiogpt/">CasioGPT</a>
+        <a class="optional" href="https://github.com/samilososami/cg50-espmod" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="detail-hero shell">
+      <div>
+        <p class="eyebrow" data-reveal>Add-in 01 / Conectividad</p>
+        <h1 data-reveal>Casio<br>WIFI.</h1>
+        <p class="hero-lead" data-reveal>Busca redes, introduce la contraseña y conecta la calculadora. Todo desde el teclado físico.</p>
+        <div class="hero-actions" data-reveal>
+          <a class="button" href="https://github.com/samilososami/cg50-espmod/releases/latest/download/CASIOWIFI.g3a">Descargar .g3a</a>
+          <a class="button button-secondary" href="/tools/casio/cg50-espmod/">Ver el proyecto</a>
+        </div>
+      </div>
+      <div class="detail-visual" data-reveal><div class="screen"><img src="/tools/casio/assets/casiowifi-list.png" alt="Listado de redes en CasioWIFI" width="384" height="216" fetchpriority="high"></div></div>
+    </section>
+
+    <section class="section shell" aria-labelledby="flujo">
+      <div class="section-head" data-reveal>
+        <p class="section-number">01 / FLUJO</p>
+        <div>
+          <h2 class="section-title" id="flujo">De cero a conectado.</h2>
+          <p class="section-copy">La app mantiene la interfaz ágil mientras la ESP32 trabaja en segundo plano. Los errores UART se recuperan sin congelar la calculadora.</p>
+        </div>
+      </div>
+      <div class="ui-triptych" data-reveal>
+        <figure class="ui-shot"><img src="/tools/casio/assets/casiowifi-scan.png" alt="Animación de escaneo Wi-Fi en CasioWIFI"><figcaption>01 · Escaneo asíncrono con F1.</figcaption></figure>
+        <figure class="ui-shot"><img src="/tools/casio/assets/casiowifi-list.png" alt="Lista de redes detectadas en CasioWIFI"><figcaption>02 · Red, señal y estado de seguridad.</figcaption></figure>
+        <figure class="ui-shot"><img src="/tools/casio/assets/casiowifi-password.png" alt="Editor de contraseña en CasioWIFI"><figcaption>03 · Contraseña visible con teclado físico.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="funciones">
+      <div class="section-head" data-reveal>
+        <p class="section-number">02 / FUNCIONES</p>
+        <div><h2 class="section-title" id="funciones">Lo imprescindible, bien resuelto.</h2></div>
+      </div>
+      <div class="feature-grid" data-reveal>
+        <article class="feature-item"><span class="feature-number">01</span><h3>Estado claro.</h3><p>Indicadores separados para el enlace con la ESP32 y la conexión Wi-Fi.</p></article>
+        <article class="feature-item"><span class="feature-number">02</span><h3>Persistencia.</h3><p>Hasta ocho redes confirmadas en NVS para reconexión automática.</p></article>
+        <article class="feature-item"><span class="feature-number">03</span><h3>Salida limpia.</h3><p>EXIT y MENU cierran UART y liberan el estado antes de volver al menú.</p></article>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="controles">
+      <div class="section-head" data-reveal>
+        <p class="section-number">03 / CONTROLES</p>
+        <div><h2 class="section-title" id="controles">Diseñada para seis teclas.</h2></div>
+      </div>
+      <dl class="controls" data-reveal>
+        <div class="control-row"><dt>F1</dt><dd>Iniciar un nuevo escaneo de redes cercanas.</dd></div>
+        <div class="control-row"><dt>EXE</dt><dd>Conectar a la red seleccionada o confirmar la contraseña.</dd></div>
+        <div class="control-row"><dt>F2</dt><dd>Alternar minúsculas y mayúsculas durante la entrada de texto.</dd></div>
+        <div class="control-row"><dt>F3</dt><dd>Abrir el selector de símbolos.</dd></div>
+        <div class="control-row"><dt>F6</dt><dd>Cancelar una operación o volver desde contraseña y error.</dd></div>
+        <div class="control-row"><dt>EXIT / MENU</dt><dd>Cerrar completamente la aplicación y regresar al menú.</dd></div>
+      </dl>
+    </section>
+
+    <section class="section shell">
+      <aside class="notice" data-reveal>
+        <h3>Requiere el mod físico.</h3>
+        <p>CasioWIFI no añade una radio a la calculadora por sí solo. Necesita una XIAO ESP32-C3 cableada por UART y el firmware común de cg50-espmod. La guía completa incluye el pinout y las comprobaciones eléctricas.</p>
+      </aside>
+      <div class="cta-row" data-reveal>
+        <a class="button" href="https://github.com/samilososami/cg50-espmod/releases/latest" target="_blank" rel="noreferrer">Descargar release completa</a>
+        <a class="button button-secondary" href="https://github.com/samilososami/cg50-espmod/blob/main/hardware/WIRING.md" target="_blank" rel="noreferrer">Abrir cableado</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>CasioWIFI · Parte de cg50-espmod</span>
+    <nav aria-label="Enlaces del pie"><a href="/tools/casio/cg50-espmod/">Proyecto</a><a href="/tools/casio/cg50-espmod/casiogpt/">CasioGPT</a><a href="https://github.com/samilososami/cg50-espmod" target="_blank" rel="noreferrer">GitHub</a></nav>
+  </footer>
+  <script type="module" src="/tools/casio/assets/casio.js"></script>
+</body>
+</html>

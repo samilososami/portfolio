@@ -77,7 +77,7 @@
       ]
     },
     {
-      "source": "/tools/casiovideo/:path*",
+      "source": "/tools/casio/:path*",
       "headers": [
         {
           "key": "X-Content-Type-Options",
@@ -89,7 +89,7 @@
         },
         {
           "key": "Permissions-Policy",
-          "value": "camera=(), microphone=(), geolocation=()"
+          "value": "camera=(), microphone=(), geolocation=(), usb=(self)"
         },
         {
           "key": "Content-Security-Policy",
@@ -151,6 +151,46 @@
       "source": "/tools/ledger-connect",
       "destination": "/tools/ledger-connect/",
       "permanent": false
+    },
+    {
+      "source": "/tools/casiovideo",
+      "destination": "/tools/casio/casiovideo/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/casiovideo/:path*",
+      "destination": "/tools/casio/casiovideo/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/tools/casiollm",
+      "destination": "/tools/casio/casiollm/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/casiollm/:path*",
+      "destination": "/tools/casio/casiollm/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/tools/cg50-esp32mod",
+      "destination": "/tools/casio/cg50-espmod/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/cg50-esp32mod/:path*",
+      "destination": "/tools/casio/cg50-espmod/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/tools/cg50-espmod",
+      "destination": "/tools/casio/cg50-espmod/",
+      "permanent": true
+    },
+    {
+      "source": "/tools/cg50-espmod/:path*",
+      "destination": "/tools/casio/cg50-espmod/:path*",
+      "permanent": true
     }
   ],
   "rewrites": [
@@ -179,16 +219,56 @@
       "destination": "/tools/index.html"
     },
     {
-      "source": "/tools/casiovideo",
-      "destination": "/tools/casiovideo/index.html"
+      "source": "/tools/casio",
+      "destination": "/tools/casio/index.html"
     },
     {
-      "source": "/tools/casiovideo/",
-      "destination": "/tools/casiovideo/index.html"
+      "source": "/tools/casio/",
+      "destination": "/tools/casio/index.html"
     },
     {
-      "source": "/tools/casiovideo/api/release",
+      "source": "/tools/casio/casiovideo/api/release",
       "destination": "/api/casiovideo-release"
+    },
+    {
+      "source": "/tools/casio/casiovideo",
+      "destination": "/tools/casio/casiovideo/index.html"
+    },
+    {
+      "source": "/tools/casio/casiovideo/",
+      "destination": "/tools/casio/casiovideo/index.html"
+    },
+    {
+      "source": "/tools/casio/casiollm",
+      "destination": "/tools/casio/casiollm/index.html"
+    },
+    {
+      "source": "/tools/casio/casiollm/",
+      "destination": "/tools/casio/casiollm/index.html"
+    },
+    {
+      "source": "/tools/casio/cg50-espmod",
+      "destination": "/tools/casio/cg50-espmod/index.html"
+    },
+    {
+      "source": "/tools/casio/cg50-espmod/",
+      "destination": "/tools/casio/cg50-espmod/index.html"
+    },
+    {
+      "source": "/tools/casio/cg50-espmod/casiowifi",
+      "destination": "/tools/casio/cg50-espmod/casiowifi/index.html"
+    },
+    {
+      "source": "/tools/casio/cg50-espmod/casiowifi/",
+      "destination": "/tools/casio/cg50-espmod/casiowifi/index.html"
+    },
+    {
+      "source": "/tools/casio/cg50-espmod/casiogpt",
+      "destination": "/tools/casio/cg50-espmod/casiogpt/index.html"
+    },
+    {
+      "source": "/tools/casio/cg50-espmod/casiogpt/",
+      "destination": "/tools/casio/cg50-espmod/casiogpt/index.html"
     },
     {
       "source": "/api/:path*",

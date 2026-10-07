@@ -1,0 +1,127 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CasioGPT — IA en una Casio fx-CG50 conectada</title>
+  <meta name="description" content="CasioGPT convierte una Casio fx-CG50 modificada con ESP32 en un cliente conversacional con respuestas en streaming mediante Ollama Cloud.">
+  <meta name="theme-color" content="#171717">
+  <link rel="canonical" href="https://www.samilososami.com/tools/casio/cg50-espmod/casiogpt/">
+  <link rel="icon" href="/favicon.ico">
+  <link rel="stylesheet" href="/tools/casio/assets/casio.css">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="es_ES">
+  <meta property="og:title" content="CasioGPT — IA en una Casio fx-CG50">
+  <meta property="og:description" content="Prompt, HTTPS y respuesta en streaming desde una calculadora gráfica.">
+  <meta property="og:url" content="https://www.samilososami.com/tools/casio/cg50-espmod/casiogpt/">
+  <meta property="og:image" content="https://www.samilososami.com/tools/casio/assets/casiogpt-on-calculator.jpg">
+</head>
+<body>
+  <a class="skip-link" href="#contenido">Saltar al contenido</a>
+  <header class="site-header">
+    <div class="header-inner shell">
+      <a class="brand" href="/tools/casio/cg50-espmod/"><span class="brand-mark" aria-hidden="true"></span> cg50-espmod</a>
+      <nav class="site-nav" aria-label="Navegación del proyecto">
+        <a href="/tools/casio/cg50-espmod/casiowifi/">CasioWIFI</a>
+        <a aria-current="page" href="/tools/casio/cg50-espmod/casiogpt/">CasioGPT</a>
+        <a class="optional" href="https://github.com/samilososami/cg50-espmod" target="_blank" rel="noreferrer">GitHub</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="contenido">
+    <section class="detail-hero shell">
+      <div>
+        <p class="eyebrow" data-reveal>Add-in 02 / Asistente conectado</p>
+        <h1 data-reveal>Casio<br>GPT.</h1>
+        <p class="hero-lead" data-reveal>Escribe en la calculadora. La ESP32 resuelve la red. La respuesta aparece mientras todavía se está generando.</p>
+        <div class="hero-actions" data-reveal>
+          <a class="button" href="https://github.com/samilososami/cg50-espmod/releases/latest/download/CASIOGPT.g3a">Descargar .g3a</a>
+          <a class="button button-secondary" href="/tools/casio/cg50-espmod/">Ver el proyecto</a>
+        </div>
+      </div>
+      <div class="detail-visual" data-reveal><div class="screen"><img src="/tools/casio/assets/casiogpt-ui.png" alt="Conversación en la interfaz de CasioGPT" width="384" height="216" fetchpriority="high"></div></div>
+    </section>
+
+    <section class="section shell" aria-labelledby="directo">
+      <div class="section-head" data-reveal>
+        <p class="section-number">01 / EN DIRECTO</p>
+        <div>
+          <h2 class="section-title" id="directo">El modelo responde. La Casio lo escribe.</h2>
+          <p class="section-copy">Ollama entrega NDJSON sobre HTTP fragmentado. La ESP32 procesa cada línea y la transmite por UART; la calculadora compone el texto sin esperar a que termine toda la respuesta.</p>
+        </div>
+      </div>
+      <figure data-reveal>
+        <div class="hero-media is-device-photo"><img src="/tools/casio/assets/casiogpt-on-calculator.jpg" alt="CasioGPT respondiendo en la pantalla de una fx-CG50 real" width="721" height="1280" loading="lazy"></div>
+        <figcaption class="media-caption"><span>Prueba física del chat</span><span>Respuesta en streaming real</span></figcaption>
+      </figure>
+    </section>
+
+    <section class="section shell" aria-labelledby="recorrido">
+      <div class="section-head" data-reveal>
+        <p class="section-number">02 / RECORRIDO</p>
+        <div><h2 class="section-title" id="recorrido">Un prompt, cuatro etapas.</h2></div>
+      </div>
+      <div class="architecture" data-reveal>
+        <div class="architecture-node"><span>01 · Prompt</span><strong>Teclado CG50</strong><small>Edición local y mensaje visible.</small></div>
+        <div class="architecture-node"><span>02 · UART</span><strong>Protocolo v5</strong><small>Frames verificados y cancelables.</small></div>
+        <div class="architecture-node"><span>03 · HTTPS</span><strong>ESP32-C3</strong><small>TLS, API key en RAM y NDJSON.</small></div>
+        <div class="architecture-node"><span>04 · Salida</span><strong>Streaming</strong><small>Texto incremental en 384 × 216.</small></div>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="interfaz">
+      <div class="section-head" data-reveal>
+        <p class="section-number">03 / INTERFAZ</p>
+        <div>
+          <h2 class="section-title" id="interfaz">Un chat reducido a lo esencial.</h2>
+          <p class="section-copy">Tema oscuro, mensajes propios a la derecha, respuesta de la IA a la izquierda y un área de escritura siempre disponible.</p>
+        </div>
+      </div>
+      <div class="ui-triptych" data-reveal>
+        <figure class="ui-shot"><img src="/tools/casio/assets/casiogpt-splash.png" alt="Pantalla inicial de CasioGPT"><figcaption>01 · Inicio y comprobaciones previas.</figcaption></figure>
+        <figure class="ui-shot"><img src="/tools/casio/assets/casiogpt-ui.png" alt="Interfaz principal de CasioGPT"><figcaption>02 · Chat, estado y campo de prompt.</figcaption></figure>
+        <figure class="ui-shot"><img src="/tools/casio/assets/casiogpt-ui.png" alt="Respuesta incremental en CasioGPT"><figcaption>03 · La salida se dibuja fragmento a fragmento.</figcaption></figure>
+      </div>
+    </section>
+
+    <section class="section shell" aria-labelledby="controles">
+      <div class="section-head" data-reveal>
+        <p class="section-number">04 / CONTROLES</p>
+        <div><h2 class="section-title" id="controles">Conversar sin ratón ni pantalla táctil.</h2></div>
+      </div>
+      <dl class="controls" data-reveal>
+        <div class="control-row"><dt>EXE</dt><dd>Enviar el mensaje cuando el modelo está libre.</dd></div>
+        <div class="control-row"><dt>F2</dt><dd>Bloquear mayúsculas durante la escritura.</dd></div>
+        <div class="control-row"><dt>F6</dt><dd>Cancelar una petición aunque la respuesta ya esté llegando.</dd></div>
+        <div class="control-row"><dt>↑ / ↓</dt><dd>Recorrer el historial de la conversación.</dd></div>
+        <div class="control-row"><dt>SHIFT + ALPHA</dt><dd>Activar el bloqueo alfabético nativo de la calculadora.</dd></div>
+      </dl>
+    </section>
+
+    <section class="section shell" aria-labelledby="credencial">
+      <div class="section-head" data-reveal>
+        <p class="section-number">05 / CREDENCIAL</p>
+        <div>
+          <h2 class="section-title" id="credencial">Una clave. Fuera del binario.</h2>
+          <p class="section-copy">Crea <span class="code-line">casiogpt_api.txt</span> en la raíz de la calculadora y pega únicamente tu clave de Ollama Cloud. No se incluye en el código, la release ni la NVS de la ESP32.</p>
+        </div>
+      </div>
+      <aside class="notice" data-reveal>
+        <h3>Cliente no oficial.</h3>
+        <p>CasioGPT es el nombre de esta aplicación y no implica afiliación con OpenAI. Esta versión usa Ollama Cloud, necesita conexión a Internet y está sujeta a la disponibilidad, el modelo y la cuota del proveedor.</p>
+      </aside>
+      <div class="cta-row" data-reveal>
+        <a class="button" href="https://github.com/samilososami/cg50-espmod/releases/latest" target="_blank" rel="noreferrer">Descargar release completa</a>
+        <a class="button button-secondary" href="/tools/casio/cg50-espmod/casiowifi/">Configurar Wi-Fi primero</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer shell">
+    <span>CasioGPT · Parte de cg50-espmod</span>
+    <nav aria-label="Enlaces del pie"><a href="/tools/casio/cg50-espmod/">Proyecto</a><a href="/tools/casio/cg50-espmod/casiowifi/">CasioWIFI</a><a href="https://github.com/samilososami/cg50-espmod" target="_blank" rel="noreferrer">GitHub</a></nav>
+  </footer>
+  <script type="module" src="/tools/casio/assets/casio.js"></script>
+</body>
+</html>
