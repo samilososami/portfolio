@@ -410,3 +410,6 @@ footer {
     width: 100%;
   }
 }
+.madrid-final figure { margin: 2rem 0 0; }
+.madrid-final img { display: block; width: 100%; height: auto; border-radius: 4px; }
+.madrid-final figcaption { margin-top: .8rem; font-size: .8rem; opacity: .7; }

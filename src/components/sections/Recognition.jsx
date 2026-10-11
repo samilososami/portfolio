@@ -49,6 +49,10 @@ export default function Recognition() {
           <h2 id="recognition-title" className="recognition__title">
             Premio a la<br />creatividad.
           </h2>
+          <figure className="recognition__photo">
+            <img src="/images/hormigon-madrid-1280.webp" srcSet="/images/hormigon-madrid-640.webp 640w, /images/hormigon-madrid-1280.webp 1280w, /images/hormigon-madrid-1920.webp 1920w" sizes="(max-width: 980px) 90vw, 42vw" alt="Sami interviniendo con un micrófono durante el concurso del hormigón" width="1280" height="853" loading="lazy" decoding="async" />
+            <figcaption>Gran Concurso del Hormigón · 2026</figcaption>
+          </figure>
         </div>
 
         <div className="recognition__content">
@@ -74,6 +78,9 @@ export default function Recognition() {
             </footer>
           </blockquote>
 
+          <p className="recognition__context">
+            La experiencia continuó en Madrid, donde participé en la final estatal junto a otros tres amigos. Una oportunidad para compartir el trabajo del equipo y conocer los proyectos de otros centros.
+          </p>
           <a
             className="recognition__detail-link"
             href="/reconocimientos/gran-concurso-hormigon-2026/"

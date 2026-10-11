@@ -821,3 +821,35 @@ a {
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+/* ATLAS, proyecto destacado: conserva la tipografía y el ritmo del portfolio. */
+.featured-project { padding: 8rem 5vw; border-top: 1px solid var(--border-color); }
+.featured-project__inner { max-width: 1200px; margin: 0 auto; }
+.featured-project .projects-header { display: flex; justify-content: space-between; align-items: flex-end; gap: 2rem; margin-bottom: 3rem; }
+.featured-project .projects-header p { margin-top: 1rem; }
+.featured-atlas { display: grid; grid-template-columns: .9fr 1.1fr; overflow: hidden; border: 1px solid var(--border-color); border-radius: 16px; background: #0d0e10; }
+.featured-atlas__visual { position: relative; min-height: 410px; display: grid; place-items: center; background: radial-gradient(ellipse at center, #06213b, #020814 72%); overflow: hidden; }
+.featured-atlas__word { position: absolute; top: 25px; left: 28px; font-size: 15px; letter-spacing: .35em; color: #d7e3ef; }
+.featured-atlas__face { width: 85%; max-width: 420px; color: #009dff; filter: drop-shadow(0 0 22px #009dff30); }
+.featured-atlas__caption { position: absolute; bottom: 28px; left: 28px; color: #8aa2bc; font: 11px var(--font-mono); letter-spacing: .07em; }
+.featured-atlas__content { padding: clamp(2rem, 4vw, 3.5rem); }
+.featured-atlas__label { font: 11px var(--font-mono); text-transform: uppercase; letter-spacing: .1em; color: #8e9aa7; }
+.featured-atlas h3 { font-size: clamp(3rem, 5vw, 4.5rem); font-weight: 500; letter-spacing: -.055em; margin: .4rem 0 1rem; }
+.featured-atlas .text-body { font-size: 1rem; margin-top: 1rem; }
+.featured-atlas__actions { display: flex; align-items: center; gap: 1.5rem; flex-wrap: wrap; margin-top: 2rem; }
+.featured-atlas__primary { display: inline-flex; align-items: center; gap: .65rem; padding: .85rem 1.1rem; border-radius: 99px; color: #0a0a0a; background: #fafafa; font-size: .85rem; transition: background .2s; }
+.featured-atlas__primary:hover { background: #cceaff; }
+.featured-project__more { margin-top: 1.5rem; }
+.recognition__photo { margin: 2.5rem 0 0; }
+.recognition__photo img { display: block; width: 100%; height: auto; aspect-ratio: 3 / 2; object-fit: cover; border-radius: 5px; }
+.recognition__photo figcaption { margin-top: .65rem; font-size: .7rem; opacity: .65; }
+.recognition__context { line-height: 1.8; font-size: 1rem; margin: 2rem 0 1rem; }
+@media (max-width: 760px) {
+  .featured-project { padding: 5rem 5vw; }
+  .featured-project .projects-header { flex-direction: column; align-items: flex-start; gap: 1.3rem; }
+  .featured-atlas { grid-template-columns: 1fr; }
+  .featured-atlas__visual { min-height: 270px; }
+  .featured-atlas__face { max-width: 300px; }
+  .featured-atlas__content { padding: 1.8rem; }
+  .featured-atlas__actions { gap: 1.2rem; }
+}

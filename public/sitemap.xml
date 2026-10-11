@@ -3,7 +3,7 @@
         xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
   <url>
     <loc>https://www.samilososami.com/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-11</lastmod>
     <changefreq>monthly</changefreq>
     <priority>1.0</priority>
     
@@ -93,7 +93,8 @@
   </url>
   <url>
     <loc>https://www.samilososami.com/reconocimientos/gran-concurso-hormigon-2026/</loc>
-    <lastmod>2026-07-21</lastmod>
+    <lastmod>2026-10-11</lastmod>
+    <image:image><image:loc>https://www.samilososami.com/images/hormigon-madrid-1920.webp</image:loc></image:image>
     <changefreq>yearly</changefreq>
     <priority>0.8</priority>
   </url>

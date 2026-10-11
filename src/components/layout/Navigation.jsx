@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 const NAV_ITEMS = [
   { id: 'hero', label: 'Inicio' },
   { id: 'about', label: 'Perfil' },
-  { id: 'projects', label: 'Proyectos' },
+  { id: 'projects', label: 'ATLAS' },
   { id: 'recognition', label: 'Premio' },
   { id: 'audits', label: 'Auditorías' },
   { id: 'contact', label: 'Contacto' }

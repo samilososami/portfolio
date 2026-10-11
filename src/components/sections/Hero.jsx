@@ -3,57 +3,16 @@ import { motion, useInView, useScroll, useTransform } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
 
 const terminalSequence = [
-  { type: 'cmd', text: 'nmap -sS -p- -T4 10.0.0.1' },
-  { type: 'out', delay: 800, text: 'Starting Nmap 7.93 ( https://nmap.org )' },
-  { type: 'out', delay: 1500, text: 'Nmap scan report for 10.0.0.1\nHost is up (0.0020s latency).\nNot shown: 65530 closed ports' },
-  { type: 'out', delay: 500, text: 'PORT     STATE SERVICE\n22/tcp   open  ssh\n80/tcp   open  http\n443/tcp  open  https' },
-  { type: 'out', delay: 2000, text: '' },
+  { type: 'cmd', text: 'python3 atlas.py' },
+  { type: 'out', delay: 800, text: '[ATLAS] Preparando el entorno...\n[ATLAS] Voz, memoria y herramientas disponibles.' },
+  { type: 'out', delay: 1800, text: 'Una idea, un prototipo y muchas pruebas.' },
+  { type: 'out', delay: 3500, text: '' },
   { type: 'clear' },
-  { type: 'cmd', text: 'gobuster dir -u http://10.0.0.1 -w common.txt -q' },
-  { type: 'out', delay: 1200, text: '==================================================\nGobuster v3.6\n==================================================' },
-  { type: 'out', delay: 600, text: '[+] Url:                     http://10.0.0.1/\n[+] Threads:                 10\n[+] Wordlist:                common.txt' },
-  { type: 'out', delay: 1000, text: '==================================================' },
-  { type: 'out', delay: 400, text: '/images               (Status: 301) [Size: 312]' },
-  { type: 'out', delay: 300, text: '/css                  (Status: 301) [Size: 309]' },
-  { type: 'out', delay: 800, text: '/index.php            (Status: 200) [Size: 4521]' },
-  { type: 'out', delay: 1200, text: '/admin                (Status: 403) [Size: 280]' },
-  { type: 'out', delay: 2000, text: '==================================================' },
-  { type: 'clear' },
-  { type: 'cmd', text: 'hydra -l root -P passwords.txt ssh://10.0.0.1' },
-  { type: 'out', delay: 600, text: 'Hydra v9.x (c) 2026 by van Hauser/THC' },
-  { type: 'out', delay: 500, text: 'Hydra starting at 2026-04-09 20:15:00' },
-  { type: 'out', delay: 800, text: '[DATA] 16 tasks, 1 server, 1000 login tries (l:1/p:1000)' },
-  { type: 'out', delay: 1500, text: '[DATA] attacking ssh://10.0.0.1:22/' },
-  { type: 'out', delay: 3000, text: '[22] [ssh] host: 10.0.0.1   login: root   password: toor' },
-  { type: 'out', delay: 500, text: '1 of 1 target completed, 1 valid password found' },
-  { type: 'out', delay: 2000, text: '' },
-  { type: 'clear' },
-  { type: 'cmd', text: 'sqlmap -u "http://10.0.0.1/index.php?id=1" --batch --dbs' },
-  { type: 'out', delay: 600, text: '        ___\n       __H__\n ___ ___["]_____ ___ ___  {1.8#stable}\n |_ -| . ["]     | .\'| . |\n |___|_  ["]_|_|_|__,|  _|\n       |_|V...       |_|   http://sqlmap.org\n' },
-  { type: 'out', delay: 800, text: '[INFO] testing connection to the target URL' },
-  { type: 'out', delay: 1500, text: '[INFO] GET parameter \'id\' is \'MySQL >= 5.0.12 AND time-based blind\' injectable' },
-  { type: 'out', delay: 800, text: '[INFO] the back-end DBMS is MySQL' },
-  { type: 'out', delay: 1200, text: '[INFO] fetching database names\navailable databases [3]:\n[*] information_schema\n[*] prod_db\n[*] users_db' },
-  { type: 'out', delay: 3000, text: '' },
-  { type: 'clear' },
-  { type: 'cmd', text: 'hashcat -m 0 -a 0 hashes.txt rockyou.txt' },
-  { type: 'out', delay: 800, text: 'hashcat (v6.2.6) starting...\n\n* Device #1: NVIDIA GeForce RTX 4090, 24108/24564 MB, 128MCU' },
-  { type: 'out', delay: 1000, text: 'Hashes: 1 digests; 1 unique digests, 1 unique salts\nBitmaps: 16 bits, 65536 entries, 0x0000ffff mask, 262144 bytes' },
-  { type: 'out', delay: 2000, text: 'Status...........: Running\nSpeed.#1.........: 12543.2 MH/s\nProgress.........: 12345678 / 14344392 (86.07%)' },
-  { type: 'out', delay: 1500, text: '\n5d41402abc4b2a76b9719d911017c592:s4mil0s0s4m1\n' },
-  { type: 'out', delay: 800, text: 'Session..........: hashcat\nStatus...........: Cracked\nHash.Type........: MD5' },
-  { type: 'out', delay: 3000, text: '' },
-  { type: 'clear' },
-  { type: 'cmd', text: 'python3 exploit.py -t 10.0.0.1 -p 443' },
-  { type: 'out', delay: 800, text: '[*] Initializing memory leak sequence...' },
-  { type: 'out', delay: 800, text: '[*] Injecting shellcode (x64 reverse_tcp)...' },
-  { type: 'out', delay: 2000, text: '[+] Shellcode executed successfully!' },
-  { type: 'out', delay: 600, text: '[*] Meterpreter session 1 opened (10.0.0.43:4444 -> 10.0.0.1:49213)' },
-  { type: 'cmd', prompt: 'meterpreter > ', text: 'sysinfo' },
-  { type: 'out', delay: 600, text: 'Computer        : PROD-SERVER-01\nOS              : Windows Server 2022 (Build 20348)\nArchitecture    : x64\nSystem Language : en_US' },
-  { type: 'cmd', prompt: 'meterpreter > ', text: 'hashdump' },
-  { type: 'out', delay: 1500, text: 'Administrator:500:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::\nGuest:501:aad3b435b51404eeaad3b435b51404ee:31d6cfe0d16ae931b73c59d7e0c089c0:::' },
-  { type: 'out', delay: 5000, text: '' },
+  { type: 'cmd', text: 'uname -srmo' },
+  { type: 'out', delay: 900, text: 'Linux · aarch64 · GNU/Linux' },
+  { type: 'cmd', text: 'ls proyectos/' },
+  { type: 'out', delay: 800, text: 'atlas/  electronica/  automatizacion/  laboratorios/' },
+  { type: 'out', delay: 3500, text: '' },
   { type: 'clear' }
 ];
 
@@ -252,7 +211,7 @@ export default function Hero() {
             </span>
             <h1 
               className="heading-hero hero-title"
-              title="Sami González Kamel | Estudiante de bachillerato e investigador en ciberseguridad, pentesting y automatización"
+              title="Sami González Kamel | Estudiante de Bachillerato interesado en tecnología, inteligencia artificial y ciberseguridad"
               style={{ lineHeight: 1.1 }}
             >
               Sami González Kamel
@@ -260,7 +219,7 @@ export default function Hero() {
           </div>
           
           <p className="text-body" style={{ maxWidth: '500px', marginBottom: '3rem', fontSize: '1.15rem', color: 'rgba(255, 255, 255, 0.55)' }}>
-            Estudiante de Bachillerato enfocado en ciberseguridad y pentesting. Apasionado por la inteligencia artificial y el desarrollo de sistemas de bajo nivel.
+            Estudiante de Bachillerato interesado en la tecnología, la inteligencia artificial y la ciberseguridad. Me gusta entender cómo funcionan las cosas y aprender construyendo mis propios proyectos.
           </p>
 
           <div style={{ display: 'flex', gap: '1.5rem', alignItems: 'center' }}>
@@ -268,7 +227,7 @@ export default function Hero() {
               href="#projects"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              title="Ver proyectos de Sami González Kamel"
+              title="Conocer ATLAS, el proyecto de Sami González Kamel"
               style={{
                 display: 'inline-flex',
                 alignItems: 'center',
@@ -281,7 +240,7 @@ export default function Hero() {
                 fontSize: '0.9rem'
               }}
             >
-              Ver Proyectos
+              Conocer ATLAS
               <ArrowRight size={16} />
             </motion.a>
             <motion.a 

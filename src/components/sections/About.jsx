@@ -42,13 +42,13 @@ export default function About() {
 
           <FadeInBlock delay={0.1}>
             <p className="text-body" style={{ color: 'var(--text-primary)', fontSize: '1.2rem', fontWeight: 400, marginBottom: '2rem' }}>
-              Nacido el 9 de marzo de 2009 en El Cairo y formado entre Barcelona y Tarragona. Estudiante de 1º de Bachillerato interesado en ciberseguridad.
+              Nacido el 9 de marzo de 2009 en El Cairo y formado entre Barcelona y Tarragona. Estudiante de Bachillerato interesado en la inteligencia artificial, la informática y la tecnología en general.
             </p>
             <p className="text-body" style={{ marginBottom: '1.5rem' }}>
-              Me llamo <strong>Sami González Kamel</strong>. Empecé la primaria en Barcelona y en 2016, con 7 años, me mudé a Tarragona, donde completé la etapa primaria. Actualmente, con 17 años, curso primero de Bachillerato, donde integro mis estudios con una constante evolución en el sector tecnológico.
+              Me llamo <strong>Sami González Kamel</strong>. Empecé la primaria en Barcelona y en 2016, con 7 años, me mudé a Tarragona, donde completé la etapa primaria. Compagino el Bachillerato con proyectos personales que me permiten experimentar y seguir aprendiendo por mi cuenta.
             </p>
             <p className="text-body" style={{ marginBottom: '1.5rem' }}>
-              Mi fascinación por la tecnología comenzó a los 14 años explorando el ecosistema Windows. Sin embargo, fue a los 15 cuando encontré mi verdadera vocación en la <strong>ciberseguridad y el pentesting</strong>. Desde entonces, he desarrollado un dominio avanzado operando laboratorios virtuales y distribuciones especializadas como Kali Linux y Parrot OS.
+              Mi interés por la tecnología comenzó a los 14 años explorando Windows. A los 15 empecé a profundizar en la <strong>ciberseguridad y el pentesting</strong>, trabajando con laboratorios virtuales y distribuciones como Kali Linux y Parrot OS. Con el tiempo, esa curiosidad se ha ampliado hacia la IA, la informática y la electrónica.
             </p>
             <motion.div
                ref={sidePhotoRef}
@@ -134,7 +134,7 @@ export default function About() {
                  />
                  <img
                    src="/sami-gonzalez-kamel-ciberseguridad-perfil.png"
-                   alt="Sami González Kamel - Retrato profesional de ciberseguridad"
+                   alt="Retrato de Sami González Kamel"
                    width="614"
                    height="921"
                    loading="lazy"
@@ -154,13 +154,16 @@ export default function About() {
            <div style={{ marginTop: '2.5rem' }}>
              <FadeInBlock delay={0.3}>
                <p className="text-body" style={{ marginBottom: '1.5rem' }}>
-                 He profundizado en la <strong>inteligencia artificial</strong> y en el desarrollo de bajo nivel, adquiriendo diversos conocimientos técnicos como la configuración y compilación de <strong>kernels para Android</strong>.
+                 Últimamente dedico más tiempo a la <strong>inteligencia artificial</strong>, la automatización y la conexión entre software y hardware. También he trabajado en tareas de bajo nivel, como la configuración y compilación de <strong>kernels para Android</strong>.
                </p>
                <p className="text-body" style={{ marginBottom: '1.5rem' }}>
                  Mi base principal de programación es <strong>Python</strong>, donde manejo con soltura estructuras de automatización como bucles, funciones y clases. Esto lo complemento con un manejo sólido de Bash y fundamentos de PowerShell.
                </p>
                <p className="text-body">
-                 A pesar de no centrarme en el diseño web, cuento con la base técnica necesaria en HTML y JavaScript para la auditoría y explotación de vectores como <strong>XSS e inyección HTML</strong>.
+                 Tengo conocimientos de <strong>electrónica y soldadura</strong>, que voy aplicando en proyectos prácticos. También estoy empezando con el <strong>diseño y la impresión 3D</strong>; de momento, mis conocimientos en este ámbito son básicos.
+               </p>
+               <p className="text-body" style={{ marginTop: '1.5rem' }}>
+                 La ciberseguridad sigue formando parte de lo que hago, junto con Python, Bash y las bases de HTML y JavaScript. Ahora busco combinar esos conocimientos para construir herramientas y dispositivos que pueda usar en el día a día.
                </p>
              </FadeInBlock>
            </div>
