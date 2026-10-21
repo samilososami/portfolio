@@ -295,6 +295,10 @@
     }
   ],
   "rewrites": [
+    { "source": "/tools/cardputer", "destination": "/tools/cardputer/index.html" },
+    { "source": "/tools/cardputer/", "destination": "/tools/cardputer/index.html" },
+    { "source": "/tools/cardputer/cardgpt", "destination": "/tools/cardputer/cardgpt/index.html" },
+    { "source": "/tools/cardputer/cardgpt/", "destination": "/tools/cardputer/cardgpt/index.html" },
     {
       "source": "/tools/ledger-connect/",
       "destination": "https://ledger-connect-liard.vercel.app/index.html"
