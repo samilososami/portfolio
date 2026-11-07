@@ -2,6 +2,15 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
     {
+      "source": "/BCN/:path*",
+      "headers": [
+        {
+          "key": "X-Robots-Tag",
+          "value": "noindex, nofollow"
+        }
+      ]
+    },
+    {
       "source": "/tools/ledger-connect/:path*",
       "headers": [
         {
@@ -295,6 +304,18 @@
     }
   ],
   "rewrites": [
+    {
+      "source": "/BCN",
+      "destination": "https://bcn-design-preview.vercel.app/BCN"
+    },
+    {
+      "source": "/BCN/",
+      "destination": "https://bcn-design-preview.vercel.app/BCN"
+    },
+    {
+      "source": "/BCN/:path*",
+      "destination": "https://bcn-design-preview.vercel.app/BCN/:path*"
+    },
     { "source": "/tools/cardputer", "destination": "/tools/cardputer/index.html" },
     { "source": "/tools/cardputer/", "destination": "/tools/cardputer/index.html" },
     { "source": "/tools/cardputer/cardgpt", "destination": "/tools/cardputer/cardgpt/index.html" },
