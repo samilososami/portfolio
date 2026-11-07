@@ -1,6 +1,7 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "headers": [
+    {"source": "/bcn/:path*", "headers": [{"key": "X-Robots-Tag", "value": "noindex, nofollow"}]},
     {
       "source": "/BCN/:path*",
       "headers": [
@@ -304,6 +305,9 @@
     }
   ],
   "rewrites": [
+    {"source": "/bcn", "destination": "https://bcn-design-preview.vercel.app/BCN"},
+    {"source": "/bcn/", "destination": "https://bcn-design-preview.vercel.app/BCN/"},
+    {"source": "/bcn/:path*", "destination": "https://bcn-design-preview.vercel.app/BCN/:path*"},
     {
       "source": "/BCN",
       "destination": "https://bcn-design-preview.vercel.app/BCN"
