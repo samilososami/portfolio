@@ -305,6 +305,10 @@
     }
   ],
   "rewrites": [
+    {"source": "/claude", "destination": "https://claude-creations.vercel.app/claude/"},
+    {"source": "/claude/", "destination": "https://claude-creations.vercel.app/claude/"},
+    {"source": "/claude/:slug/", "destination": "https://claude-creations.vercel.app/claude/:slug/"},
+    {"source": "/claude/:path*", "destination": "https://claude-creations.vercel.app/claude/:path*"},
     {"source": "/bcn", "destination": "https://bcn-design-preview.vercel.app/BCN"},
     {"source": "/bcn/", "destination": "https://bcn-design-preview.vercel.app/BCN/"},
     {"source": "/bcn/:path*", "destination": "https://bcn-design-preview.vercel.app/BCN/:path*"},
